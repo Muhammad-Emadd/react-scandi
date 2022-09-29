@@ -1,5 +1,8 @@
 import React, { PureComponent } from "react";
+import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
 import { getCategoriesAndCurrencies } from "../../query/Categ_Curr.query";
+import { store } from "../../store/store";
 import NavigationBar from "../NavigationBar/NavigationBar.component";
 
 export default class App extends PureComponent {
@@ -50,6 +53,12 @@ export default class App extends PureComponent {
     ) : (
       <h1>Loading...</h1>
     );
-    return <div className="App">{content}</div>;
+    return (
+      <Provider store={store}>
+        <BrowserRouter>
+          <div className="App">{content}</div>;
+        </BrowserRouter>
+      </Provider>
+    );
   }
 }
