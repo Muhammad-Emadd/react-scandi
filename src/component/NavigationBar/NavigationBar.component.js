@@ -1,12 +1,19 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-export default class NavigationBar extends PureComponent {
+import CategoryList from "../CategoryList";
+import { withRouter } from "react-router-dom";
+class NavigationBar extends PureComponent {
   render() {
     const { categories, currencies } = this.props;
-    return <div></div>;
+    return (
+      <div className="NavigationBar">
+        <CategoryList categories={categories} />
+      </div>
+    );
   }
 }
 NavigationBar.propTypes = {
   categories: PropTypes.array.isRequired,
   currencies: PropTypes.array.isRequired,
 };
+export default withRouter(NavigationBar);
