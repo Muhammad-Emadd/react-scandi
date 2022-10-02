@@ -1,8 +1,10 @@
-import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import categoryReducer from "./categories";
+import currenyReducer from "./currencies";
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    categoryReducer: categoryReducer,
+    currenyReducer: currenyReducer,
   },
 });

@@ -1,64 +1,59 @@
 import React, { PureComponent } from "react";
-import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
+import { connect } from "react-redux";
 import { getCategoriesAndCurrencies } from "../../query/Categ_Curr.query";
-import { store } from "../../store/store";
+import { getCategories, setErrorFetchingCat } from "../../store/categories";
+import { getCurrencies, setErrorFetchingCurr } from "../../store/currencies";
+import { ERROR, IDLE } from "../../util/constants";
 import NavigationBar from "../NavigationBar/NavigationBar.component";
 
-export default class App extends PureComponent {
-  state = {
-    categories: [],
-    currencies: [],
-    dataWasFetched: false,
-    error: null,
-  };
+class App extends PureComponent {
   componentDidMount() {
-    const { dataWasFetched } = this.state;
-    if (!dataWasFetched) {
-      const abortController = new AbortController(); // creating an AbortController
-      getCategoriesAndCurrencies(abortController) // passing the signal to the query
-        .then(
-          (results) => {
-            this.setState(() => ({
-              categories: results["categories"].map((value) => value.name),
-              currencies: results["currencies"].map((value) => value.label),
-              dataWasFetched: true,
-            }));
-          },
-          (error) => {
-            this.setState({
-              dataWasFetched: false,
-              error,
-            });
-          }
-        )
-        .catch((error) => {
-          if (error.name === "AbortError") return; // if the query has been aborted, do nothing
-          throw error;
-        });
-      abortController.abort();
-    }
+    getCategoriesAndCurrencies()
+      .then((results) => {
+        this.props.onInitCategories(
+          results["categories"].map((value) => value.name)
+        );
+        this.props.onInitCurrencies(
+          results["currencies"].map((value) => value.label)
+        );
+      })
+      .catch((error) => {
+        this.props.onFetchCategoriesFail(ERROR);
+        this.props.onFetchCurrenciesFail(ERROR);
+      });
   }
 
   render() {
-    const { categories, currencies, dataWasFetched, error } = this.state;
-    console.log(dataWasFetched, currencies);
+    const { currenciesStatus, categoriesStatus } = this.props;
+    console.log(this.props);
 
-    const content = dataWasFetched ? (
-      <div id="App">
-        <NavigationBar categories={categories} currencies={currencies} />
-      </div>
-    ) : error ? (
-      <h1>something went wrong...</h1>
-    ) : (
-      <h1>Loading...</h1>
-    );
-    return (
-      <Provider store={store}>
-        <BrowserRouter>
-          <div className="App">{content}</div>;
-        </BrowserRouter>
-      </Provider>
-    );
+    const content =
+      currenciesStatus === IDLE && categoriesStatus === IDLE ? (
+        <div id="App">
+          <NavigationBar />
+        </div>
+      ) : currenciesStatus === ERROR && categoriesStatus === ERROR ? (
+        <h1>something went wrong...</h1>
+      ) : (
+        <h1>Loading...</h1>
+      );
+
+    return <div className="App">{content}</div>;
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onInitCategories: (cat) => dispatch(getCategories(cat)),
+    onFetchCategoriesFail: (err) => dispatch(setErrorFetchingCat(err)),
+    onInitCurrencies: (cat) => dispatch(getCurrencies(cat)),
+    onFetchCurrenciesFail: (err) => dispatch(setErrorFetchingCurr(err)),
+  };
+};
+const mapStateToProps = ({ categoryReducer, currenyReducer }) => {
+  return {
+    currenciesStatus: currenyReducer.currenciesStatus,
+    categoriesStatus: categoryReducer.categoriesStatus,
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(App);
