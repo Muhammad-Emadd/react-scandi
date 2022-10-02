@@ -4,6 +4,7 @@ import { IDLE, LOADING } from "../../util/constants";
 const initialState = {
   categories: [],
   categoriesStatus: LOADING,
+  chosenCategory: null,
 };
 
 export const categoriesSlice = createSlice({

@@ -25,7 +25,6 @@ class App extends PureComponent {
 
   render() {
     const { currenciesStatus, categoriesStatus } = this.props;
-    console.log(this.props);
 
     const content =
       currenciesStatus === IDLE && categoriesStatus === IDLE ? (
@@ -33,9 +32,9 @@ class App extends PureComponent {
           <NavigationBar />
         </div>
       ) : currenciesStatus === ERROR && categoriesStatus === ERROR ? (
-        <h1>something went wrong...</h1>
+        <h2>something went wrong...</h2>
       ) : (
-        <h1>Loading...</h1>
+        <h2>Loading...</h2>
       );
 
     return <div className="App">{content}</div>;

@@ -3,4 +3,5 @@ export {
   getCurrencies,
   setCurrency,
   setErrorFetchingCurr,
+  toggleCurrencyMenu,
 } from "./currenciesSlice";

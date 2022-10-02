@@ -4,6 +4,8 @@ import { IDLE, LOADING } from "../../util/constants";
 const initialState = {
   currencies: [],
   currenciesStatus: LOADING,
+  showCurrencyMenu: false,
+  chosenCurrency: null,
 };
 
 export const currenciesSlice = createSlice({
@@ -17,10 +19,17 @@ export const currenciesSlice = createSlice({
     setErrorFetchingCurr: (state, action) => {
       state.currenciesStatus = action.payload;
     },
+    toggleCurrencyMenu: (state) => {
+      state.showCurrencyMenu = !state.showCurrencyMenu;
+    },
     setCurrency: (state, action) => {},
   },
 });
 
-export const { getCurrencies, setErrorFetchingCurr, setCurrency } =
-  currenciesSlice.actions;
+export const {
+  getCurrencies,
+  setErrorFetchingCurr,
+  setCurrency,
+  toggleCurrencyMenu,
+} = currenciesSlice.actions;
 export default currenciesSlice.reducer;
