@@ -4,6 +4,7 @@ import { getCategoriesAndCurrencies } from "../../query/Categ_Curr.query";
 import { getCategories, setErrorFetchingCat } from "../../store/categories";
 import { getCurrencies, setErrorFetchingCurr } from "../../store/currencies";
 import { ERROR, IDLE } from "../../util/constants";
+import ContentRoutes from "../ContentRoutes";
 import NavigationBar from "../NavigationBar/NavigationBar.component";
 
 class App extends PureComponent {
@@ -30,6 +31,7 @@ class App extends PureComponent {
       currenciesStatus === IDLE && categoriesStatus === IDLE ? (
         <div id="App">
           <NavigationBar />
+          <ContentRoutes />
         </div>
       ) : currenciesStatus === ERROR && categoriesStatus === ERROR ? (
         <h2>something went wrong...</h2>

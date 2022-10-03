@@ -22,7 +22,9 @@ export const currenciesSlice = createSlice({
     toggleCurrencyMenu: (state) => {
       state.showCurrencyMenu = !state.showCurrencyMenu;
     },
-    setCurrency: (state, action) => {},
+    setCurrency: (state, action) => {
+      state.chosenCurrency = action.payload;
+    },
   },
 });
 

@@ -18,7 +18,9 @@ export const categoriesSlice = createSlice({
     setErrorFetchingCat: (state, action) => {
       state.categoriesStatus = action.payload;
     },
-    setCategory: (state, action) => {},
+    setCategory: (state, action) => {
+      state.chosenCategory = action.payload;
+    },
   },
 });
 

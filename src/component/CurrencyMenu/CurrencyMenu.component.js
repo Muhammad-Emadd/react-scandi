@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { upArrow } from "../../style/logos";
 import { downArrow } from "../../style/logos";
 import { setCurrency, toggleCurrencyMenu } from "../../store/currencies";
+import { connect } from "react-redux";
 
 class CurrencyMenu extends PureComponent {
   componentDidMount() {
@@ -17,14 +18,19 @@ class CurrencyMenu extends PureComponent {
       chosenCurrency,
       handleToggleMenu,
     } = this.props;
+    console.log(currencies);
+
     const selected = chosenCurrency ? chosenCurrency : "";
 
     const listOfCurrency = currencies.map((currency, index) => {
-      <li key={index + currency} onClick={() => handleCurrency(currency)}>
-        {currency}
-      </li>;
+      return (
+        <li key={index + currency} onClick={() => handleCurrency(currency)}>
+          {currency}
+        </li>
+      );
     });
 
+    console.log(selected, chosenCurrency, listOfCurrency);
     return (
       <div onMouseLeave={handleToggleMenu}>
         <button onClick={handleToggleMenu}>
