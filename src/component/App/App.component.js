@@ -15,7 +15,7 @@ class App extends PureComponent {
           results["categories"].map((value) => value.name)
         );
         this.props.onInitCurrencies(
-          results["currencies"].map((value) => value.label)
+          results["currencies"].map((value) => value)
         );
       })
       .catch((error) => {

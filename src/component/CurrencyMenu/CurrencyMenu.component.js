@@ -18,23 +18,25 @@ class CurrencyMenu extends PureComponent {
       chosenCurrency,
       handleToggleMenu,
     } = this.props;
-    console.log(currencies);
 
     const selected = chosenCurrency ? chosenCurrency : "";
 
     const listOfCurrency = currencies.map((currency, index) => {
       return (
-        <li key={index + currency} onClick={() => handleCurrency(currency)}>
-          {currency}
+        <li
+          key={index + currency.label}
+          onClick={() => handleCurrency(currency)}
+        >
+          {currency.symbol + " " + currency.label}
         </li>
       );
     });
 
-    console.log(selected, chosenCurrency, listOfCurrency);
+    console.log(selected);
     return (
       <div onMouseLeave={handleToggleMenu}>
         <button onClick={handleToggleMenu}>
-          {selected}
+          {selected.symbol + " " + selected.label}
           <img src={showCurrencyMenu ? upArrow : downArrow} alt="Arrow" />
         </button>
         {showCurrencyMenu ? <ul>{listOfCurrency}</ul> : null}

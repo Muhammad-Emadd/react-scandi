@@ -41,7 +41,7 @@ class ContentRoutes extends PureComponent {
 
 ContentRoutes.propTypes = {
   overlay: PropTypes.bool,
-  categories: PropTypes.array.isRequired,
+  categoryRoutes: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = ({ categoryReducer, overlayReducer }) => {
