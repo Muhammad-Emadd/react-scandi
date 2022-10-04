@@ -1,1 +1,6 @@
-export { default, setProduct } from "./productsSlice";
+export {
+  default,
+  getProducts,
+  onErrorGettingProducts,
+  setProduct,
+} from "./productsSlice";

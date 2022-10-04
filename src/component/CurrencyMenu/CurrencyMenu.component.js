@@ -36,7 +36,7 @@ class CurrencyMenu extends PureComponent {
     return (
       <div onMouseLeave={handleToggleMenu}>
         <button onClick={handleToggleMenu}>
-          {selected.symbol + " " + selected.label}
+          {selected.symbol + " " + selected.label + " "}
           <img src={showCurrencyMenu ? upArrow : downArrow} alt="Arrow" />
         </button>
         {showCurrencyMenu ? <ul>{listOfCurrency}</ul> : null}
