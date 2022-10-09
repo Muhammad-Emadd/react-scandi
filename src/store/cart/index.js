@@ -1,1 +1,1 @@
-export { default } from "./cartSlice";
+export { default, addProductToCart, removeProductFromCart } from "./cartSlice";

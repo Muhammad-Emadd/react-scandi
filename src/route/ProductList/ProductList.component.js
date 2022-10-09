@@ -17,36 +17,38 @@ class ProductList extends PureComponent {
         .catch((error) => onFetchProductsFail(ERROR));
   }
 
-  pricesToObject = (prices) => {
-    return prices.reduce((reducedObj, price) => {
-      return { ...reducedObj, [price.currency]: price.amount };
-    }, {});
-  };
-
-  productsMapping = (products) => {
-    return products.map((product, index) => {
-      const { prices, ...modifiedProduct } = product;
-      const pricesObj = this.pricesToObject(prices);
-      return (
-        <ProductItem
-          key={index}
-          product={{ ...modifiedProduct, prices: pricesObj }}
-        />
-      );
-    });
+  findChosenCurrency = (prices) => {
+    const { chosenCurrency } = this.props;
+    return prices.filter(
+      (price) => price.currency.label === chosenCurrency.label
+    )[0];
   };
 
   render() {
-    const { chosenCategory } = this.props;
+    const { chosenCategory, products } = this.props;
+    // console.log(products.map((product, index) => product.attributes).flat());
+    // console.log(products.map((product, index) => product));
 
-    // const productsList = products.length
-    //   ? this.productsMapping(products)
-    //   : null;
+    const productsList = products.length
+      ? products.map((product, index) => {
+          const { prices, ...productRest } = product;
+
+          const viwedCurrency = this.findChosenCurrency(prices);
+          console.log(viwedCurrency);
+
+          return (
+            <ProductItem
+              key={index + product.id}
+              product={{ ...productRest, price: viwedCurrency }}
+            />
+          );
+        })
+      : null;
 
     return (
       <div id="ProductsPage">
         <h1>{chosenCategory}</h1>
-        {/* <div id="ProductsList">{productsList}</div> */}
+        <div>{productsList}</div>
       </div>
     );
   }
@@ -58,10 +60,15 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const mapStateToProps = ({ categoryReducer, productsReducer }) => {
+const mapStateToProps = ({
+  categoryReducer,
+  productsReducer,
+  currenyReducer,
+}) => {
   return {
     chosenCategory: categoryReducer.chosenCategory,
     products: productsReducer.products,
+    chosenCurrency: currenyReducer.chosenCurrency,
   };
 };
 ProductList.propTypes = {
