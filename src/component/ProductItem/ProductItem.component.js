@@ -1,7 +1,9 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { whiteCart } from "../../style/logos";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { setProduct } from "../../store/products";
 
 class ProductItem extends PureComponent {
   handleCartButton = (event) => {
@@ -30,22 +32,25 @@ class ProductItem extends PureComponent {
     console.log(this.props.product);
     // const { symbol, label } = this.props.choosedCurr;
     const { name, gallery, price, inStock, brand, id } = this.props.product;
-
+    const inStockUi = !inStock ? (
+      <div className="unavailable">
+        <h1>OUT OF STOCK</h1>
+      </div>
+    ) : (
+      ""
+    );
     return (
-      <NavLink to={"/products/" + id}>
+      <Link
+        onClick={() => this.props.setChosenProduct(id)}
+        to={`/products/${id}`}
+      >
         <div
           style={!inStock ? { opacity: "50%" } : {}}
           onMouseEnter={this.showCartButton}
           onMouseLeave={this.hideCartButton}
           className="container__card-list__containercard-front"
         >
-          {!inStock ? (
-            <div className="unavailable">
-              <h1>OUT OF STOCK</h1>
-            </div>
-          ) : (
-            ""
-          )}
+          {inStockUi}
           <div className="container__card-list__containercard-front-img">
             <img className="img" src={gallery[0]} alt={"product"} />
           </div>
@@ -58,16 +63,23 @@ class ProductItem extends PureComponent {
               {/* {symbol}  */}
               {price.amount}
             </p>
-            <div className="cart-icon" onClick={this.openCardBack}>
+            <div
+              className="cart-icon"
+              onClick={this.handleCartButton.bind(this)}
+            >
               <img src={whiteCart} alt="cart" />
             </div>
           </header>
         </div>
-      </NavLink>
+      </Link>
     );
   }
 }
-
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setChosenProduct: (Products) => dispatch(setProduct(Products)),
+  };
+};
 ProductItem.propTypes = {};
 
-export default ProductItem;
+export default connect(null, mapDispatchToProps)(ProductItem);

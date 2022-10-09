@@ -10,6 +10,7 @@ import { getProduct, onErrorGettingProduct } from "../../store/item/itemSlice";
 import { ERROR } from "../../util/constants";
 import ItemGallery from "../../component/ItemGallery";
 import Scroll from "../../component/Scroll";
+import ItemAttributes from "../../component/ItemAttributes/ItemAttributes.component";
 
 class Product extends PureComponent {
   state = { product: null, chosenAttributes: {} };
@@ -42,9 +43,10 @@ class Product extends PureComponent {
 
   componentDidMount() {
     const product_id = this.props.match.params.product_id;
-    const { onGettingProduct, onErrorGettingProduct } = this.props;
+    const { onGettingProduct, onErrorGettingProduct, chosenProduct } =
+      this.props;
 
-    getChosenProduct(product_id)
+    getChosenProduct(chosenProduct)
       .then((result) => {
         const { price, ...restOfProduct } = result["product"];
         const chosenCurrencyPrice = this.findChosenCurrency(price);

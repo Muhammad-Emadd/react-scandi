@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
 import ProductList from "../../route/ProductList";
 import Cart from "../../route/Cart";
 import Product from "../../route/Product";
@@ -11,7 +11,7 @@ class ContentRoutes extends PureComponent {
     const { overlay, categoryRoutes } = this.props;
     const navBarRoutes = categoryRoutes.map((category, index) => {
       return (
-        <Route key={index + category} path={"/" + category}>
+        <Route key={index + category} path={`/${category}`}>
           <ProductList />
         </Route>
       );
@@ -30,7 +30,7 @@ class ContentRoutes extends PureComponent {
           <Route path="/cart">
             <Cart />
           </Route>
-          <Route path="/product/:product_id">
+          <Route path="/products/:product_id">
             <Product />
           </Route>
         </Switch>
@@ -51,4 +51,4 @@ const mapStateToProps = ({ categoryReducer, overlayReducer }) => {
   };
 };
 
-export default connect(mapStateToProps)(ContentRoutes);
+export default connect(mapStateToProps)(withRouter(ContentRoutes));

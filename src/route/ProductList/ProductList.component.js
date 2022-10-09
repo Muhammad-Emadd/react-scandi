@@ -34,7 +34,7 @@ class ProductList extends PureComponent {
           const { prices, ...productRest } = product;
 
           const viwedCurrency = this.findChosenCurrency(prices);
-          console.log(viwedCurrency);
+          console.log({ ...productRest, price: viwedCurrency });
 
           return (
             <ProductItem
@@ -72,7 +72,6 @@ const mapStateToProps = ({
   };
 };
 ProductList.propTypes = {
-  // products: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.
   products: PropTypes.array.isRequired,
 };
 
