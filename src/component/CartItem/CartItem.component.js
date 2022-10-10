@@ -1,16 +1,32 @@
 import React, { PureComponent } from "react";
-import CartItemCounter from "../CartItemCounter";
-import CartItemGallery from "../CartItemGallery";
-import "./CartItem.style.css";
+import CartCounter from "../CartCounter";
+import CartGallery from "../CartGallery";
 
 class CartItem extends PureComponent {
+  findChosenCurrency = (prices) => {
+    const { chosenCurrency } = this.props;
+    return prices.filter(
+      (price) => price.currency.label === chosenCurrency.label
+    )[0];
+  };
   getSelectedAttributes = (attributes) => {
     const attributeValues = Object.values(attributes);
     return attributeValues.map(({ name, type, value, displayValue }, index) => {
       let choiceItem = null;
-      if (type === "text") choiceItem = <TextItem text={value} checked />;
+      if (type === "text")
+        choiceItem = (
+          <div className="ProductAttributes-SelectedText">{value}</div>
+        );
       else if (type === "swatch")
-        choiceItem = <SwatchItem color={value} text={displayValue} checked />;
+        choiceItem = choiceItem = (
+          <div
+            className="ProductAttributes-SelectedSwatch"
+            style={{
+              backgroundColor: value,
+              height: "2em",
+            }}
+          ></div>
+        );
 
       return (
         <div key={index} id="SelectedAttributes">
@@ -24,21 +40,28 @@ class CartItem extends PureComponent {
   render() {
     const { item } = this.props;
     const { name, brand, attributes, gallery, prices } = item;
+    const {
+      amount,
+      currency: { symbol },
+    } = this.findChosenCurrency(prices);
 
     const selectedAttributes = this.getSelectedAttributes(attributes);
 
     return (
-      <div id="CartItem">
-        <div id="ItemDescription">
-          <div id="NameCard">
+      <div className="CartItem">
+        <div className="CartItem-Description">
+          <div className="CartItem-Card">
             <h1>{name}</h1>
             <h2>{brand}</h2>
           </div>
-          <PriceTag prices={prices} />
-          <div id="ItemAttributes">{selectedAttributes}</div>
+          <div className="Cart-Price">
+            <h3>price:</h3>
+            <h1>{`${symbol} ${amount}`}</h1>
+          </div>
+          <div className="CartItem-Attributes">{selectedAttributes}</div>
         </div>
-        <CartItemCounter item={item} />
-        <CartItemGallery gallery={gallery} />
+        <CartCounter item={item} />
+        <CartGallery gallery={gallery} />
       </div>
     );
   }

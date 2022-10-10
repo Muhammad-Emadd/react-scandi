@@ -1,5 +1,7 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
+import CartItem from "../../component/CartItem";
+import { connect } from "react-redux";
 
 class Cart extends PureComponent {
   render() {
@@ -16,22 +18,22 @@ class Cart extends PureComponent {
     });
 
     return (
-      <div id="Cart">
+      <div className="Cart">
         <h1>Cart</h1>
-        <h2 id={noItems ? "NoItems" : "Deactivate"}>
+        <h2 className={noItems ? "Cart-NoItems" : "Cart-Deactivate"}>
           No
           <br />
           Shopping Items
         </h2>
         {cartItems}
         <hr />
-        <div id="TotalPrice">
+        <div className="Cart-TotalPrice">
           <h2>Total:</h2>
-          <PriceTag total />
+
           <button
-            id="Checkout"
+            className="Cart-Checkout"
             disabled={noItems}
-            onClick={() => checkoutItems(items)}
+            onClick={() => {}}
           >
             checkout
           </button>
@@ -43,4 +45,11 @@ class Cart extends PureComponent {
 
 Cart.propTypes = {};
 
-export default Cart;
+const mapStoreStateToProps = ({ cartReducer }) => {
+  return {
+    items: cartReducer.items,
+    itemsCount: cartReducer.itemsCount,
+  };
+};
+
+export default connect(mapStoreStateToProps)(Cart);
