@@ -7,9 +7,9 @@ import CurrencyMenu from "../CurrencyMenu";
 class NavigationBar extends PureComponent {
   render() {
     return (
-      <div className="NavigationBar">
+      <div className="NavBar">
         <CategoryList />
-        <NavLink id="Logo" to="/">
+        <NavLink className="NavBar-Logo" to="/">
           <img src={logo} alt="Store Logo" />
         </NavLink>
         <CurrencyMenu />

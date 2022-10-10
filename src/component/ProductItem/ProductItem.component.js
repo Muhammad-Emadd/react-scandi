@@ -30,11 +30,10 @@ class ProductItem extends PureComponent {
   };
 
   render() {
-   
     const { label } = this.props;
     const { name, gallery, price, inStock, brand, id } = this.props.product;
     const inStockUi = !inStock ? (
-      <div className="unavailable">
+      <div className="ProductCard--unavailable">
         <h1>OUT OF STOCK</h1>
       </div>
     ) : (
@@ -44,31 +43,28 @@ class ProductItem extends PureComponent {
       <Link
         onClick={() => this.props.setChosenProduct(id)}
         to={`/products/${id}`}
+        className="ProductCard"
+        style={!inStock ? { opacity: "50%" } : {}}
+        onMouseEnter={this.showCartButton}
+        onMouseLeave={this.hideCartButton}
       >
-        <div
-          style={!inStock ? { opacity: "50%" } : {}}
-          onMouseEnter={this.showCartButton}
-          onMouseLeave={this.hideCartButton}
-          className="container__card-list__containercard-front"
-        >
-          {inStockUi}
-          <div className="container__card-list__containercard-front-img">
-            <img className="img" src={gallery[0]} alt={"product"} />
-          </div>
-          <header className="container__card-list__containercard-front-card-header">
-            <h1>
-              {name}
-              {brand}
-            </h1>
-            <p>{`${price.amount} ${label}`}</p>
-            <div
-              className="cart-icon"
-              onClick={this.handleCartButton.bind(this)}
-            >
-              <img src={whiteCart} alt="cart" />
-            </div>
-          </header>
+        {inStockUi}
+        <div className="ProductCard-img">
+          <img className="img" src={gallery[0]} alt={"product"} />
         </div>
+        <header className="ProductCard-header">
+          <h1>
+            {name}
+            {brand}
+          </h1>
+          <p>{`${price.amount} ${label}`}</p>
+          <div
+            className="ProductCard-CartIcon"
+            onClick={this.handleCartButton.bind(this)}
+          >
+            <img src={whiteCart} alt="cart" />
+          </div>
+        </header>
       </Link>
     );
   }

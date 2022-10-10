@@ -78,15 +78,15 @@ class Product extends PureComponent {
         <ItemAttributes key={i} />
       ));
       return (
-        <div id="Product">
+        <div className="ProductPage">
           <ItemGallery gallery={product.gallery} />
-          <div id="ProductDescription">
-            <div id="NameCard">
+          <div className="ProductPage-ViewDetails">
+            <div className="ProductPage-InfoCard">
               <h1>{product.name}</h1>
               <h2>{product.brand}</h2>
             </div>
             {attributes}
-            <div id="Price">
+            <div className="ProductPage-Price">
               <h3>price:</h3>
               <h1>pricees</h1>
             </div>
@@ -99,7 +99,7 @@ class Product extends PureComponent {
             <Scroll maxHeight="15em">
               <div
                 dangerouslySetInnerHTML={this.descriptionMarkup(description)}
-                id="description"
+                className="ProductPage-Description"
                 style={{ fontSize: "130%" }}
               ></div>
             </Scroll>

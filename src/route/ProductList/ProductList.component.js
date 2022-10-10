@@ -26,9 +26,6 @@ class ProductList extends PureComponent {
 
   render() {
     const { chosenCategory, products, chosenCurrency } = this.props;
-    // console.log(products.map((product, index) => product.attributes).flat());
-    // console.log(products.map((product, index) => product));
-
     const productsList = products.length
       ? products.map((product, index) => {
           const { prices, ...productRest } = product;
@@ -46,7 +43,7 @@ class ProductList extends PureComponent {
       : null;
 
     return (
-      <div id="ProductsPage">
+      <div className="ProductList">
         <h1>{chosenCategory}</h1>
         <div>{productsList}</div>
       </div>
