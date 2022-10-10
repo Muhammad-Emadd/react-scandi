@@ -28,9 +28,10 @@ class ProductItem extends PureComponent {
       cardContainer.classList.add("cart-btn-hover");
     }
   };
+
   render() {
-    console.log(this.props.product);
-    // const { symbol, label } = this.props.choosedCurr;
+   
+    const { label } = this.props;
     const { name, gallery, price, inStock, brand, id } = this.props.product;
     const inStockUi = !inStock ? (
       <div className="unavailable">
@@ -59,10 +60,7 @@ class ProductItem extends PureComponent {
               {name}
               {brand}
             </h1>
-            <p>
-              {/* {symbol}  */}
-              {price.amount}
-            </p>
+            <p>{`${price.amount} ${label}`}</p>
             <div
               className="cart-icon"
               onClick={this.handleCartButton.bind(this)}

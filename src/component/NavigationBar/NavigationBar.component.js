@@ -6,8 +6,6 @@ import CurrencyMenu from "../CurrencyMenu";
 
 class NavigationBar extends PureComponent {
   render() {
-    console.log(this.props);
-
     return (
       <div className="NavigationBar">
         <CategoryList />

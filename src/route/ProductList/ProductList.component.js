@@ -25,7 +25,7 @@ class ProductList extends PureComponent {
   };
 
   render() {
-    const { chosenCategory, products } = this.props;
+    const { chosenCategory, products, chosenCurrency } = this.props;
     // console.log(products.map((product, index) => product.attributes).flat());
     // console.log(products.map((product, index) => product));
 
@@ -34,12 +34,12 @@ class ProductList extends PureComponent {
           const { prices, ...productRest } = product;
 
           const viwedCurrency = this.findChosenCurrency(prices);
-          console.log({ ...productRest, price: viwedCurrency });
 
           return (
             <ProductItem
               key={index + product.id}
               product={{ ...productRest, price: viwedCurrency }}
+              label={chosenCurrency.symbol}
             />
           );
         })

@@ -25,6 +25,9 @@ class Product extends PureComponent {
       (price) => price.currency.label === chosenCurrency.label
     )[0];
   };
+  scrollToTop = () => {
+    window.scrollTo(0, 0);
+  };
 
   setAttributes = (id, value) => {
     this.setState((prevState) => {
@@ -51,7 +54,7 @@ class Product extends PureComponent {
     getChosenProduct(product_id)
       .then((result) => {
         const { prices, ...restOfProduct } = result.product;
-        console.log(prices);
+
         const chosenCurrencyPrice = this.findChosenCurrency(prices);
 
         onGettingProduct({
@@ -63,6 +66,7 @@ class Product extends PureComponent {
   }
 
   render() {
+    this.scrollToTop();
     const { product } = this.props;
 
     if (product === null) {

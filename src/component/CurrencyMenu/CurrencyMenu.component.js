@@ -32,7 +32,6 @@ class CurrencyMenu extends PureComponent {
       );
     });
 
-    console.log(selected);
     return (
       <div onMouseLeave={handleToggleMenu}>
         <button onClick={handleToggleMenu}>
