@@ -1,8 +1,6 @@
 import React, { PureComponent } from "react";
-
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
-
 import PropTypes from "prop-types";
 import { addProductToCart } from "../../store/cart/cartSlice";
 import { getChosenProduct } from "../../query/Product.query";
@@ -13,12 +11,8 @@ import Scroll from "../../component/Scroll";
 import ItemAttributes from "../../component/ItemAttributes/ItemAttributes.component";
 
 class Product extends PureComponent {
-  state = { product: null, chosenAttributes: {} };
-  descriptionDiv = null;
+  state = { chosenAttributes: {} };
 
-  setDescriptionDiv = (element) => {
-    this.descriptionDiv = element;
-  };
   findChosenCurrency = (prices) => {
     const { chosenCurrency } = this.props;
     return prices.filter(
@@ -36,11 +30,11 @@ class Product extends PureComponent {
     });
   };
   handleAddingProductToCart = () => {
-    const { onAddProductToCart } = this.props;
+    const { selectedAttributes: attributes } = this.state;
     const {
       product: { id, name, brand, gallery, prices },
-      selectedAttributes: attributes,
-    } = this.state;
+      onAddProductToCart,
+    } = this.props;
     onAddProductToCart({ id, name, brand, gallery, prices, attributes });
   };
   descriptionMarkup(description) {
@@ -52,49 +46,49 @@ class Product extends PureComponent {
     const { onGettingProduct, onErrorGettingProduct } = this.props;
 
     getChosenProduct(product_id)
-      .then((result) => {
-        const { prices, ...restOfProduct } = result.product;
-
-        const chosenCurrencyPrice = this.findChosenCurrency(prices);
-
-        onGettingProduct({
-          ...restOfProduct,
-          price: chosenCurrencyPrice,
-        });
-      })
+      .then((result) => onGettingProduct(result.product))
       .catch((error) => onErrorGettingProduct(ERROR));
   }
 
   render() {
     this.scrollToTop();
     const { product } = this.props;
-
     if (product === null) {
       return <h1>Loading ...</h1>;
     } else {
-      const { description } = product;
+      const { description, prices, name, brand, gallery, inStock } = product;
+      const {
+        amount,
+        currency: { symbol },
+      } = this.findChosenCurrency(prices);
+      console.log(this.findChosenCurrency(prices));
 
       const attributes = product.attributes.map((attribute, i) => (
-        <ItemAttributes key={i} />
+        <ItemAttributes
+          key={i + attribute.id}
+          attribute={attribute}
+          chosenAttributes={this.state.chosenAttributes}
+          onAttributeChange={this.setAttributes.bind(this)}
+        />
       ));
       return (
         <div className="ProductPage">
-          <ItemGallery gallery={product.gallery} />
+          <ItemGallery gallery={gallery} />
           <div className="ProductPage-ViewDetails">
             <div className="ProductPage-InfoCard">
-              <h1>{product.name}</h1>
-              <h2>{product.brand}</h2>
+              <h1>{name}</h1>
+              <h2>{brand}</h2>
             </div>
             {attributes}
             <div className="ProductPage-Price">
               <h3>price:</h3>
-              <h1>pricees</h1>
+              <h1>{`${symbol} ${amount}`}</h1>
             </div>
             <button
-              disabled={!product.inStock}
+              disabled={!inStock}
               onClick={this.handleAddingProductToCart.bind(this)}
             >
-              {product.inStock ? "add to cart" : "out of stock"}
+              {inStock ? "add to cart" : "out of stock"}
             </button>
             <Scroll maxHeight="15em">
               <div

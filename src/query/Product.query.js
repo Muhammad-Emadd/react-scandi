@@ -8,7 +8,7 @@ export const getChosenProduct = (product_id) => {
     .addField(
       new Field("prices")
         .addFieldList(["amount"])
-        .addField(new Field("currency").addFieldList(["label"]))
+        .addField(new Field("currency").addFieldList(["label", "symbol"]))
     )
     .addField(
       new Field("attributes")
