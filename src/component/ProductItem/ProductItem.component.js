@@ -75,7 +75,7 @@ class ProductItem extends PureComponent {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    setChosenProduct: (Products) => dispatch(setProduct(Products)),
+    setChosenProduct: (Product) => dispatch(setProduct(Product)),
   };
 };
 ProductItem.propTypes = {};

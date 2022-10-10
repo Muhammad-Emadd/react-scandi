@@ -2,5 +2,5 @@ export {
   default,
   getProduct,
   onErrorGettingProduct,
-  setProduct,
+  setAttributes,
 } from "./itemSlice";
