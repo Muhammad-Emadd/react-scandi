@@ -40,16 +40,20 @@ class Product extends PureComponent {
     } = this.state;
     onAddProductToCart({ id, name, brand, gallery, prices, attributes });
   };
+  descriptionMarkup(description) {
+    return { __html: description };
+  }
 
   componentDidMount() {
     const product_id = this.props.match.params.product_id;
-    const { onGettingProduct, onErrorGettingProduct, chosenProduct } =
-      this.props;
+    const { onGettingProduct, onErrorGettingProduct } = this.props;
 
-    getChosenProduct(chosenProduct)
+    getChosenProduct(product_id)
       .then((result) => {
-        const { price, ...restOfProduct } = result["product"];
-        const chosenCurrencyPrice = this.findChosenCurrency(price);
+        const { prices, ...restOfProduct } = result.product;
+        console.log(prices);
+        const chosenCurrencyPrice = this.findChosenCurrency(prices);
+
         onGettingProduct({
           ...restOfProduct,
           price: chosenCurrencyPrice,
@@ -65,9 +69,9 @@ class Product extends PureComponent {
       return <h1>Loading ...</h1>;
     } else {
       const { description } = product;
-      this.descriptionDiv.insertAdjacentHTML("afterbegin", description);
-      const attributes = product.attributes.map((attribute) => (
-        <ItemAttributes />
+
+      const attributes = product.attributes.map((attribute, i) => (
+        <ItemAttributes key={i} />
       ));
       return (
         <div id="Product">
@@ -89,7 +93,11 @@ class Product extends PureComponent {
               {product.inStock ? "add to cart" : "out of stock"}
             </button>
             <Scroll maxHeight="15em">
-              <div style={{ fontSize: "130%" }} ref={this.setDescriptionDiv} />
+              <div
+                dangerouslySetInnerHTML={this.descriptionMarkup(description)}
+                id="description"
+                style={{ fontSize: "130%" }}
+              ></div>
             </Scroll>
           </div>
         </div>
