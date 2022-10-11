@@ -61,7 +61,8 @@ class CartItem extends PureComponent {
           <div className="CartItem-Attributes">{selectedAttributes}</div>
         </div>
         <CartCounter item={item} />
-        <CartGallery gallery={gallery} />
+        <CartGallery />
+        {/* <Cart gallery={gallery} /> */}
       </div>
     );
   }

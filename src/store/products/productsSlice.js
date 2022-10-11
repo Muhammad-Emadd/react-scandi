@@ -14,12 +14,20 @@ const products = createSlice({
     getProducts: (state, action) => {
       state.products = action.payload;
       state.productsStatus = IDLE;
+      console.log(state.products);
     },
     onErrorGettingProducts: (state, action) => {
       state.productsStatus = action.payload;
     },
     setProduct: (state, action) => {
       state.chosenProduct = action.payload;
+    },
+    filterProducts: (state, action) => {
+      state.products = state.products.filter((product) =>
+        product.attributes
+          .find((attr) => attr.id === action.key)
+          ?.items.some((value) => value.id === action.value)
+      );
     },
   },
 });

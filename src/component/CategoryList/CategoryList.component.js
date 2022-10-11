@@ -6,7 +6,8 @@ import { setCategory } from "../../store/categories";
 
 class CategoryList extends PureComponent {
   componentDidMount() {
-    this.props.handleCategory(this.props.categories[0]);
+    if (this.props.chosenCategory === null)
+      this.props.handleCategory(this.props.categories[0]);
   }
 
   render() {

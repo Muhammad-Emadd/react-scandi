@@ -1,7 +1,11 @@
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import { getCategoriesAndCurrencies } from "../../query/Categ_Curr.query";
-import { getCategories, setErrorFetchingCat } from "../../store/categories";
+import {
+  getCategories,
+  setCategory,
+  setErrorFetchingCat,
+} from "../../store/categories";
 import { getCurrencies, setErrorFetchingCurr } from "../../store/currencies";
 import { ERROR, IDLE } from "../../util/constants";
 import ContentRoutes from "../ContentRoutes";
@@ -9,23 +13,30 @@ import NavigationBar from "../NavigationBar/NavigationBar.component";
 
 class App extends PureComponent {
   componentDidMount() {
-    getCategoriesAndCurrencies()
-      .then((results) => {
-        this.props.onInitCategories(
-          results["categories"].map((value) => value.name)
-        );
-        this.props.onInitCurrencies(
-          results["currencies"].map((value) => value)
-        );
-      })
-      .catch((error) => {
-        this.props.onFetchCategoriesFail(ERROR);
-        this.props.onFetchCurrenciesFail(ERROR);
-      });
+    const {
+      chosenCategory,
+      onInitCategories,
+      onFetchCategoriesFail,
+      onInitCurrencies,
+      onFetchCurrenciesFail,
+      handleDefaultCat,
+    } = this.props;
+    if (chosenCategory === null) {
+      getCategoriesAndCurrencies()
+        .then((results) => {
+          onInitCategories(results["categories"].map((value) => value.name));
+          handleDefaultCat(results["categories"][0].name);
+          onInitCurrencies(results["currencies"].map((value) => value));
+        })
+        .catch((error) => {
+          onFetchCategoriesFail(ERROR);
+          onFetchCurrenciesFail(ERROR);
+        });
+    }
   }
 
   render() {
-    const { currenciesStatus, categoriesStatus } = this.props;
+    const { currenciesStatus, categoriesStatus, chosenCategory } = this.props;
 
     const content =
       currenciesStatus === IDLE && categoriesStatus === IDLE ? (
@@ -45,14 +56,16 @@ class App extends PureComponent {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onInitCategories: (cat) => dispatch(getCategories(cat)),
+    onInitCategories: (cats) => dispatch(getCategories(cats)),
     onFetchCategoriesFail: (err) => dispatch(setErrorFetchingCat(err)),
-    onInitCurrencies: (cat) => dispatch(getCurrencies(cat)),
+    handleDefaultCat: (cat) => dispatch(setCategory(cat)),
+    onInitCurrencies: (curr) => dispatch(getCurrencies(curr)),
     onFetchCurrenciesFail: (err) => dispatch(setErrorFetchingCurr(err)),
   };
 };
 const mapStateToProps = ({ categoryReducer, currenyReducer }) => {
   return {
+    chosenCategory: categoryReducer.chosenCategory,
     currenciesStatus: currenyReducer.currenciesStatus,
     categoriesStatus: categoryReducer.categoriesStatus,
   };

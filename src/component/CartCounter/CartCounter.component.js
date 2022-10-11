@@ -1,21 +1,21 @@
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
-import { addToCart, removeFromCart } from "../../store/cart";
+import { addProductToCart, removeProductFromCart } from "../../store/cart";
 
 class CartCounter extends PureComponent {
   render() {
-    const { item, addToCart, removeFromCart } = this.props;
+    const { item, addProductToCart, removeProductFromCart } = this.props;
 
     return (
       <div className="CartCount">
-        <button onClick={() => addToCart(item)}>+</button>
+        <button onClick={() => addProductToCart(item)}>+</button>
         <div className="CartCount-Count">{item.count}</div>
-        <button onClick={() => removeFromCart(item)}>-</button>
+        <button onClick={() => removeProductFromCart(item)}>-</button>
       </div>
     );
   }
 }
 
-const mapDispatchToProps = { addToCart, removeFromCart };
+const mapDispatchToProps = { addProductToCart, removeProductFromCart };
 
 export default connect(null, mapDispatchToProps)(CartCounter);

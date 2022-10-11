@@ -21,10 +21,10 @@ class ProductItem extends PureComponent {
   };
   showCartButton = (e) => {
     if (this.props.product.inStock) {
-      const cardContainer = e.target.closest(
-        ".container__card-list__containercard-front"
-      );
-      cardContainer.querySelector(".cart-icon").classList.add("display");
+      const cardContainer = e.target.closest(".ProductCard-header");
+      cardContainer
+        .querySelector(".ProductCard-CartIcon")
+        .classList.add("display");
       cardContainer.classList.add("cart-btn-hover");
     }
   };
