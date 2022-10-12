@@ -51,12 +51,12 @@ class ProductList extends PureComponent {
       : false;
   };
   filteredProducts = () => {
-    const products = this.props;
+    const { products, chosenCurrency } = this.props;
     const newProductArray = products.reduce(function (newArr, product, index) {
       const { prices, ...productRest } = product;
       const viwedCurrency = this.findChosenCurrency(prices);
 
-      checkForFilteres(product) &&
+      this.checkForFilteres(product) &&
         newArr.push(
           <ProductItem
             key={index + product.id}
@@ -72,7 +72,7 @@ class ProductList extends PureComponent {
   };
 
   render() {
-    const { chosenCategory, products, chosenCurrency } = this.props;
+    const { chosenCategory, products } = this.props;
     console.log(chosenCategory);
 
     const productsList = products.length
