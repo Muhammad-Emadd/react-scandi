@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  attributes: null,
+  attributes: [],
   isOpen: false,
   transitionExit: false,
 };
@@ -11,7 +11,7 @@ const filters = createSlice({
   initialState,
   reducers: {
     getAttributes: (state, action) => {
-      state.attributes = action.payload;
+      state.attributes = [...state.attributes, action.payload];
     },
 
     setIsOpen: (state, action) => {

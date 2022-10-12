@@ -11,7 +11,7 @@ FiltersComponent.propTypes = {};
 
 export default FiltersComponent;
 
-const Drawer = ({ transitionExit, handleExit }) => (
+const Drawer = ({ transitionExit, handleExit, handleAttributes }) => (
   <div
     onClick={handleExit}
     className={`drawer ${transitionExit ? "exit" : ""}`}

@@ -11,32 +11,27 @@ import { setCategory } from "../../store/categories";
 
 class ProductList extends PureComponent {
   componentDidMount() {
-    const {
-      chosenCategory,
-      onInitProducts,
-      onFetchProductsFail,
-      match: { path },
-      handleCategory,
-    } = this.props;
+    const { onInitProducts, onFetchProductsFail } = this.props;
 
-    let category;
-    if (path.substring(1).length > 0) {
-      category = path.substring(1);
-      handleCategory(category);
-    } else category = chosenCategory;
+    const category = this.getUrl();
 
     getProductListAPI(category)
       .then((results) => onInitProducts(results.category.products))
       .catch((error) => onFetchProductsFail(ERROR));
   }
-  selectTotalCompletedTodos = (products, action) => {
-    const completedTodos = products.filter((product) =>
-      product.attributes
-        .find((attr) => attr.id === action.key)
-        ?.items.some((value) => value.id === action.value)
-    );
-    return completedTodos;
+  getUrl = () => {
+    const {
+      handleCategory,
+      match: { path },
+      chosenCategory,
+    } = this.props;
+
+    if (path.substring(1).length > 0) {
+      handleCategory(category);
+      return path.substring(1);
+    } else return chosenCategory;
   };
+
   findChosenCurrency = (prices) => {
     const { chosenCurrency } = this.props;
     return prices.filter(
@@ -44,23 +39,44 @@ class ProductList extends PureComponent {
     )[0];
   };
 
+  checkForFilteres = (product) => {
+    //   [ {  key: "", value:''  }, {  key: "", value:''  } ]
+    const filters = this.props;
+    return filters.every(({ key, valueAction }) => {
+      product.attributes
+        .find((attribute) => attribute.id === key)
+        ?.items.some((value) => value.id === valueAction);
+    })
+      ? true
+      : false;
+  };
+  filteredProducts = () => {
+    const products = this.props;
+    const newProductArray = products.reduce(function (newArr, product, index) {
+      const { prices, ...productRest } = product;
+      const viwedCurrency = this.findChosenCurrency(prices);
+
+      checkForFilteres(product) &&
+        newArr.push(
+          <ProductItem
+            key={index + product.id}
+            product={{ ...productRest, price: viwedCurrency }}
+            label={chosenCurrency.symbol}
+          />
+        );
+
+      return newArr;
+    }, []);
+
+    return newProductArray;
+  };
+
   render() {
     const { chosenCategory, products, chosenCurrency } = this.props;
     console.log(chosenCategory);
+
     const productsList = products.length
-      ? products.map((product, index) => {
-          const { prices, ...productRest } = product;
-
-          const viwedCurrency = this.findChosenCurrency(prices);
-
-          return (
-            <ProductItem
-              key={index + product.id}
-              product={{ ...productRest, price: viwedCurrency }}
-              label={chosenCurrency.symbol}
-            />
-          );
-        })
+      ? this.filteredProducts(products)
       : null;
 
     return (
