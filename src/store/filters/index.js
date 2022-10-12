@@ -1,6 +1,1 @@
-export {
-  default,
-  getAttributes,
-  setIsOpen,
-  setTransition,
-} from "./filtersSlice";
+export { default, setFilters, setIsOpen, setTransition } from "./filtersSlice";

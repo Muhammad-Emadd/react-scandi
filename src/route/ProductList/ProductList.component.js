@@ -27,7 +27,7 @@ class ProductList extends PureComponent {
     } = this.props;
 
     if (path.substring(1).length > 0) {
-      handleCategory(category);
+      handleCategory(path.substring(1));
       return path.substring(1);
     } else return chosenCategory;
   };
@@ -41,7 +41,8 @@ class ProductList extends PureComponent {
 
   checkForFilteres = (product) => {
     //   [ {  key: "", value:''  }, {  key: "", value:''  } ]
-    const filters = this.props;
+    // const filters = this.props;
+    const filters = [];
     return filters.every(({ key, valueAction }) => {
       product.attributes
         .find((attribute) => attribute.id === key)
@@ -52,11 +53,13 @@ class ProductList extends PureComponent {
   };
   filteredProducts = () => {
     const { products, chosenCurrency } = this.props;
+    const findChosenCurrency = this.findChosenCurrency.bind(this);
+    const checkForFilteres = this.checkForFilteres.bind(this);
     const newProductArray = products.reduce(function (newArr, product, index) {
       const { prices, ...productRest } = product;
-      const viwedCurrency = this.findChosenCurrency(prices);
+      const viwedCurrency = findChosenCurrency(prices);
 
-      this.checkForFilteres(product) &&
+      checkForFilteres(product) &&
         newArr.push(
           <ProductItem
             key={index + product.id}
