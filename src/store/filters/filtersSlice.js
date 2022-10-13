@@ -10,28 +10,52 @@ const filters = createSlice({
   name: "filters",
   initialState,
   reducers: {
-    setFilters: (state, action) => {
-      const { id: _id, filterValue: _filterValue } = action.payload;
+    getFilters: (state, action) => {
+      const { productAttributes } = action.payload;
 
-      const itemIndex = state.filters.findIndex(({ id }) => id === _id);
-      if (itemIndex >= 0) {
-        const { filterValue } = state.filters[itemIndex];
-        if (filterValue.includes(_filterValue)) {
-          state.filters[itemIndex].filterValue = filterValue.filter(
-            (value) => value !== _filterValue
-          );
-        } else {
-          state.filters[itemIndex] = {
-            id: _id,
-            filterValue: [...filterValue, _filterValue],
-          };
+      // flatten attributes
+      const allAttributes = productAttributes
+        .reduce(
+          (previousValue, currentValue) => [
+            ...previousValue,
+            ...currentValue.attributes,
+          ],
+          []
+        )
+        // combinning attributes values with the same kay
+        .reduce((prevObject, current) => {
+          const key = current.id;
+          const curGroup = prevObject[key] ?? [];
+          return { ...prevObject, [key]: [...curGroup, ...current.items] };
+        }, {});
+
+      // filtering similar values in same attribute
+      const filteredAttributes = Object.entries(allAttributes).map(
+        ([key, value]) => {
+          const check = {};
+          const res = [];
+          value.forEach((val) => {
+            if (!check[val.id]) {
+              check[val.id] = true;
+              res.push({ ...val, view: false });
+            }
+          });
+          return { [key]: res };
         }
-      } else {
-        state.filters = state.filters.concat({ _id, _filterValue });
-      }
-      // (state.filters = [...state.filters, action.payload]);
+      );
+      state.filters = Object.assign({}, ...filteredAttributes);
     },
 
+    setFilter: (state, action) => {
+      const { filterId, value } = action.payload;
+      const index = state.filters[filterId].findIndex(
+        ({ id }) => id === value.id
+      );
+      const newValue = state.filters[filterId].map((val, i) => {
+        return i === index ? { ...val, view: !val.view } : val;
+      });
+      state.filters = { ...state.filters, filterId: newValue };
+    },
     setIsOpen: (state, action) => {
       state.isOpen = action.payload;
     },
@@ -41,5 +65,6 @@ const filters = createSlice({
   },
 });
 
-export const { setFilters, setIsOpen, setTransition } = filters.actions;
+export const { getFilters, setIsOpen, setTransition, setFilter } =
+  filters.actions;
 export default filters.reducer;

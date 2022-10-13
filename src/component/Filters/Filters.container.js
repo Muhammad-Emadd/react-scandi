@@ -1,7 +1,8 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import {
-  setFilters,
+  getFilters,
+  setFilter,
   setIsOpen,
   setTransition,
 } from "../../store/filters/filtersSlice";
@@ -20,8 +21,10 @@ class FiltersContainer extends PureComponent {
 
   handleAttributes() {
     const { products, handleFilters } = this.props;
-    const allAttributes = products.map((product) => product.attributes);
-    handleFilters(allAttributes);
+    const productAttributes = products.map((product) => {
+      return { attributes: product.attributes };
+    });
+    onGettingFilters(allAttributes);
   }
   containerProps() {
     const {
@@ -30,6 +33,7 @@ class FiltersContainer extends PureComponent {
       categories,
       setCategory,
       attributes,
+      handleFilters,
     } = this.props;
 
     return {
@@ -38,6 +42,7 @@ class FiltersContainer extends PureComponent {
       categories,
       setCategory,
       attributes,
+      handleFilters,
     };
   }
   containerFunctions() {
@@ -68,7 +73,8 @@ class FiltersContainer extends PureComponent {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleFilters: (arr) => dispatch(setFilters(arr)),
+    onGettingFilters: (attributes) => dispatch(getFilters(attributes)),
+    handleFilters: (attributes) => dispatch(setFilter(attributes)),
     setIsOpen: (bool) => dispatch(setIsOpen(bool)),
     setTransition: (bool) => dispatch(setTransition(bool)),
     setCategory: (cat) => dispatch(setCategory(cat)),
