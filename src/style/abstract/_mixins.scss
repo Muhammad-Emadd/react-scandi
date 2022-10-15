@@ -1,0 +1,96 @@
+@mixin button-invisible {
+  margin: 0;
+  opacity: 0;
+  overflow: hidden;
+  padding: 0;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+}
+@mixin button-visible {
+  opacity: 1;
+  height: 25px;
+  width: 25px;
+  pointer-events: all;
+  overflow: visible;
+  cursor: pointer;
+}
+@mixin button-disabled {
+  pointer-events: none;
+  opacity: 0.25;
+}
+
+@mixin fontStyle($size, $Weight, $lineHeight: 1) {
+  font-style: normal;
+  font-weight: $Weight;
+  font-size: $size;
+  line-height: $lineHeight;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap");
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  border-radius: $radius;
+  background-clip: padding-box;
+}
+
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  $opacity-ie: $opacity * 100;
+  filter: alpha(opacity=$opacity-ie); //IE8
+}
+@mixin center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+$z-indexes: ("overlay", "sidebar", "navbar");
+
+@function z-index($name) {
+  @if index($z-indexes, $name) {
+    @return (length($z-indexes) - index($z-indexes, $name))+1;
+  } @else {
+    @warn 'There is no item "#{$name}" in this list; choose one of: #{$z-indexes}';
+    @return null;
+  }
+}
+@mixin font-source-sans(
+  $size: false,
+  $colour: false,
+  $weight: false,
+  $lh: false
+) {
+  font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+  @if $size {
+    font-size: $size;
+  }
+  @if $colour {
+    color: $colour;
+  }
+  @if $weight {
+    font-weight: $weight;
+  }
+  @if $lh {
+    line-height: $lh;
+  }
+}
+
+@mixin input-placeholder {
+  &.placeholder {
+    @content;
+  }
+  &:-moz-placeholder {
+    @content;
+  }
+  &::-moz-placeholder {
+    @content;
+  }
+  &:-ms-input-placeholder {
+    @content;
+  }
+  &::-webkit-input-placeholder {
+    @content;
+  }
+}

@@ -8,34 +8,3 @@ $default-secondary-dark-color: darken($default-secondary-base-color, 15%);
 $default-secondary-light-color: lighten($default-secondary-base-color, 15%);
 $font-muli: "Raleway", sans-serif;
 $font-standard-size: 62.5%;
-
-@mixin button-invisible {
-  margin: 0;
-  opacity: 0;
-  overflow: hidden;
-  padding: 0;
-  pointer-events: none;
-  width: 0;
-  height: 0;
-}
-@mixin button-visible {
-  opacity: 1;
-  height: 25px;
-  width: 25px;
-  pointer-events: all;
-  overflow: visible;
-  cursor: pointer;
-}
-@mixin button-disabled {
-  pointer-events: none;
-  opacity: 0.25;
-}
-
-@mixin fontStyle($size, $Weight, $lineHeight: 1) {
-  font-style: normal;
-  font-weight: $Weight;
-  font-size: $size;
-  line-height: $lineHeight;
-}
-
-@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap");
