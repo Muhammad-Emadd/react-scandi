@@ -1,33 +1,13 @@
-@mixin button-invisible {
-  margin: 0;
-  opacity: 0;
-  overflow: hidden;
-  padding: 0;
-  pointer-events: none;
-  width: 0;
-  height: 0;
-}
-@mixin button-visible {
-  opacity: 1;
-  height: 25px;
-  width: 25px;
-  pointer-events: all;
-  overflow: visible;
-  cursor: pointer;
-}
-@mixin button-disabled {
-  pointer-events: none;
-  opacity: 0.25;
-}
-
 @mixin fontStyle($size, $Weight, $lineHeight: 1) {
   font-style: normal;
   font-weight: $Weight;
   font-size: $size;
   line-height: $lineHeight;
 }
-
-@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap");
+@mixin pionter() {
+  user-select: none;
+  cursor: pointer;
+}
 
 @mixin border-radius($radius) {
   -webkit-border-radius: $radius;
@@ -93,4 +73,50 @@ $z-indexes: ("overlay", "sidebar", "navbar");
   &::-webkit-input-placeholder {
     @content;
   }
+}
+
+// Styles
+body {
+  font-family: $main-fonts;
+  font-weight: normal;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $main-fonts;
+  font-weight: normal;
+}
+
+.button {
+  font-family: $main-fonts;
+  font-weight: bold;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-center-column {
+  @include flex-center;
+  flex-direction: column;
+}
+
+@mixin flex-center-vert {
+  display: flex;
+  align-items: center;
+}
+
+@mixin flex-center-horiz {
+  display: flex;
+  justify-content: center;
 }
