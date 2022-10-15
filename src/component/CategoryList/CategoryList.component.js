@@ -15,22 +15,28 @@ class CategoryList extends PureComponent {
 
     const listOfCategories = categories.map((category, index) => {
       return (
-        <li className="NavBar-CategoryItem" key={category + index}>
+        <li className="CategoryList-Item" key={category + index}>
           <NavLink
             onClick={() => handleCategory(category)}
             to={"/" + category}
             className={
-              chosenCategory === category ? "NavBar-CategoryItem--chosen" : ""
+              chosenCategory === category ? "CategoryList-Item--chosen" : ""
             }
           >
             {category}
           </NavLink>
-          <div className={chosenCategory === category ? "Line" : "hide"} />
+          <div
+            className={
+              chosenCategory === category
+                ? "CategoryList-Line"
+                : "CategoryList-Line--hide"
+            }
+          />
         </li>
       );
     });
 
-    return <ul className="NavBar-CategoryList">{listOfCategories}</ul>;
+    return <ul className="CategoryList">{listOfCategories}</ul>;
   }
 }
 

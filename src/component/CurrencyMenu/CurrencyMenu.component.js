@@ -24,7 +24,7 @@ class CurrencyMenu extends PureComponent {
     const listOfCurrency = currencies.map((currency, index) => {
       return (
         <li
-          className="NavBar-CurrencyItem"
+          className="CurrencyMenu-Item"
           key={index + currency.label}
           onClick={() => handleCurrency(currency)}
         >
@@ -34,13 +34,13 @@ class CurrencyMenu extends PureComponent {
     });
 
     return (
-      <div className="NavBar-CurrencyMenu" onMouseLeave={handleToggleMenu}>
-        <button className="NavBar-CurrencyButton" onClick={handleToggleMenu}>
+      <div className="CurrencyMenu" onMouseLeave={handleToggleMenu}>
+        <button className="CurrencyMenu-Button" onClick={handleToggleMenu}>
           {selected.symbol + " " + selected.label + " "}
           <img src={showCurrencyMenu ? upArrow : downArrow} alt="Arrow" />
         </button>
         {showCurrencyMenu ? (
-          <ul className="NavBar-CurrencyList">{listOfCurrency}</ul>
+          <ul className="CurrencyMenu-List">{listOfCurrency}</ul>
         ) : null}
       </div>
     );

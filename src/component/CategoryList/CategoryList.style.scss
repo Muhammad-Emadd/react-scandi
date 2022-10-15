@@ -1,0 +1,22 @@
+.CategoryList {
+  @include flex-center();
+  gap: 1.6rem;
+
+  &-Item {
+    @include pionter();
+    @include font-source(1.6rem, $black, 600, 6rem);
+    position: relative;
+    &--chosen {
+      color: $default-primary-base-color;
+    }
+    &-Line {
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      color: $default-primary-base-color;
+      &--hide {
+        display: none;
+      }
+    }
+  }
+}

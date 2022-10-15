@@ -1,13 +1,17 @@
 .NavBar {
   min-height: 8.7rem;
   position: relative;
-  margin: 0 auto 8em;
   max-width: 100rem;
   width: 100%;
-  top: 0;
-
+  justify-content: space-between;
+  @include flex-center-vert();
   &-Logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateY(-50%);
     img {
+      display: block;
     }
   }
 }

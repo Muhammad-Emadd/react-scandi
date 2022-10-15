@@ -36,13 +36,7 @@ $z-indexes: ("overlay", "sidebar", "navbar");
     @return null;
   }
 }
-@mixin font-source-sans(
-  $size: false,
-  $colour: false,
-  $weight: false,
-  $lh: false
-) {
-  font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+@mixin font-source($size: false, $colour: false, $weight: false, $lh: false) {
   @if $size {
     font-size: $size;
   }
@@ -94,7 +88,9 @@ h6 {
   font-family: $main-fonts;
   font-weight: bold;
 }
-
+a {
+  text-decoration: none;
+}
 @mixin flex-column {
   display: flex;
   flex-direction: column;
@@ -109,10 +105,6 @@ h6 {
 @mixin flex-center-column {
   @include flex-center;
   flex-direction: column;
-}
-@mixin flex-center-row {
-  @include flex-center;
-  flex-direction: row;
 }
 
 @mixin flex-center-vert {
