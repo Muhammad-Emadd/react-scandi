@@ -110,6 +110,10 @@ h6 {
   @include flex-center;
   flex-direction: column;
 }
+@mixin flex-center-row {
+  @include flex-center;
+  flex-direction: row;
+}
 
 @mixin flex-center-vert {
   display: flex;
