@@ -10,6 +10,7 @@ import { getCurrencies, setErrorFetchingCurr } from "../../store/currencies";
 import { ERROR, IDLE } from "../../util/constants";
 import ContentRoutes from "../ContentRoutes";
 import NavigationBar from "../NavigationBar/NavigationBar.component";
+import "./App.style.scss";
 
 class App extends PureComponent {
   componentDidMount() {

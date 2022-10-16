@@ -1,9 +1,11 @@
+@import "../../style/abstract/abstract";
 .NavBar {
   min-height: 8.7rem;
   position: relative;
   max-width: 100rem;
   width: 100%;
   justify-content: space-between;
+  margin: 0 auto;
   @include flex-center-vert();
   &-Logo {
     position: absolute;

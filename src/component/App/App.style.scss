@@ -1,0 +1,25 @@
+@import "../../style/abstract/abstract";
+
+// Styles
+
+html {
+  font-size: $font-standard-size;
+  font-family: $main-fonts;
+  font-weight: normal;
+}
+.button {
+  font-family: $main-fonts;
+  font-weight: bold;
+}
+
+a {
+  color: inherit;
+}
+
+ul {
+  padding: 0;
+  list-style-type: none;
+}
+#app {
+  margin: 0px auto;
+}

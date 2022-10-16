@@ -69,25 +69,6 @@ $z-indexes: ("overlay", "sidebar", "navbar");
   }
 }
 
-// Styles
-body {
-  font-family: $main-fonts;
-  font-weight: normal;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: $main-fonts;
-  font-weight: normal;
-}
-
-.button {
-  font-family: $main-fonts;
-  font-weight: bold;
-}
 a {
   text-decoration: none;
 }

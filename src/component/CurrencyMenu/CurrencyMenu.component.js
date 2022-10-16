@@ -4,7 +4,7 @@ import { upArrow } from "../../style/logos";
 import { downArrow } from "../../style/logos";
 import { setCurrency, toggleCurrencyMenu } from "../../store/currencies";
 import { connect } from "react-redux";
-
+import "./CurrencyMenu.style.scss";
 class CurrencyMenu extends PureComponent {
   componentDidMount() {
     this.props.handleCurrency(this.props.currencies[0]);
@@ -34,13 +34,15 @@ class CurrencyMenu extends PureComponent {
     });
 
     return (
-      <div className="CurrencyMenu" onMouseLeave={handleToggleMenu}>
+      <div className="CurrencyMenu" onMouseEnter={handleToggleMenu}>
         <button className="CurrencyMenu-Button" onClick={handleToggleMenu}>
           {selected.symbol + " " + selected.label + " "}
           <img src={showCurrencyMenu ? upArrow : downArrow} alt="Arrow" />
         </button>
         {showCurrencyMenu ? (
-          <ul className="CurrencyMenu-List">{listOfCurrency}</ul>
+          <ul className="CurrencyMenu-List" onMouseLeave={handleToggleMenu}>
+            {listOfCurrency}
+          </ul>
         ) : null}
       </div>
     );

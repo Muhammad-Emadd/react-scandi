@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { setCategory } from "../../store/categories";
-
+import "./CategoryList.style.scss";
 class CategoryList extends PureComponent {
   componentDidMount() {
     if (this.props.chosenCategory === null)

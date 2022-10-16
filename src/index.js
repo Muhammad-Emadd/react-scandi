@@ -5,7 +5,7 @@ import { store } from "./store/store";
 import App from "./component/App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-
+import "./style/abstract/_variables.scss";
 const container = document.getElementById("root");
 const root = createRoot(container);
 

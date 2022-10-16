@@ -3,7 +3,7 @@ import CategoryList from "../CategoryList";
 import { NavLink, withRouter } from "react-router-dom";
 import { logo } from "../../style/logos";
 import CurrencyMenu from "../CurrencyMenu";
-
+import "./NavigationBar.style.scss";
 class NavigationBar extends PureComponent {
   render() {
     return (
