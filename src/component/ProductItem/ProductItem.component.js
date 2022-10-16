@@ -4,12 +4,16 @@ import { whiteCart } from "../../style/logos";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { setProduct } from "../../store/products";
+import "./Product.style.scss";
 
 class ProductItem extends PureComponent {
   handleCartButton = (event) => {
     event.preventDefault();
-    const { product, onAddingToCart } = this.props;
-    const { attributes, ...rest } = product;
+    const {
+      product: { attributes, ...rest },
+      onAddingToCart,
+    } = this.props;
+
     const defaultAttributes = Object.values(attributes).reduce(
       (prevAttributes, { id, name, type, items }) => {
         return { [id]: { name, type, ...items[0] }, ...prevAttributes };
@@ -19,19 +23,40 @@ class ProductItem extends PureComponent {
 
     onAddingToCart({ ...rest, attributes: defaultAttributes });
   };
+
   showCartButton = (e) => {
-    if (this.props.product.inStock) {
-      const cardContainer = e.target.closest(".ProductCard-header");
+    const {
+      product: { inStock },
+    } = this.props;
+
+    if (inStock) {
+      const cardContainer = e.target.closest(".ProductCard");
       cardContainer
         .querySelector(".ProductCard-CartIcon")
         .classList.add("display");
-      cardContainer.classList.add("cart-btn-hover");
+      cardContainer.classList.add("ProductCard--hover");
+    }
+  };
+  hideCartButton = (e) => {
+    const {
+      product: { inStock },
+    } = this.props;
+
+    if (inStock) {
+      const cardContainer = e.target.closest(".ProductCard");
+      cardContainer
+        .querySelector(".ProductCard-CartIcon")
+        .classList.remove("display");
+      cardContainer.classList.remove("ProductCard--hover");
     }
   };
 
   render() {
-    const { label } = this.props;
-    const { name, gallery, price, inStock, brand, id } = this.props.product;
+    const {
+      label,
+      setChosenProduct,
+      product: { name, gallery, price, inStock, brand, id },
+    } = this.props;
     const inStockUi = !inStock ? (
       <div className="ProductCard--unavailable">
         <h1>OUT OF STOCK</h1>
@@ -39,24 +64,28 @@ class ProductItem extends PureComponent {
     ) : (
       ""
     );
+
     return (
-      <Link
-        onClick={() => this.props.setChosenProduct(id)}
-        to={`/products/${id}`}
+      <div
+        onClick={() => setChosenProduct(id)}
         className="ProductCard"
         style={!inStock ? { opacity: "50%" } : {}}
         onMouseEnter={this.showCartButton}
         onMouseLeave={this.hideCartButton}
       >
-        {inStockUi}
-        <div className="ProductCard-img">
-          <img className="img" src={gallery[0]} alt={"product"} />
-        </div>
-        <header className="ProductCard-header">
-          <h1>
-            {name}
-            {brand}
-          </h1>
+        <Link to={`/products/${id}`}>
+          {inStockUi}
+          <div className="ProductCard-Img">
+            <img className="img" src={gallery[0]} alt={"product"} />
+          </div>
+        </Link>
+        <header className="ProductCard-Header">
+          <Link to={`/products/${id}`}>
+            <h1>
+              {name}
+              {brand}
+            </h1>
+          </Link>
           <p>{`${price.amount} ${label}`}</p>
           <div
             className="ProductCard-CartIcon"
@@ -65,7 +94,7 @@ class ProductItem extends PureComponent {
             <img src={whiteCart} alt="cart" />
           </div>
         </header>
-      </Link>
+      </div>
     );
   }
 }

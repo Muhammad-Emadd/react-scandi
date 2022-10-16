@@ -1,13 +1,13 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-
 import { getProductListAPI } from "../../query/ProductList.query";
 import ProductItem from "../../component/ProductItem/ProductItem.component";
 import { ERROR } from "../../util/constants";
 import { getProducts, onErrorGettingProducts } from "../../store/products";
 import { withRouter } from "react-router-dom";
 import { setCategory } from "../../store/categories";
+import "./ProductList.style.scss";
 
 class ProductList extends PureComponent {
   componentDidMount() {
@@ -76,6 +76,9 @@ class ProductList extends PureComponent {
 
   render() {
     const { chosenCategory, products } = this.props;
+    const chosenCategoryUi =
+      chosenCategory.charAt(0).toUpperCase() + chosenCategory.slice(1);
+
     console.log(chosenCategory);
 
     const productsList = products.length
@@ -84,8 +87,8 @@ class ProductList extends PureComponent {
 
     return (
       <div className="ProductList">
-        <h1>{chosenCategory}</h1>
-        <div>{productsList}</div>
+        <h1 className="ProductList-Category">{chosenCategoryUi}</h1>
+        <div className="ProductList-Body">{productsList}</div>
       </div>
     );
   }

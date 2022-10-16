@@ -1,0 +1,12 @@
+@import "../../style/abstract/abstract";
+.ProductList {
+  &-Category {
+    margin-block: 8rem;
+    @include font-source(4.2rem, $black, 400, 6.7rem);
+  }
+  &-Body {
+    display: grid;
+    gap: 4rem;
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  }
+}

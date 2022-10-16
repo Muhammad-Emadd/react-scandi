@@ -34,15 +34,19 @@ class CurrencyMenu extends PureComponent {
     });
 
     return (
-      <div className="CurrencyMenu" onMouseEnter={handleToggleMenu}>
-        <button className="CurrencyMenu-Button" onClick={handleToggleMenu}>
-          {selected.symbol + " " + selected.label + " "}
+      <div
+        className="CurrencyMenu"
+        onMouseLeave={() => handleToggleMenu(false)}
+      >
+        <div
+          className="CurrencyMenu-Button"
+          onClick={() => handleToggleMenu(true)}
+        >
+          <p> {selected.symbol}</p>
           <img src={showCurrencyMenu ? upArrow : downArrow} alt="Arrow" />
-        </button>
+        </div>
         {showCurrencyMenu ? (
-          <ul className="CurrencyMenu-List" onMouseLeave={handleToggleMenu}>
-            {listOfCurrency}
-          </ul>
+          <ul className="CurrencyMenu-List">{listOfCurrency}</ul>
         ) : null}
       </div>
     );
@@ -51,7 +55,7 @@ class CurrencyMenu extends PureComponent {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleToggleMenu: () => dispatch(toggleCurrencyMenu()),
+    handleToggleMenu: (bool) => dispatch(toggleCurrencyMenu(bool)),
     handleCurrency: (currency) => dispatch(setCurrency(currency)),
   };
 };

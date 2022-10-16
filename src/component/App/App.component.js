@@ -41,10 +41,10 @@ class App extends PureComponent {
 
     const content =
       currenciesStatus === IDLE && categoriesStatus === IDLE ? (
-        <div id="App">
+        <>
           <NavigationBar />
           <ContentRoutes />
-        </div>
+        </>
       ) : currenciesStatus === ERROR && categoriesStatus === ERROR ? (
         <h2>something went wrong...</h2>
       ) : (

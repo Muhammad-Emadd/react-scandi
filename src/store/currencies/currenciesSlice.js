@@ -19,8 +19,8 @@ export const currenciesSlice = createSlice({
     setErrorFetchingCurr: (state, action) => {
       state.currenciesStatus = action.payload;
     },
-    toggleCurrencyMenu: (state) => {
-      state.showCurrencyMenu = !state.showCurrencyMenu;
+    toggleCurrencyMenu: (state, action) => {
+      state.showCurrencyMenu = action.payload;
     },
     setCurrency: (state, action) => {
       state.chosenCurrency = action.payload;

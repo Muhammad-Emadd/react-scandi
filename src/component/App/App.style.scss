@@ -6,18 +6,28 @@ html {
   font-size: $font-standard-size;
   font-family: $main-fonts;
   font-weight: normal;
+  margin: 0;
 }
-.button {
+body,
+h1 {
+  margin: 0;
+}
+button {
   font-family: $main-fonts;
   font-weight: bold;
+}
+.display {
+  display: block !important;
 }
 
 a {
   color: inherit;
 }
 
-ul {
+ul,
+p {
   padding: 0;
+  margin: 0;
   list-style-type: none;
 }
 #app {

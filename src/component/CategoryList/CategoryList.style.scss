@@ -2,23 +2,25 @@
 
 .CategoryList {
   @include flex-center();
-  gap: 1.6rem;
 
   &-Item {
-    @include pionter();
-    @include font-source(1.6rem, $black, 600, 6rem);
-    position: relative;
+    @include font-source(1.6rem, $black, 400, 6rem);
+    @include flex-center-column();
+    padding-inline: 1.6rem;
+    & a {
+      @include pionter();
+    }
     &--chosen {
       color: $default-primary-base-color;
+      font-weight: 600;
     }
-    &-Line {
-      position: absolute;
-      width: 100%;
-      height: 1px;
-      color: $default-primary-base-color;
-      &--hide {
-        display: none;
-      }
+  }
+  &-Line {
+    width: calc(100% + 1.6rem);
+    height: 2px;
+    background-color: $default-primary-base-color;
+    &--hide {
+      display: none;
     }
   }
 }

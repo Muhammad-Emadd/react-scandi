@@ -5,6 +5,7 @@ import { Route, Switch, withRouter } from "react-router-dom";
 import ProductList from "../../route/ProductList";
 import Cart from "../../route/Cart";
 import Product from "../../route/Product";
+import "./ContentRoutes.style.scss";
 
 class ContentRoutes extends PureComponent {
   render() {
@@ -18,7 +19,7 @@ class ContentRoutes extends PureComponent {
     });
 
     return (
-      <div id="AppBody">
+      <div className="AppBody">
         <div
         // id={overlay ? "BodyOverlay" : "Deactivate"}
         />

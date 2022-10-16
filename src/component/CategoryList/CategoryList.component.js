@@ -23,7 +23,7 @@ class CategoryList extends PureComponent {
               chosenCategory === category ? "CategoryList-Item--chosen" : ""
             }
           >
-            {category}
+            {category.toUpperCase()}
           </NavLink>
           <div
             className={
