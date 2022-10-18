@@ -1,3 +1,4 @@
+import types from "@testing-library/user-event";
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import CartCounter from "../CartCounter";
@@ -17,12 +18,12 @@ class CartItem extends PureComponent {
       let choiceItem = null;
       if (type === "text")
         choiceItem = (
-          <div className="ProductAttributes-SelectedText">{value}</div>
+          <div className="CartItem-SelectedAttributes-Text">{value}</div>
         );
       else if (type === "swatch")
         choiceItem = choiceItem = (
           <div
-            className="ProductAttributes-SelectedSwatch"
+            className="CartItem-SelectedAttributes-Swatch"
             style={{
               backgroundColor: value,
               height: "2em",
@@ -31,9 +32,9 @@ class CartItem extends PureComponent {
         );
 
       return (
-        <div key={index} id="SelectedAttributes">
+        <div key={index} id="CartItem-SelectedAttributes">
           <h1>{name}:</h1>
-          <div id="Item">{choiceItem}</div>
+          <div>{choiceItem}</div>
         </div>
       );
     });
@@ -42,6 +43,7 @@ class CartItem extends PureComponent {
   render() {
     const {
       item,
+      type,
       chosenCurrency: { symbol },
     } = this.props;
 
@@ -49,24 +51,37 @@ class CartItem extends PureComponent {
     const { amount } = this.findChosenCurrency(prices);
 
     const selectedAttributes = this.getSelectedAttributes(attributes);
+    const imageUi =
+      type === "page" ? (
+        <CartGallery gallery={gallery} />
+      ) : (
+        <div className="CartItem">
+          <img src={gallery[0]} alt="Cart Item image" />
+        </div>
+      );
 
     return (
-      <div className="CartOverlayItem">
-        <div className="CartOverlayItem-Description">
-          <div className="CartOverlayItem-Card">
+      <div className="CartItem">
+        <button
+          className="CartItem-DeleteProduct"
+          // onClick={() => deleteFromCart({ id, i: counts[ind].toString() })}
+          button="delete"
+        >
+          &#10007;
+        </button>
+        <div className="CartItem-Description">
+          <div className="CartItem-Card">
             <h1>{name}</h1>
             <h3>{brand}</h3>
           </div>
-          <div className="CartOverlayItem-Price">
+          <div className="CartItem-Price">
             <h3>price:</h3>
             <h1>{`${symbol} ${amount}`}</h1>
           </div>
-          <div className="CartOverlayItem-Attributes">{selectedAttributes}</div>
+          <div className="CartItem-Attributes">{selectedAttributes}</div>
         </div>
         <CartCounter item={item} />
-        <div className="CartOverlayItem">
-          <img src={gallery[0]} alt="Cart Item image" />
-        </div>
+        {imageUi}
       </div>
     );
   }

@@ -1,0 +1,39 @@
+@import "../../style/abstract/abstract";
+.CartItem {
+  &-DeleteProduct {
+    @include position-absolute(2rem, 1rem, false, false);
+    @include font-source(2rem, $black, false, false);
+    @include pionter();
+
+    z-index: 2;
+    background: none;
+    border: none;
+    transform: translateY(-50%);
+    border-radius: 0.2rem;
+    padding: 0 0.5rem;
+    background-color: rgba(0, 0, 0, 0.05);
+
+    &:hover,
+    &:focus {
+      color: white;
+      background-color: rgba(142, 137, 137, 0.512);
+    }
+    &:focus {
+      outline: 1px solid black;
+    }
+  }
+  &-Description {
+  }
+  &-Card {
+  }
+  &-Price {
+  }
+  &-Attributes {
+  }
+  &-SelectedAttributes {
+    &-Text {
+    }
+    &-Swatch {
+    }
+  }
+}

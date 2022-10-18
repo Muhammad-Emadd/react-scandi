@@ -100,3 +100,25 @@ a {
   display: flex;
   justify-content: center;
 }
+
+@mixin carousel-button($dir) {
+  position: absolute;
+  z-index: 2;
+  background: none;
+  border: none;
+  font-size: 4rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.5);
+  @include pionter();
+  border-radius: 0.2rem;
+  padding: 0 0.5rem;
+  background-color: rgba(0, 0, 0, 0.1);
+
+  @if ($dir== "prev") {
+    left: 1rem;
+  }
+  @if ($dir== "next") {
+    right: 1rem;
+  }
+}

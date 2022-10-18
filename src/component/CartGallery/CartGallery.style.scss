@@ -1,0 +1,47 @@
+@import "../../style/abstract/abstract";
+.Carousel {
+  width: 100%;
+  position: relative;
+  &-PrevButton {
+    @include carousel-button("prev");
+    &:hover,
+    &:focus {
+      color: white;
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+  }
+  &-NextButton {
+    @include carousel-button("next");
+    &:hover,
+    &:focus {
+      color: white;
+      background-color: rgba(0, 0, 0, 0.2);
+      outline: 1px solid black;
+    }
+  }
+  &-Img {
+    opacity: 1;
+    z-index: 1;
+    transition-delay: 0ms;
+    &--Hidden {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: 200ms opacity ease-in-out;
+      transition-delay: 100ms;
+    }
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      object-position: 0 0;
+    }
+  }
+  &-List {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+}
