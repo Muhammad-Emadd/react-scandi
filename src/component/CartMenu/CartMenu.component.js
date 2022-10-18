@@ -7,12 +7,9 @@ import { toggleCartMenu } from "../../store/cart";
 import { blackCart } from "../../style/logos";
 import CartItem from "../CartItem";
 class CartMenu extends PureComponent {
-  findChosenCurrency = (prices) => {
+  findChosenCurrency = (currencies) => {
     const { chosenCurrency } = this.props;
-    console.log(prices, chosenCurrency);
-    return prices.filter(
-      (price) => price.currency.label === chosenCurrency.label
-    )[0];
+    return currencies.filter((currency) => currency === chosenCurrency.label);
   };
   handleMenu = (bool) => {
     const { setBodyOverlay, handleToggleMenu } = this.props;
@@ -25,19 +22,16 @@ class CartMenu extends PureComponent {
     const cartItems = items.map((item, index) => {
       return <CartItem key={index} item={item} />;
     });
-
-    const roralm =
-      // totalPrice.length
-      // ? this.findChosenCurrency(totalPrice)
-      // :
-      null;
-    console.log(roralm);
+    const currencies = Object.keys(totalPrice);
+    const totalUi = currencies.length
+      ? this.findChosenCurrency(currencies)[0]
+      : 0;
 
     return (
-      <div className="CartMenu" onMouseLeave={() => this.handleMenu(false)}>
-        <button
-          className="CartMenu-Button"
-          onClick={() => this.handleMenu(!showCartMenu)}
+      <div className="CartMenu" onMouseLeave={() => this.handleMenu(true)}>
+        <div
+          className="CartMenu-Img"
+          onClick={() => this.handleMenu(showCartMenu)}
         >
           <img src={blackCart} alt="Cart Menu" />
           <div
@@ -47,23 +41,31 @@ class CartMenu extends PureComponent {
           >
             {itemsCount}
           </div>
-        </button>
+        </div>
         <div
           className={
-            !showCartMenu ? "CartMenu-Dropdown" : "CartMenu-Dropdown--Disable"
+            showCartMenu ? "CartMenu-Dropdown" : "CartMenu-Dropdown--Disable"
           }
         >
           <div className="CartMenu-Title">
-            <b>My Bag</b>, {itemsCount} items
+            <strong>My Bag</strong>, {itemsCount} items
           </div>
-          <div className="CartMenu-Items">{cartItems}</div>
           <div
             className={
-              itemsCount ? "CartMenu-Total" : "CartMenu-Total--disable"
+              cartItems.length > 0
+                ? "CartMenu-Items"
+                : "CartMenu-Items--Disable"
             }
           >
-            <h2>Total</h2>
-            <div className="CartMenu-TotalPrice">{5}</div>
+            {cartItems}
+          </div>
+          <div
+            className={
+              itemsCount ? "CartMenu-Total" : "CartMenu-Total--Disable"
+            }
+          >
+            <h2>Total </h2>
+            <p>{totalPrice[totalUi]}</p>
           </div>
           <div className="CartButtons">
             <button
@@ -72,7 +74,7 @@ class CartMenu extends PureComponent {
             >
               view bag
             </button>
-            <button className="CartButtons-Checkout" disabled={itemsCount}>
+            <button className="CartButtons-Checkout" disabled>
               checkout
             </button>
           </div>
@@ -96,7 +98,7 @@ CartMenu.propTypes = {};
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleToggleMenu: () => dispatch(toggleCartMenu()),
+    handleToggleMenu: (bool) => dispatch(toggleCartMenu(bool)),
     setBodyOverlay: (bool) => dispatch(setBodyOverlay(bool)),
   };
 };

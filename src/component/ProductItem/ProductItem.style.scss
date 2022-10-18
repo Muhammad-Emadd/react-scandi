@@ -30,9 +30,8 @@
     }
   }
   &-CartIcon {
-    bottom: 80%;
-    left: 80%;
-    position: absolute;
+    @include position-absolute(false, false, 80%, 80%);
+
     background-color: $default-primary-base-color;
     border-radius: 50%;
     width: 5.2rem;
@@ -47,10 +46,9 @@
   }
   &--unavailable {
     h1 {
-      top: 50%;
-      left: 25%;
       @include font-source(2.4rem, $default-secondary-light-color, 400, 2rem);
-      position: absolute;
+      @include position-absolute(50%, false, false, 25%);
+      overflow-y: hidden;
     }
   }
 

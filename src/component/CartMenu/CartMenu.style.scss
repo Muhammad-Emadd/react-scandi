@@ -1,0 +1,104 @@
+@import "../../style/abstract/abstract";
+.CartMenu {
+  position: relative;
+
+  &-Img {
+    @include pionter();
+
+    margin-left: 2rem;
+
+    &:hover {
+      border-radius: 5px;
+      background-color: $default-drop-shadow;
+    }
+    img {
+      width: 1.8rem;
+      padding: 0.5rem 1rem;
+    }
+  }
+  &-Counter {
+    @include font-source(1.4rem, white, 700, 1.8rem);
+    @include position-absolute(false, false, 50%, 70%);
+    width: 2rem;
+    height: 2rem;
+    text-align: center;
+    border-radius: 50%;
+    background-color: $default-secondary-base-color;
+
+    &--Disable {
+      display: none;
+    }
+  }
+  &-Dropdown {
+    width: 32.5rem;
+    max-width: 40vmax;
+    @include position-absolute(false, 0%, false, false);
+    animation: 0.5s ease-in-out 0s 1 slideInFromTop;
+    &--Disable {
+      display: none;
+    }
+  }
+  &-Title {
+    margin-block: 2rem;
+    @include font-source(1.6rem, $black, 500, 1.6rem);
+  }
+  &-Items {
+    position: relative;
+    padding-inline: 0.4rem;
+    @include flex-center-column();
+    gap: 4rem;
+    margin: 2.5rem 0;
+    &--Disable {
+      display: none;
+    }
+  }
+  &-Total {
+    padding-inline: 0.4rem;
+    @include flex-center();
+    justify-content: space-between;
+    margin: 1.5rem 0;
+
+    h2 {
+      @include font-source(1.6rem, $black, 500, 1.8rem);
+    }
+    p {
+      @include font-source(1.6rem, $black, 700, 2.5rem);
+    }
+    &--Disable {
+      display: none;
+    }
+  }
+}
+
+.CartButtons {
+  padding: 0.4rem;
+  margin-bottom: 1.6rem;
+  @include flex-center();
+  justify-content: space-between;
+  &-ViewBag {
+    padding: 1.6rem 3.2rem;
+    color: white;
+    background: $default-primary-base-color;
+    @include font-source(1.6rem, white, 600, 1.6rem);
+    border: solid 1px white;
+    @include pionter();
+  }
+  &-Checkout {
+    padding: 1.6rem 3.2rem;
+    @include font-source(1.4rem, $black, 600, 1.6rem);
+    @include pionter();
+    border: solid 1px black;
+    background: white;
+    border-color: black;
+  }
+}
+@keyframes slideInFromTop {
+  0% {
+    transform: translateY(-10%);
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

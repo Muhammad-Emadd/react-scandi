@@ -50,22 +50,25 @@ $z-indexes: ("overlay", "sidebar", "navbar");
     line-height: $lh;
   }
 }
-
-@mixin input-placeholder {
-  &.placeholder {
-    @content;
+@mixin position-absolute(
+  $top: false,
+  $right: false,
+  $bot: false,
+  $left: false
+) {
+  position: absolute;
+  overflow-y: auto;
+  @if $top {
+    top: $top;
   }
-  &:-moz-placeholder {
-    @content;
+  @if $right {
+    right: $right;
   }
-  &::-moz-placeholder {
-    @content;
+  @if $bot {
+    bottom: $bot;
   }
-  &:-ms-input-placeholder {
-    @content;
-  }
-  &::-webkit-input-placeholder {
-    @content;
+  @if $left {
+    left: $left;
   }
 }
 

@@ -51,21 +51,22 @@ class CartItem extends PureComponent {
     const selectedAttributes = this.getSelectedAttributes(attributes);
 
     return (
-      <div className="CartItem">
-        <div className="CartItem-Description">
-          <div className="CartItem-Card">
+      <div className="CartOverlayItem">
+        <div className="CartOverlayItem-Description">
+          <div className="CartOverlayItem-Card">
             <h1>{name}</h1>
-            <h2>{brand}</h2>
+            <h3>{brand}</h3>
           </div>
-          <div className="Cart-Price">
+          <div className="CartOverlayItem-Price">
             <h3>price:</h3>
             <h1>{`${symbol} ${amount}`}</h1>
           </div>
-          <div className="CartItem-Attributes">{selectedAttributes}</div>
+          <div className="CartOverlayItem-Attributes">{selectedAttributes}</div>
         </div>
         <CartCounter item={item} />
-        {/* <CartGallery /> */}
-        {/* <Cart gallery={gallery} /> */}
+        <div className="CartOverlayItem">
+          <img src={gallery[0]} alt="Cart Item image" />
+        </div>
       </div>
     );
   }
