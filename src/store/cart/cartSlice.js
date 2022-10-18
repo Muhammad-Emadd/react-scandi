@@ -11,8 +11,8 @@ const cart = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    toggleCartMenu: (state) => {
-      state.showCartMenu = !state.showCartMenu;
+    toggleCartMenu: (state, action) => {
+      state.showCartMenu = action.payload;
     },
     addProductToCart: (state, action) => {
       const {
@@ -34,9 +34,15 @@ const cart = createSlice({
         state.itemsCount++;
       }
 
+      const newPrices = _prices.reduce(
+        (obj, { amount, currency: { label } }) => ((obj[label] = amount), obj),
+        {}
+      );
+
       const priceKeys = Object.keys(state.totalPrice);
-      if (priceKeys.length === 0) state.totalPrice = _prices;
-      else priceKeys.forEach((key) => (state.totalPrice[key] += _prices[key]));
+      if (priceKeys.length === 0) state.totalPrice = newPrices;
+      else
+        priceKeys.forEach((key) => (state.totalPrice[key] += newPrices[key]));
     },
     removeProductFromCart: (state, action) => {
       const {
@@ -56,9 +62,12 @@ const cart = createSlice({
         state.items.splice(itemIndex, 1);
         state.itemsCount--;
       } else state.items[itemIndex].count--;
-
+      const newPrices = _prices.reduce(
+        (obj, { amount, currency: { label } }) => ((obj[label] = amount), obj),
+        {}
+      );
       const priceKeys = Object.keys(state.totalPrice);
-      priceKeys.forEach((key) => (state.totalPrice[key] -= _prices[key]));
+      priceKeys.forEach((key) => (state.totalPrice[key] -= newPrices[key]));
       if (state.totalPrice[priceKeys[0]] === 0) state.totalPrice = {};
     },
   },

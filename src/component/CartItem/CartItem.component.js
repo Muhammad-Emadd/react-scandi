@@ -1,10 +1,12 @@
 import React, { PureComponent } from "react";
+import { connect } from "react-redux";
 import CartCounter from "../CartCounter";
 import CartGallery from "../CartGallery";
 
 class CartItem extends PureComponent {
   findChosenCurrency = (prices) => {
     const { chosenCurrency } = this.props;
+    console.log(prices, chosenCurrency);
     return prices.filter(
       (price) => price.currency.label === chosenCurrency.label
     )[0];
@@ -38,12 +40,13 @@ class CartItem extends PureComponent {
   };
 
   render() {
-    const { item } = this.props;
-    const { name, brand, attributes, gallery, prices } = item;
     const {
-      amount,
-      currency: { symbol },
-    } = this.findChosenCurrency(prices);
+      item,
+      chosenCurrency: { symbol },
+    } = this.props;
+
+    const { name, brand, attributes, gallery, prices } = item;
+    const { amount } = this.findChosenCurrency(prices);
 
     const selectedAttributes = this.getSelectedAttributes(attributes);
 
@@ -61,11 +64,15 @@ class CartItem extends PureComponent {
           <div className="CartItem-Attributes">{selectedAttributes}</div>
         </div>
         <CartCounter item={item} />
-        <CartGallery />
+        {/* <CartGallery /> */}
         {/* <Cart gallery={gallery} /> */}
       </div>
     );
   }
 }
-
-export default CartItem;
+const mapStoreStateToProps = ({ currenyReducer }) => {
+  return {
+    chosenCurrency: currenyReducer.chosenCurrency,
+  };
+};
+export default connect(mapStoreStateToProps, null)(CartItem);

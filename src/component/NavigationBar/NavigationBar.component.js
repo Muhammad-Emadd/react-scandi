@@ -4,6 +4,8 @@ import { NavLink, withRouter } from "react-router-dom";
 import { logo } from "../../style/logos";
 import CurrencyMenu from "../CurrencyMenu";
 import "./NavigationBar.style.scss";
+import CartMenuComponent from "../CartMenu/CartMenu.component";
+import CartMenu from "../CartMenu";
 class NavigationBar extends PureComponent {
   render() {
     return (
@@ -13,6 +15,7 @@ class NavigationBar extends PureComponent {
           <img src={logo} alt="Store Logo" />
         </NavLink>
         <CurrencyMenu />
+        <CartMenu />
       </div>
     );
   }

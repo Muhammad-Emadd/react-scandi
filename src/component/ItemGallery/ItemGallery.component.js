@@ -37,6 +37,7 @@ class ProductGallery extends PureComponent {
         <div>
           <img src={gallery[imageIndex]} alt="Previewed" />
         </div>
+        ص
       </div>
     );
   }

@@ -32,13 +32,6 @@ class ProductList extends PureComponent {
     } else return chosenCategory;
   };
 
-  findChosenCurrency = (prices) => {
-    const { chosenCurrency } = this.props;
-    return prices.filter(
-      (price) => price.currency.label === chosenCurrency.label
-    )[0];
-  };
-
   checkForFilteres = (product) => {
     //   [ {  key: "", value:''  }, {  key: "", value:''  } ]
     // const filters = this.props;
@@ -53,19 +46,12 @@ class ProductList extends PureComponent {
   };
   filteredProducts = () => {
     const { products, chosenCurrency } = this.props;
-    const findChosenCurrency = this.findChosenCurrency.bind(this);
+
     const checkForFilteres = this.checkForFilteres.bind(this);
     const newProductArray = products.reduce(function (newArr, product, index) {
-      const { prices, ...productRest } = product;
-      const viwedCurrency = findChosenCurrency(prices);
-
       checkForFilteres(product) &&
         newArr.push(
-          <ProductItem
-            key={index + product.id}
-            product={{ ...productRest, price: viwedCurrency }}
-            label={chosenCurrency.symbol}
-          />
+          <ProductItem key={index + product.id} product={{ ...product }} />
         );
 
       return newArr;

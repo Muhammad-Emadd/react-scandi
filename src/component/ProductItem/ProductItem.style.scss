@@ -20,7 +20,7 @@
     h1 {
       @include font-source(1.8rem, $black, 300, 3rem);
       clear: both;
-      display: inline-block;
+
       overflow: hidden;
       white-space: nowrap;
     }
