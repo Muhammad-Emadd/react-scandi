@@ -1,5 +1,19 @@
 @import "../../style/abstract/abstract";
 .CartItem {
+  max-height: 19rem;
+  position: relative;
+  gap: 1rem;
+  display: grid;
+  justify-items: stretch;
+  justify-content: center;
+  grid-template-columns: 1fr 0.2fr 0.7fr;
+  margin-bottom: 4rem;
+
+  &:hover {
+    filter: drop-shadow(1px 1px 5px $default-secondary-light-color);
+    background-color: white;
+  }
+
   &-DeleteProduct {
     @include position-absolute(2rem, 1rem, false, false);
     @include font-source(2rem, $black, false, false);
@@ -23,13 +37,74 @@
     }
   }
   &-Description {
+    padding-inline: 0.5rem;
+    @include flex-center-column();
+    align-items: flex-start;
+    justify-content: space-around;
   }
   &-Card {
+    h1 {
+      @include font-source(1.6rem, $black, 300, 2.5rem);
+      clear: both;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    h3 {
+      @include font-source(1rem, $black, 300, 2.5rem);
+      clear: both;
+      overflow: hidden;
+      white-space: nowrap;
+    }
   }
   &-Price {
+    h3 {
+      @include font-source(2.4rem, $black, 500, 1.8rem);
+      margin: 1.2rem 0 2.4rem;
+    }
   }
   &-Attributes {
+    @include flex-center-column();
+    gap: 2.4rem;
+
+    &-SelectedSwatch {
+      border: 1px solid rgba(204, 204, 204, 0.2);
+      width: 100%;
+      margin: 0;
+      & legend {
+        @include fontStyle(1.2rem, 400, 1rem);
+        text-align: left;
+      }
+      & span {
+        margin: 0 0.5em;
+        width: 1.5em;
+        height: 1.5em;
+      }
+    }
+    &-SelectedText {
+      width: 100%;
+      border: 1px solid rgba(204, 204, 204, 0.2);
+      & label {
+        margin-top: 1em;
+      }
+      & legend {
+        text-align: left;
+        @include fontStyle(1.2rem, 400, 1rem);
+      }
+
+      margin: 0;
+    }
   }
+
+  & img {
+    justify-self: center;
+    align-self: center;
+    max-width: 100%;
+    max-height: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    object-position: 0 0;
+  }
+
   &-SelectedAttributes {
     &-Text {
     }

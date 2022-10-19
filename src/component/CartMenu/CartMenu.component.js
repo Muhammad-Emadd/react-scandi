@@ -6,6 +6,7 @@ import "./CartMenu.style.scss";
 import { toggleCartMenu } from "../../store/cart";
 import { blackCart } from "../../style/logos";
 import CartItem from "../CartItem";
+import Scroll from "../Scroll";
 class CartMenu extends PureComponent {
   findChosenCurrency = (currencies) => {
     const { chosenCurrency } = this.props;
@@ -20,7 +21,7 @@ class CartMenu extends PureComponent {
   render() {
     const { history, items, itemsCount, showCartMenu, totalPrice } = this.props;
     const cartItems = items.map((item, index) => {
-      return <CartItem key={index} item={item} />;
+      return <CartItem type="dropDown" key={index} item={item} />;
     });
     const currencies = Object.keys(totalPrice);
     const totalUi = currencies.length
@@ -57,7 +58,7 @@ class CartMenu extends PureComponent {
                 : "CartMenu-Items--Disable"
             }
           >
-            {cartItems}
+            <Scroll maxHeight="40rem">{cartItems}</Scroll>
           </div>
           <div
             className={

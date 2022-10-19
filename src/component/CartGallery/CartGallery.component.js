@@ -65,9 +65,9 @@
 
 // export default CartGallery;
 
-import React, { Component } from "react";
-
-export default class CartGallery extends Component {
+import React, { PureComponent } from "react";
+import "./CartGallery.style.scss";
+export default class CartGallery extends PureComponent {
   state = { activeImg: 0 };
 
   onChangingImg(e) {
