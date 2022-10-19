@@ -1,6 +1,6 @@
 @import "../../style/abstract/abstract";
 .CartItem {
-  max-height: 19rem;
+  -height: 19rem;
   position: relative;
   gap: 1rem;
   display: grid;
@@ -10,32 +10,10 @@
   margin-bottom: 4rem;
 
   &:hover {
-    filter: drop-shadow(1px 1px 5px $default-secondary-light-color);
+    filter: drop-shadow(4px 4px 5px $default-primary-light-color);
     background-color: white;
   }
 
-  &-DeleteProduct {
-    @include position-absolute(2rem, 1rem, false, false);
-    @include font-source(2rem, $black, false, false);
-    @include pionter();
-
-    z-index: 2;
-    background: none;
-    border: none;
-    transform: translateY(-50%);
-    border-radius: 0.2rem;
-    padding: 0 0.5rem;
-    background-color: rgba(0, 0, 0, 0.05);
-
-    &:hover,
-    &:focus {
-      color: white;
-      background-color: rgba(142, 137, 137, 0.512);
-    }
-    &:focus {
-      outline: 1px solid black;
-    }
-  }
   &-Description {
     padding-inline: 0.5rem;
     @include flex-center-column();
@@ -59,39 +37,32 @@
   &-Price {
     h3 {
       @include font-source(2.4rem, $black, 500, 1.8rem);
-      margin: 1.2rem 0 2.4rem;
+      margin-block: 0.8rem;
     }
   }
+
   &-Attributes {
-    @include flex-center-column();
-    gap: 2.4rem;
-
-    &-SelectedSwatch {
-      border: 1px solid rgba(204, 204, 204, 0.2);
-      width: 100%;
-      margin: 0;
-      & legend {
-        @include fontStyle(1.2rem, 400, 1rem);
-        text-align: left;
-      }
-      & span {
-        margin: 0 0.5em;
-        width: 1.5em;
-        height: 1.5em;
-      }
+    width: 100%;
+  }
+  &-SelectedAttributes {
+    margin-top: 0.8rem;
+    h1 {
+      @include font-source(1.4rem, $black, 400, 1.6rem);
     }
-    &-SelectedText {
-      width: 100%;
-      border: 1px solid rgba(204, 204, 204, 0.2);
-      & label {
-        margin-top: 1em;
-      }
-      & legend {
-        text-align: left;
-        @include fontStyle(1.2rem, 400, 1rem);
-      }
-
-      margin: 0;
+  }
+  &-SelectedSwatch {
+    height: 2rem;
+    width: 2rem;
+    margin-block: 0.5rem;
+  }
+  &-SelectedText {
+    height: 2.4rem;
+    background-color: black;
+    width: max-content;
+    padding: 0 1.2rem;
+    margin-block: 0.5rem;
+    & span {
+      @include font-source(1.4rem, white, 400, 2.4rem);
     }
   }
 

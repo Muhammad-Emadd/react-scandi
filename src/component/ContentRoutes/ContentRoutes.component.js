@@ -21,7 +21,7 @@ class ContentRoutes extends PureComponent {
     return (
       <div className="AppBody">
         <div
-        // id={overlay ? "BodyOverlay" : "Deactivate"}
+          className={overlay ? "AppBody-Overlay" : "AppBody-Overlay--Hidden"}
         />
         <Switch>
           <Route exact path="/">

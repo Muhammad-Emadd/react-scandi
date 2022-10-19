@@ -30,6 +30,8 @@
     }
   }
   &-Dropdown {
+    @include z-index(cart-modal);
+    background-color: white;
     width: 32.5rem;
     max-width: 40vmax;
     @include position-absolute(false, 0%, false, false);

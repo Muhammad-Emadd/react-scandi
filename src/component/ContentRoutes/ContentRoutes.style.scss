@@ -1,6 +1,22 @@
+@import "../../style/abstract/abstract";
 .AppBody {
   max-width: 100rem;
   width: 100%;
   margin-top: auto;
   margin-inline: auto;
+
+  &-Overlay {
+    overflow: hidden;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(16, 15, 18, 0.2);
+    @include z-index(drop-shadow-modal);
+    &--Hidden {
+      display: none;
+    }
+  }
 }

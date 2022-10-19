@@ -1,5 +1,7 @@
 @import "../../style/abstract/abstract";
 .NavBar {
+  @include z-index(navigation);
+  background-color: white;
   min-height: 8rem;
   position: relative;
   max-width: 100rem;

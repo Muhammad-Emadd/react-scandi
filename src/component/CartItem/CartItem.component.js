@@ -1,9 +1,9 @@
-import types from "@testing-library/user-event";
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import CartCounter from "../CartCounter";
 import CartGallery from "../CartGallery";
 import "./CartItem.scss";
+
 class CartItem extends PureComponent {
   findChosenCurrency = (prices) => {
     const { chosenCurrency } = this.props;
@@ -17,22 +17,25 @@ class CartItem extends PureComponent {
     return attributeValues.map(({ name, type, value, displayValue }, index) => {
       let choiceItem = null;
       if (type === "text")
-        choiceItem = <div className="CartItem-SelectedText">{value}</div>;
+        choiceItem = (
+          <div className="CartItem-SelectedText">
+            <span>{value}</span>
+          </div>
+        );
       else if (type === "swatch")
         choiceItem = choiceItem = (
           <div
             className="CartItem-SelectedSwatch"
             style={{
               backgroundColor: value,
-              height: "2em",
             }}
           ></div>
         );
 
       return (
-        <div key={index} id="CartItem-SelectedAttributes">
+        <div key={index} className="CartItem-SelectedAttributes">
           <h1>{name}:</h1>
-          <div>{choiceItem}</div>
+          {choiceItem}
         </div>
       );
     });
@@ -57,13 +60,6 @@ class CartItem extends PureComponent {
 
     return (
       <div className={page ? "CartPageItem" : "CartItem"}>
-        <button
-          className="CartItem-DeleteProduct"
-          // onClick={() => deleteFromCart({ id, i: counts[ind].toString() })}
-          button="delete"
-        >
-          &#10007;
-        </button>
         <div
           className={page ? "CartPageItem-Description" : "CartItem-Description"}
         >
