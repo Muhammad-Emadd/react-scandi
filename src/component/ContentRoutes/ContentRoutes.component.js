@@ -2,9 +2,9 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Route, Switch, withRouter } from "react-router-dom";
-import ProductList from "../../route/ProductList";
-import Cart from "../../route/Cart";
-import Product from "../../route/Product";
+import ProductListPage from "../../route/ProductListPage";
+import CartPage from "../../route/CartPage";
+import ProductPage from "../../route/ProductPage";
 import "./ContentRoutes.style.scss";
 
 class ContentRoutes extends PureComponent {
@@ -13,7 +13,7 @@ class ContentRoutes extends PureComponent {
     const navBarRoutes = categoryRoutes.map((category, index) => {
       return (
         <Route key={index + category} path={`/${category}`}>
-          <ProductList />
+          <ProductListPage />
         </Route>
       );
     });
@@ -25,14 +25,14 @@ class ContentRoutes extends PureComponent {
         />
         <Switch>
           <Route exact path="/">
-            <ProductList />
+            <ProductListPage />
           </Route>
           {navBarRoutes}
           <Route path="/cart">
-            <Cart />
+            <CartPage />
           </Route>
           <Route path="/products/:product_id">
-            <Product />
+            <ProductPage />
           </Route>
         </Switch>
       </div>

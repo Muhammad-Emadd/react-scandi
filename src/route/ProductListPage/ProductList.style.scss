@@ -1,7 +1,8 @@
 @import "../../style/abstract/abstract";
 .ProductList {
   &-Category {
-    margin-block: 8rem;
+    margin: 16rem 0 10rem 0;
+
     @include font-source(4.2rem, $black, 400, 6.7rem);
   }
   &-Body {

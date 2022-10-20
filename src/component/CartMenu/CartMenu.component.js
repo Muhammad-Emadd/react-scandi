@@ -10,16 +10,26 @@ import Scroll from "../Scroll";
 class CartMenu extends PureComponent {
   findChosenCurrency = (currencies) => {
     const { chosenCurrency } = this.props;
+    currencies.filter((currency) => currency === chosenCurrency.label);
+
     return currencies.filter((currency) => currency === chosenCurrency.label);
   };
+
   handleMenu = (bool) => {
     const { setBodyOverlay, handleToggleMenu } = this.props;
-    setBodyOverlay(bool);
+    setBodyOverlay(!bool);
     handleToggleMenu(!bool);
   };
 
   render() {
-    const { history, items, itemsCount, showCartMenu, totalPrice } = this.props;
+    const {
+      history,
+      items,
+      itemsCount,
+      showCartMenu,
+      totalPrice,
+      chosenCurrency,
+    } = this.props;
     const cartItems = items.map((item, index) => {
       return <CartItem type="dropDown" key={index} item={item} />;
     });
@@ -27,7 +37,10 @@ class CartMenu extends PureComponent {
     const totalUi = currencies.length
       ? this.findChosenCurrency(currencies)[0]
       : 0;
-
+    const chosedSymbol = chosenCurrency ? chosenCurrency.symbol : "";
+    const total = currencies.length
+      ? Math.round(totalPrice[totalUi] * 100) / 100
+      : 0;
     return (
       <div className="CartMenu" onMouseLeave={() => this.handleMenu(true)}>
         <div
@@ -66,7 +79,9 @@ class CartMenu extends PureComponent {
             }
           >
             <h2>Total </h2>
-            <p>{totalPrice[totalUi]}</p>
+            <p>
+              {chosedSymbol} {total}
+            </p>
           </div>
           <div className="CartButtons">
             <button

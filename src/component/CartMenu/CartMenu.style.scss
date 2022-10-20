@@ -1,5 +1,6 @@
 @import "../../style/abstract/abstract";
 .CartMenu {
+  margin-right: 11rem;
   position: relative;
 
   &-Img {
@@ -30,9 +31,10 @@
     }
   }
   &-Dropdown {
+    padding: 1rem;
     @include z-index(cart-modal);
     background-color: white;
-    width: 32.5rem;
+    width: 31.5rem;
     max-width: 40vmax;
     @include position-absolute(false, 0%, false, false);
     animation: 0.5s ease-in-out 0s 1 slideInFromTop;
@@ -74,23 +76,23 @@
 
 .CartButtons {
   padding: 0.4rem;
-  margin-bottom: 1.6rem;
+
   @include flex-center();
   justify-content: space-between;
   &-ViewBag {
-    padding: 1.6rem 3.2rem;
-    color: white;
-    background: $default-primary-base-color;
-    @include font-source(1.6rem, white, 600, 1.6rem);
-    border: solid 1px white;
-    @include pionter();
-  }
-  &-Checkout {
     padding: 1.6rem 3.2rem;
     @include font-source(1.4rem, $black, 600, 1.6rem);
     @include pionter();
     border: solid 1px black;
     background: white;
+  }
+  &-Checkout {
+    padding: 1.6rem 3.2rem;
+    color: white;
+    background: $default-primary-base-color;
+    @include font-source(1.6rem, white, 600, 1.6rem);
+    border: solid 1px $default-primary-base-color;
+    @include pionter();
   }
 }
 @keyframes slideInFromTop {

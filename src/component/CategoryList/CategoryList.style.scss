@@ -1,6 +1,7 @@
 @import "../../style/abstract/abstract";
 
 .CategoryList {
+  margin-left: 11rem;
   @include flex-center();
 
   &-Item {
