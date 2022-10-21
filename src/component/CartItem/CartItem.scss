@@ -76,3 +76,69 @@
     object-position: 0 0;
   }
 }
+
+.CartPageItem {
+  @extend .CartItem;
+  grid-template-columns: 1fr 0.7fr 0.7fr;
+  height: 30rem;
+  width: 100%;
+  &-Description {
+    @extend .CartItem-Description;
+  }
+  &-Card {
+    @extend .CartItem-Card;
+    h1 {
+      margin: 0;
+      @include font-source(3rem, $black, 600, 2.7rem);
+    }
+    h3 {
+      margin: 0;
+      @include font-source(3rem, $black, 400, 2.7rem);
+    }
+  }
+  &-Price {
+    h3 {
+      @include font-source(2.4rem, $black, 700, 2.4rem);
+    }
+  }
+  &-Attributes {
+    @extend .CartItem-Attributes;
+  }
+
+  &-SelectedAttributes {
+    h1 {
+      margin-bottom: 0.7rem;
+      @include font-source(1.8rem, $black, 700, 1.8rem);
+    }
+    margin-top: 1.6rem;
+    @extend .CartItem-SelectedAttributes;
+  }
+  &-SelectedSwatch {
+    height: 3.6rem;
+    width: 3.6rem;
+  }
+  &-SelectedText {
+    @extend .CartItem-SelectedText;
+    height: 4.5rem;
+    padding: 0 2.25rem;
+    & span {
+      @include font-source(1.8rem, white, 400, 4.5rem);
+    }
+  }
+  & img {
+    justify-self: center;
+    align-self: center;
+    width: 20rem;
+    aspect-ratio: 2/3;
+    object-fit: contain;
+    object-position: 0 0;
+  }
+
+  & .CartCount {
+    & p {
+      padding: 2.2rem;
+      @include font-source(2.4rem, $black, 500, 1rem);
+      margin-left: auto;
+    }
+  }
+}

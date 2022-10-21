@@ -71,14 +71,14 @@ export default class CartGallery extends PureComponent {
   state = { activeImg: 0 };
 
   onChangingImg(e) {
-    const { imagesLength } = this.props;
+    const { gallery } = this.props;
     const { activeImg } = this.state;
     const offset = e.target.getAttribute("button") === "next" ? 1 : -1;
 
     const newIndex = activeImg + offset;
-    newIndex < 0 || newIndex > imagesLength - 1
+    newIndex < 0
       ? this.setState({ activeImg: 0 })
-      : this.setState({ activeImg: newIndex });
+      : this.setState({ activeImg: newIndex % gallery.length });
   }
   render() {
     const { gallery } = this.props;

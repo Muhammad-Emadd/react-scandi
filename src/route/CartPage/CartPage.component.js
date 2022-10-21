@@ -20,7 +20,7 @@ class Cart extends PureComponent {
 
     return (
       <div className="CartPage">
-        <h1>Cart</h1>
+        <h2  className="CartPage-Title">Cart</h2>
         <h2
           className={
             noItems ? "CartPage-NoItems" : "CartPage-NoItems--Deactivate"

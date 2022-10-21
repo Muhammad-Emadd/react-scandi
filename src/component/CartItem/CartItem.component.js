@@ -13,19 +13,27 @@ class CartItem extends PureComponent {
     )[0];
   };
   getSelectedAttributes = (attributes) => {
+    const { type } = this.props;
+    const page = type === "page" ? true : false;
     const attributeValues = Object.values(attributes);
     return attributeValues.map(({ name, type, value, displayValue }, index) => {
       let choiceItem = null;
       if (type === "text")
         choiceItem = (
-          <div className="CartItem-SelectedText">
+          <div
+            className={
+              page ? "CartPageItem-SelectedText" : "CartItem-SelectedText"
+            }
+          >
             <span>{value}</span>
           </div>
         );
       else if (type === "swatch")
         choiceItem = choiceItem = (
           <div
-            className="CartItem-SelectedSwatch"
+            className={
+              page ? "CartPageItem-SelectedSwatch" : "CartItem-SelectedSwatch"
+            }
             style={{
               backgroundColor: value,
             }}
@@ -33,7 +41,14 @@ class CartItem extends PureComponent {
         );
 
       return (
-        <div key={index} className="CartItem-SelectedAttributes">
+        <div
+          key={index}
+          className={
+            page
+              ? "CartPageItem-SelectedAttributes"
+              : "CartItem-SelectedAttributes"
+          }
+        >
           <h1>{name}:</h1>
           {choiceItem}
         </div>
