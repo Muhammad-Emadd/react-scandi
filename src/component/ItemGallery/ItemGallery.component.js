@@ -9,7 +9,7 @@ class ProductGallery extends PureComponent {
   };
 
   changePreviewedImage = (index) => {
-    this.setState({ previewedImage: index });
+    this.setState({ imageIndex: index });
   };
 
   getGalleryList = (gallery) => {
@@ -30,6 +30,7 @@ class ProductGallery extends PureComponent {
   render() {
     const { gallery } = this.props;
     const { imageIndex } = this.state;
+
     const listOfImages = this.getGalleryList(gallery);
 
     return (

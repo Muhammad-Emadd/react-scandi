@@ -7,7 +7,7 @@ import "./CartItem.scss";
 class CartItem extends PureComponent {
   findChosenCurrency = (prices) => {
     const { chosenCurrency } = this.props;
-    console.log(prices, chosenCurrency);
+
     return prices.filter(
       (price) => price.currency.label === chosenCurrency.label
     )[0];

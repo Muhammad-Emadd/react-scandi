@@ -64,7 +64,6 @@ class ProductItem extends PureComponent {
       product: { name, gallery, prices, inStock, brand, id },
       chosenCurrency: { symbol },
     } = this.props;
-    console.log(symbol);
 
     const { amount } = this.findChosenCurrency(prices);
     const inStockUi = !inStock ? (

@@ -12,7 +12,7 @@ import ItemAttributes from "../../component/ItemAttributes/ItemAttributes.compon
 import "./ProductPage.style.scss";
 
 class Product extends PureComponent {
-  state = { chosenAttributes: {} };
+  state = { chosenAttributes: {}, product: null };
 
   findChosenCurrency = (prices) => {
     const { chosenCurrency } = this.props;
@@ -20,19 +20,18 @@ class Product extends PureComponent {
       (price) => price.currency.label === chosenCurrency.label
     )[0];
   };
+
   scrollToTop = () => {
     window.scrollTo(0, 0);
   };
 
   setAttributes = (id, value) => {
-    console.log(id, value);
-
     this.setState((prevState) => {
       const attributes = { ...prevState.chosenAttributes, [id]: value };
-
       return { chosenAttributes: attributes };
     });
   };
+
   handleAddingProductToCart = () => {
     const { chosenAttributes: attributes } = this.state;
     const {
@@ -43,6 +42,7 @@ class Product extends PureComponent {
 
     onAddProductToCart({ id, name, brand, gallery, prices, attributes });
   };
+
   descriptionMarkup(description) {
     return { __html: description };
   }
@@ -50,33 +50,37 @@ class Product extends PureComponent {
   componentDidMount() {
     const product_id = this.props.match.params.product_id;
     const { onGettingProduct, onErrorGettingProduct } = this.props;
-    this.setState({ chosenAttributes: {} });
+
     getChosenProduct(product_id)
-      .then((result) => onGettingProduct(result.product))
+      .then((result) => {
+        this.setState({ product: product_id });
+        onGettingProduct(result.product);
+      })
       .catch((error) => onErrorGettingProduct(ERROR));
   }
 
   render() {
     this.scrollToTop();
-
     const { product } = this.props;
-    if (product === null) {
+    if (!this.state.product) {
       return <h1>Loading ...</h1>;
     } else {
-      const { description, prices, name, brand, gallery, inStock } = product;
+      const { description, prices, name, brand, gallery, inStock, attributes } =
+        product;
       const {
         amount,
         currency: { symbol },
       } = this.findChosenCurrency(prices);
-
-      const attributes = product.attributes.map((attribute, i) => (
-        <ItemAttributes
-          key={i + attribute.id}
-          attribute={attribute}
-          chosenAttributes={this.state.chosenAttributes}
-          onAttributeChange={this.setAttributes.bind(this)}
-        />
-      ));
+      const attributesUi = attributes.map((attribute, i) => {
+        return (
+          <ItemAttributes
+            key={i + attribute.id}
+            attribute={attribute}
+            chosenAttributes={this.state.chosenAttributes}
+            onAttributeChange={this.setAttributes.bind(this)}
+          />
+        );
+      });
       return (
         <div className="ProductPage">
           <ItemGallery gallery={gallery} />
@@ -85,7 +89,7 @@ class Product extends PureComponent {
               <h1>{name}</h1>
               <h2>{brand}</h2>
             </div>
-            {attributes}
+            {attributesUi}
             <div className="ProductPage-Price">
               <h3>price:</h3>
               <h1>{`${symbol} ${amount}`}</h1>

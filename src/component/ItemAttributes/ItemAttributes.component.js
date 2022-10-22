@@ -9,18 +9,15 @@ class ItemAttributes extends PureComponent {
       attribute: { id, name, type, items },
     } = this.props;
     const { id: itemID, value, displayValue } = items[0];
-    console.log(items);
 
     onAttributeChange(id, { name, type, id: itemID, value, displayValue });
   }
-
   getAttributeChoices = () => {
     const {
       attribute: { id, type, name, items },
       onAttributeChange,
       chosenAttributes,
     } = this.props;
-    console.log(chosenAttributes);
 
     return items.map(({ id: itemID, value, displayValue }, index) => {
       const checked =
@@ -78,7 +75,6 @@ class ItemAttributes extends PureComponent {
     const {
       attribute: { name },
     } = this.props;
-
     const choices = this.getAttributeChoices();
 
     return (
