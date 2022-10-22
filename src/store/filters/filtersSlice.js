@@ -11,10 +11,8 @@ const filters = createSlice({
   initialState,
   reducers: {
     getFilters: (state, action) => {
-      const { productAttributes } = action.payload;
-
       // flatten attributes
-      const allAttributes = productAttributes
+      const allAttributes = action.payload
         .reduce(
           (previousValue, currentValue) => [
             ...previousValue,

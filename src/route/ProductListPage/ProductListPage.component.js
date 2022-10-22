@@ -2,7 +2,8 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getProductListAPI } from "../../query/ProductList.query";
-import ProductItem from "../../component/ProductItem/ProductItem.component";
+import ProductItem from "../../component/ProductItem";
+import Filters from "../../component/Filters";
 import { ERROR } from "../../util/constants";
 import { getProducts, onErrorGettingProducts } from "../../store/products";
 import { withRouter } from "react-router-dom";
@@ -70,9 +71,12 @@ class ProductList extends PureComponent {
     const productsList = products.length
       ? this.filteredProducts(products)
       : null;
+    console.log(products.length);
 
+    const filters = products.length ? <Filters /> : null;
     return (
       <div className="ProductList">
+        {filters}
         <h1 className="ProductList-Category">{chosenCategoryUi}</h1>
         <div className="ProductList-Body">{productsList}</div>
       </div>

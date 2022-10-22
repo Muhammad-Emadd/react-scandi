@@ -16,7 +16,7 @@ class CartItem extends PureComponent {
     const { type } = this.props;
     const page = type === "page" ? true : false;
     const attributeValues = Object.values(attributes);
-    return attributeValues.map(({ name, type, value, displayValue }, index) => {
+    return attributeValues.map(({ name, type, value }, index) => {
       let choiceItem = null;
       if (type === "text")
         choiceItem = (

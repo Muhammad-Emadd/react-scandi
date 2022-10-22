@@ -1,0 +1,98 @@
+@import "../../style/abstract/abstract";
+.SideBar {
+  height: 100%;
+  max-width: 50vh;
+  display: grid;
+  grid-template-columns: 30% 70%;
+  overflow: hidden;
+  position: absolute;
+  top: 8rem;
+  left: 0;
+  @include z-index(side-bar);
+  &_Container {
+    height: 100%;
+    background-color: $default-primary-greener-color;
+    width: 8rem;
+    position: relative;
+    & button {
+      @include pionter();
+      padding: 0.6rem 1rem 1rem 1rem;
+      margin: 1rem;
+      border: 1px solid transparent;
+      background-color: rgba(0, 0, 0, 0.1);
+      @include font-source(5rem, white, 700, 3rem);
+      &:hover,
+      &:focus {
+        color: white;
+        background-color: rgba(0, 0, 0, 0.13);
+        outline: 1px solid $default-primary-base-color;
+      }
+    }
+  }
+}
+
+@keyframes containerTransitionEnter {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes drawerTransitionEnter {
+  0% {
+    opacity: 0;
+    left: -2vw;
+  }
+  100% {
+    opacity: 1;
+    left: 0vw;
+  }
+}
+
+@keyframes containerTransitionExit {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes drawerTransitionExit {
+  0% {
+    opacity: 1;
+    left: 0vw;
+  }
+  100% {
+    opacity: 0;
+    left: -2vw;
+  }
+}
+
+.drawer_container {
+  position: relative;
+  z-index: 10;
+  height: 90vh;
+  animation: containerTransitionEnter 0.5s;
+}
+.drawer {
+  box-sizing: border-box;
+  position: relative;
+  height: 90vh;
+  padding: 20px;
+  background-color: rgb(4, 118, 156);
+  border-right: 1px solid rgba(0, 0, 0, 0.3);
+  animation: drawerTransitionEnter 0.5s;
+}
+p {
+  margin-bottom: 10px;
+  color: white;
+}
+
+.drawer_container.exit {
+  animation: containerTransitionExit 0.6s;
+}
+
+.drawer.exit {
+  animation: drawerTransitionExit 0.6s;
+}

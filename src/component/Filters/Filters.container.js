@@ -8,8 +8,14 @@ import {
 } from "../../store/filters/filtersSlice";
 import { setCategory } from "../../store/categories/categoriesSlice";
 import FiltersComponent from "./Filters.component";
+import { connect } from "react-redux";
+import "./Filters.style.scss";
 
 class FiltersContainer extends PureComponent {
+  componentDidMount() {
+    const { products, onGettingFilters } = this.props;
+    onGettingFilters(products);
+  }
   handleExit = () => {
     const { setTransition, setIsOpen } = this.props;
     setTransition(true);
@@ -19,20 +25,13 @@ class FiltersContainer extends PureComponent {
     }, 500);
   };
 
-  handleAttributes() {
-    const { products, handleFilters } = this.props;
-    const productAttributes = products.map((product) => {
-      return { attributes: product.attributes };
-    });
-    onGettingFilters(allAttributes);
-  }
   containerProps() {
     const {
       transitionExit,
       chosenCategory,
       categories,
       setCategory,
-      attributes,
+      filters,
       handleFilters,
     } = this.props;
 
@@ -41,18 +40,35 @@ class FiltersContainer extends PureComponent {
       chosenCategory,
       categories,
       setCategory,
-      attributes,
+      filters,
       handleFilters,
     };
   }
   containerFunctions() {
-    handleAttributes: this.handleAttributes.bind(this);
-    handleExit: this.handleExit.bind(this);
+    return {
+      handleExit: this.handleExit.bind(this),
+    };
   }
   render() {
     const { isOpen, transitionExit, setIsOpen } = this.props;
+
+    console.log({ ...this.containerProps() }, { ...this.containerFunctions() });
+    const arrowDirection = isOpen ? (
+      <button className="SideBar-Button " onClick={() => setIsOpen(!isOpen)}>
+        &raquo;
+      </button>
+    ) : (
+      <button className="SideBar-Button " onClick={() => setIsOpen(!isOpen)}>
+        &laquo;
+      </button>
+    );
+
     const content = isOpen ? (
-      <div className={`drawer_container ${transitionExit ? "exit" : ""}`}>
+      <div
+        className={
+          transitionExit ? `FiltersContainer-Open` : "FiltersContainer-Closed"
+        }
+      >
         <FiltersComponent
           {...this.containerProps()}
           {...this.containerFunctions}
@@ -61,16 +77,13 @@ class FiltersContainer extends PureComponent {
     ) : null;
 
     return (
-      <div className="sidebar_wrapper">
-        <div className="sidebar_container">
-          <button onMouseEnter={() => setIsOpen(true)}>open</button>
-        </div>
+      <div className="SideBar">
+        <div className="SideBar_Container">{arrowDirection}</div>
         {content}
       </div>
     );
   }
 }
-
 const mapDispatchToProps = (dispatch) => {
   return {
     onGettingFilters: (attributes) => dispatch(getFilters(attributes)),
@@ -91,7 +104,7 @@ const mapStateToProps = ({
     categories: categoryReducer.categories,
     products: productsReducer.products,
     isOpen: filtersReducer.isOpen,
-    attributes: filtersReducer.attributes,
+    filters: filtersReducer.filters,
     transitionExit: filtersReducer.transitionExit,
   };
 };
