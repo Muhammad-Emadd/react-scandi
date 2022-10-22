@@ -1,0 +1,37 @@
+@import "../../style/abstract/abstract";
+.ProductAttributes {
+  & h1 {
+    @include font-source(1.8rem, $black, 700, 1.8rem);
+  }
+  &-Choices {
+    @include flex-center();
+    gap: 0.8rem;
+    justify-content: flex-start;
+    margin-top: 0.8rem;
+  }
+  &-SelectedText {
+    @include font-source(1.6rem, white, 400, 4.5rem);
+    border: 0.1rem solid $black;
+    padding-inline: 2.5rem;
+    background-color: $black;
+  }
+  &-Text {
+    @include pionter();
+    @include font-source(1.6rem, $black, 400, 4.5rem);
+    border: 0.1rem solid $black;
+    background-color: white;
+
+    padding-inline: 2.5rem;
+  }
+  &-SelectedSwatch {
+    width: 3.2rem;
+    height: 3.2rem;
+    padding: 0.2rem;
+    border: 1px solid $default-primary-base-color;
+  }
+  &-Swatch {
+    border: 1px solid $default-drop-shadow;
+    width: 3.2rem;
+    height: 3.2rem;
+  }
+}

@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
+import "./ItemAttributes.style.scss";
 
 class ItemAttributes extends PureComponent {
   componentDidMount() {
@@ -8,6 +9,8 @@ class ItemAttributes extends PureComponent {
       attribute: { id, name, type, items },
     } = this.props;
     const { id: itemID, value, displayValue } = items[0];
+    console.log(items);
+
     onAttributeChange(id, { name, type, id: itemID, value, displayValue });
   }
 
@@ -17,6 +20,7 @@ class ItemAttributes extends PureComponent {
       onAttributeChange,
       chosenAttributes,
     } = this.props;
+    console.log(chosenAttributes);
 
     return items.map(({ id: itemID, value, displayValue }, index) => {
       const checked =
@@ -45,7 +49,6 @@ class ItemAttributes extends PureComponent {
             }
             style={{
               backgroundColor: value,
-              height: "2em",
             }}
           ></div>
         );

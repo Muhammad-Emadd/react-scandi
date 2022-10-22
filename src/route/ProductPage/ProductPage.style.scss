@@ -1,27 +1,40 @@
+@import "../../style/abstract/abstract";
 .ProductPage {
-  margin: 10rem 0;
-  padding: 16px;
-  width: 90%;
-
-  flex: 0 0 80%;
-  align-self: center;
-
+  margin-top: 16rem;
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: stretch;
-  gap: 30px;
+  gap: 10rem;
   &-Details {
     height: 100%;
-    flex: 1 0 40%;
-
+    flex: 1 0 30%;
     display: flex;
     flex-direction: column;
     gap: 40px;
   }
   &-InfoCard {
+    & h1 {
+      @include font-source(3rem, $black, 600, 2.7rem);
+    }
+    & h2 {
+      @include font-source(3rem, $black, 400, 2.7rem);
+    }
   }
   &-Price {
+    & h1 {
+      margin-top: 1rem;
+      @include font-source(2.4rem, $black, 700, 1.8rem);
+    }
+    & h3 {
+      @include font-source(1.8rem, $black, 700, 1.8rem);
+    }
+  }
+  & button {
+    height: 4.2rem;
+    border: none;
+    background-color: $default-primary-base-color;
+    @include font-source(1.6rem, white, 600, 2rem);
   }
   &-Description {
   }

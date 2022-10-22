@@ -25,9 +25,12 @@ class Product extends PureComponent {
   };
 
   setAttributes = (id, value) => {
+    console.log(id, value);
+
     this.setState((prevState) => {
-      const attributes = { ...prevState.selectedAttributes, [id]: value };
-      return { selectedAttributes: attributes };
+      const attributes = { ...prevState.chosenAttributes, [id]: value };
+
+      return { chosenAttributes: attributes };
     });
   };
   handleAddingProductToCart = () => {
@@ -45,7 +48,7 @@ class Product extends PureComponent {
   componentDidMount() {
     const product_id = this.props.match.params.product_id;
     const { onGettingProduct, onErrorGettingProduct } = this.props;
-
+    this.setState({ chosenAttributes: {} });
     getChosenProduct(product_id)
       .then((result) => onGettingProduct(result.product))
       .catch((error) => onErrorGettingProduct(ERROR));
@@ -53,6 +56,7 @@ class Product extends PureComponent {
 
   render() {
     this.scrollToTop();
+
     const { product } = this.props;
     if (product === null) {
       return <h1>Loading ...</h1>;
@@ -62,7 +66,6 @@ class Product extends PureComponent {
         amount,
         currency: { symbol },
       } = this.findChosenCurrency(prices);
-      console.log(this.findChosenCurrency(prices));
 
       const attributes = product.attributes.map((attribute, i) => (
         <ItemAttributes
