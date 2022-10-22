@@ -9,6 +9,7 @@ import { ERROR } from "../../util/constants";
 import ItemGallery from "../../component/ItemGallery";
 import Scroll from "../../component/Scroll";
 import ItemAttributes from "../../component/ItemAttributes/ItemAttributes.component";
+import "./ProductPage.style.scss";
 
 class Product extends PureComponent {
   state = { chosenAttributes: {} };
@@ -74,7 +75,7 @@ class Product extends PureComponent {
       return (
         <div className="ProductPage">
           <ItemGallery gallery={gallery} />
-          <div className="ProductPage-ViewDetails">
+          <div className="ProductPage-Details">
             <div className="ProductPage-InfoCard">
               <h1>{name}</h1>
               <h2>{brand}</h2>
