@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 class FiltersComponent extends PureComponent {
   render() {
     const { handleExit, transitionExit, filters } = this.props;
+    const filtersKeys = Object.keys(filters).map((key, i) => {});
+    console.log(filtersKeys);
 
     return (
       <div
