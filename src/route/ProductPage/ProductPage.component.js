@@ -34,11 +34,13 @@ class Product extends PureComponent {
     });
   };
   handleAddingProductToCart = () => {
-    const { selectedAttributes: attributes } = this.state;
+    const { chosenAttributes: attributes } = this.state;
     const {
       product: { id, name, brand, gallery, prices },
       onAddProductToCart,
     } = this.props;
+    console.log({ id, name, brand, gallery, prices, attributes });
+
     onAddProductToCart({ id, name, brand, gallery, prices, attributes });
   };
   descriptionMarkup(description) {
