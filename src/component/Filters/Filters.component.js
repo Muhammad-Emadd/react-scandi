@@ -3,18 +3,63 @@ import PropTypes from "prop-types";
 
 class FiltersComponent extends PureComponent {
   render() {
-    const { handleExit, transitionExit, filters } = this.props;
-    const filtersKeys = Object.keys(filters).map((key, i) => {});
-    console.log(filtersKeys);
+    const { handleExit, transitionExit, filters, handleFilters } = this.props;
+    const filtersKeysAndValues = Object.entries(filters).map(
+      ([key, value], index) => {
+        const colorType = key === "Color";
+        return (
+          <div key={key} className="FiltersWrapper">
+            <h2>{key}</h2>
+            <div
+              className={
+                colorType ? "FiltersWrapper-Swatch" : "FiltersWrapper-Text"
+              }
+            >
+              {value.map((object, i) => {
+                return colorType ? (
+                  <div
+                    key={object.id + i}
+                    onClick={() =>
+                      handleFilters({ filterId: key, value: object })
+                    }
+                    className={
+                      object.view
+                        ? "FiltersWrapper-SelectedSwatch"
+                        : "FiltersWrapper-Swatch"
+                    }
+                    style={{
+                      backgroundColor: object.value,
+                    }}
+                  ></div>
+                ) : (
+                  <div
+                    key={object.id + i}
+                    onClick={() =>
+                      handleFilters({ filterId: key, value: object })
+                    }
+                    className={
+                      object.view
+                        ? "FiltersWrapper-SelectedText"
+                        : "FiltersWrapper-Text"
+                    }
+                  >
+                    {object.value}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        );
+      }
+    );
+    console.log(filtersKeysAndValues);
 
     return (
       <div
         onClick={handleExit}
         className={`drawer ${transitionExit ? "exit" : ""}`}
       >
-        <p>Home</p>
-        <p>About</p>
-        <p>Contact</p>
+        {filtersKeysAndValues}
       </div>
     );
   }

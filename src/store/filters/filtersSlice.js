@@ -46,13 +46,15 @@ const filters = createSlice({
 
     setFilter: (state, action) => {
       const { filterId, value } = action.payload;
+      const { filters } = state;
       const index = state.filters[filterId].findIndex(
         ({ id }) => id === value.id
       );
-      const newValue = state.filters[filterId].map((val, i) => {
+      const newValue = filters[filterId].map((val, i) => {
         return i === index ? { ...val, view: !val.view } : val;
       });
-      state.filters = { ...state.filters, filterId: newValue };
+
+      state.filters = { ...state.filters, [filterId]: newValue };
     },
     setIsOpen: (state, action) => {
       state.isOpen = action.payload;

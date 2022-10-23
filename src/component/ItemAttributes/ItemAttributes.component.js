@@ -47,7 +47,7 @@ class ItemAttributes extends PureComponent {
             style={{
               backgroundColor: value,
             }}
-          ></div>
+          />
         );
       }
 
