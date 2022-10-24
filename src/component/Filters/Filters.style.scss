@@ -8,8 +8,10 @@
   position: absolute;
   top: 8rem;
   left: 0;
+  // position: relative;
+  animation: containerTransitionEnter 0.5s;
   @include z-index(side-bar);
-  &_Container {
+  &_ArrowContainer {
     height: 100%;
     background-color: $default-primary-greener-color;
     width: 8rem;
@@ -69,30 +71,25 @@
   }
 }
 
-.drawer_container {
-  position: relative;
-  z-index: 10;
-  height: 90vh;
-  animation: containerTransitionEnter 0.5s;
-}
-.drawer {
+.Drawer {
   box-sizing: border-box;
   position: relative;
-  height: 90vh;
+  height: 100%;
   padding: 20px;
-  background-color: rgb(4, 118, 156);
-  border-right: 1px solid rgba(0, 0, 0, 0.3);
+  background-color: $default-drop-shadow;
+  border-right: 1px solid $default-primary-base-color;
   animation: drawerTransitionEnter 0.5s;
+
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  align-items: flex-start;
+  justify-content: flex-start;
+  &-FiltersWrapper {
+  }
 }
+
 p {
   margin-bottom: 10px;
-  color: white;
-}
-
-.drawer_container.exit {
-  animation: containerTransitionExit 0.6s;
-}
-
-.drawer.exit {
-  animation: drawerTransitionExit 0.6s;
+  // color: white;
 }

@@ -67,11 +67,6 @@ const filters = createSlice({
   },
 });
 
-export const {
-  getFilters,
-  setIsOpen,
-  setTransition,
-  setFilter,
-  setFilterCondition,
-} = filters.actions;
+export const { getFilters, setIsOpen, setTransition, setFilter } =
+  filters.actions;
 export default filters.reducer;

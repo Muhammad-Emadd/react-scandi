@@ -33,6 +33,7 @@ class FiltersContainer extends PureComponent {
       setCategory,
       filters,
       handleFilters,
+      filtersOn,
     } = this.props;
 
     return {
@@ -42,6 +43,7 @@ class FiltersContainer extends PureComponent {
       setCategory,
       filters,
       handleFilters,
+      filtersOn,
     };
   }
   containerFunctions() {
@@ -50,7 +52,7 @@ class FiltersContainer extends PureComponent {
     };
   }
   render() {
-    const { isOpen, transitionExit, setIsOpen } = this.props;
+    const { isOpen, setIsOpen } = this.props;
 
     console.log({ ...this.containerProps() }, { ...this.containerFunctions() });
     const arrowDirection = isOpen ? (
@@ -64,21 +66,15 @@ class FiltersContainer extends PureComponent {
     );
 
     const content = isOpen ? (
-      <div
-        className={
-          transitionExit ? `FiltersContainer-Open` : "FiltersContainer-Closed"
-        }
-      >
-        <FiltersComponent
-          {...this.containerProps()}
-          {...this.containerFunctions}
-        />
-      </div>
+      <FiltersComponent
+        {...this.containerProps()}
+        {...this.containerFunctions}
+      />
     ) : null;
 
     return (
       <div className="SideBar">
-        <div className="SideBar_Container">{arrowDirection}</div>
+        <div className="SideBar_ArrowContainer ">{arrowDirection}</div>
         {content}
       </div>
     );
@@ -105,6 +101,7 @@ const mapStateToProps = ({
     products: productsReducer.products,
     isOpen: filtersReducer.isOpen,
     filters: filtersReducer.filters,
+    filtersOn: filtersReducer.filtersOn,
     transitionExit: filtersReducer.transitionExit,
   };
 };

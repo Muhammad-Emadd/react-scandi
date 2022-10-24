@@ -1,14 +1,16 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
+import { COLOR } from "../../util/constants";
 
 class FiltersComponent extends PureComponent {
   render() {
-    const { handleExit, transitionExit, filters, handleFilters } = this.props;
+    const { handleExit, transitionExit, filters, handleFilters, filtersOn } =
+      this.props;
     const filtersKeysAndValues = Object.entries(filters).map(
       ([key, value], index) => {
-        const colorType = key === "Color";
+        const colorType = key === COLOR;
         return (
-          <div key={key + index} className="FiltersWrapper">
+          <div key={key + index} className="Drawer-FiltersWrapper">
             <h2>{key}</h2>
             <div
               className={
@@ -23,7 +25,9 @@ class FiltersComponent extends PureComponent {
                       handleFilters({ filterId: key, value: object })
                     }
                     className={
-                      object.active
+                      filtersOn.some(
+                        (filterOn) => filterOn.value.value === object.value
+                      )
                         ? "FiltersWrapper-SelectedSwatch"
                         : "FiltersWrapper-Swatch"
                     }
@@ -38,7 +42,9 @@ class FiltersComponent extends PureComponent {
                       handleFilters({ filterId: key, value: object })
                     }
                     className={
-                      object.active
+                      filtersOn.some(
+                        (filterOn) => filterOn.value.value === object.value
+                      )
                         ? "FiltersWrapper-SelectedText"
                         : "FiltersWrapper-Text"
                     }
@@ -53,14 +59,7 @@ class FiltersComponent extends PureComponent {
       }
     );
 
-    return (
-      <div
-        onClick={handleExit}
-        className={`drawer ${transitionExit ? "exit" : ""}`}
-      >
-        {filtersKeysAndValues}
-      </div>
-    );
+    return <div className="Drawer">{filtersKeysAndValues}</div>;
   }
 }
 
