@@ -37,7 +37,7 @@ const filters = createSlice({
           value.forEach((val) => {
             if (!check[val.id]) {
               check[val.id] = true;
-              res.push({ ...val, active: false });
+              res.push({ ...val });
             }
           });
           return { [key]: res };
