@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { getProductListAPI } from "../../query/ProductList.query";
 import ProductItem from "../../component/ProductItem";
 import Filters from "../../component/Filters";
-import { ERROR, FILTERS_OFF } from "../../util/constants";
+import { ERROR } from "../../util/constants";
 import { getProducts, onErrorGettingProducts } from "../../store/products";
 import { withRouter } from "react-router-dom";
 import { setCategory } from "../../store/categories";
@@ -34,30 +34,34 @@ class ProductList extends PureComponent {
   };
 
   checkForFilteres = (product) => {
-    //   [ {  key: "", value:''  }, {  key: "", value:''  } ]
-    const { filters, condition } = this.props;
+    const { filters, filtersOn } = this.props;
     const { attributes } = product;
-    // const filters = [];
-    const filtersArray = Object.values(filters).forEach((value) => {
-      const newArray = value.filter(({ active }) => active === true);
-      if (newArray.length > 0) return newArray;
-    });
 
-    return condition === FILTERS_OFF
+    const filtersKeys = [];
+    const filtersValues = [];
+    for (const [key, value] of Object.entries(filters)) {
+      if (value.some(({ active }) => active === true)) {
+        filtersKeys.push(key);
+        value.forEach((val) => {
+          if (val.active === true) filtersValues.push(val.id);
+        });
+      }
+    }
+
+    return filtersOn.length === 0
       ? true
-      : // : attributes.some( ({items})=>{
-        //   items.some(item=>item)
-        // })
-        // ? // filters.every(({ key, valueAction }) => {
-        //     return product.attributes
-        //       .find((attribute) => attribute.id === key)
-        //       ?.items.some((value) => value.id === valueAction);
-        //   })
-        // true
-        false;
+      : filtersOn.every((filtersOn) =>
+          attributes.some(
+            ({ id, items }) =>
+              id === filtersOn.filterId &&
+              items.some(({ value }) => value === filtersOn.value.value)
+          )
+        )
+      ? true
+      : false;
   };
   filteredProducts = () => {
-    const { products, chosenCurrency } = this.props;
+    const { products } = this.props;
 
     const checkForFilteres = this.checkForFilteres.bind(this);
     const newProductArray = products.reduce(function (newArr, product, index) {
@@ -77,13 +81,9 @@ class ProductList extends PureComponent {
     const chosenCategoryUi =
       chosenCategory.charAt(0).toUpperCase() + chosenCategory.slice(1);
 
-    console.log(chosenCategory);
-
     const productsList = products.length
       ? this.filteredProducts(products)
       : null;
-    console.log(products.length);
-
     const filters = products.length ? <Filters /> : null;
     return (
       <div className="ProductList">
@@ -113,6 +113,7 @@ const mapStateToProps = ({
     products: productsReducer.products,
     chosenCurrency: currenyReducer.chosenCurrency,
     filters: filtersReducer.filters,
+    filtersOn: filtersReducer.filtersOn,
     condition: filtersReducer.condition,
   };
 };

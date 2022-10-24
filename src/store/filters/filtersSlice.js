@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { FILTERS_OFF, FILTERS_ON } from "../../util/constants";
 
 const initialState = {
   filters: [],
   isOpen: false,
   transitionExit: false,
-  condition: FILTERS_OFF,
+
+  filtersOn: [],
 };
 
 const filters = createSlice({
@@ -48,20 +48,15 @@ const filters = createSlice({
 
     setFilter: (state, action) => {
       const { filterId, value } = action.payload;
-      const { filters } = state;
-      const index = state.filters[filterId].findIndex(
-        ({ id }) => id === value.id
+      const index = state.filtersOn.findIndex(
+        (array) => array.filterId === filterId && array.value.id === value.id
       );
-      const newValue = filters[filterId].map((val, i) => {
-        return i === index ? { ...val, active: !val.active } : val;
-      });
 
-      state.filters = { ...state.filters, [filterId]: newValue };
-      state.condition = Object.values(filters).every((value) =>
-        value.every(({ active }) => active === false)
-      )
-        ? FILTERS_OFF
-        : FILTERS_ON;
+      if (index >= 0) {
+        state.filtersOn.splice(index, 1);
+      } else {
+        state.filtersOn = [...state.filtersOn, { filterId, value }];
+      }
     },
     setIsOpen: (state, action) => {
       state.isOpen = action.payload;
@@ -72,6 +67,11 @@ const filters = createSlice({
   },
 });
 
-export const { getFilters, setIsOpen, setTransition, setFilter } =
-  filters.actions;
+export const {
+  getFilters,
+  setIsOpen,
+  setTransition,
+  setFilter,
+  setFilterCondition,
+} = filters.actions;
 export default filters.reducer;

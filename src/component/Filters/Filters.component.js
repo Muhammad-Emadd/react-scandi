@@ -8,7 +8,7 @@ class FiltersComponent extends PureComponent {
       ([key, value], index) => {
         const colorType = key === "Color";
         return (
-          <div key={key} className="FiltersWrapper">
+          <div key={key + index} className="FiltersWrapper">
             <h2>{key}</h2>
             <div
               className={
@@ -23,7 +23,7 @@ class FiltersComponent extends PureComponent {
                       handleFilters({ filterId: key, value: object })
                     }
                     className={
-                      object.view
+                      object.active
                         ? "FiltersWrapper-SelectedSwatch"
                         : "FiltersWrapper-Swatch"
                     }
@@ -38,7 +38,7 @@ class FiltersComponent extends PureComponent {
                       handleFilters({ filterId: key, value: object })
                     }
                     className={
-                      object.view
+                      object.active
                         ? "FiltersWrapper-SelectedText"
                         : "FiltersWrapper-Text"
                     }
@@ -52,7 +52,6 @@ class FiltersComponent extends PureComponent {
         );
       }
     );
-    console.log(filtersKeysAndValues);
 
     return (
       <div
