@@ -4,20 +4,24 @@ import { connect } from "react-redux";
 import { getProductListAPI } from "../../query/ProductList.query";
 import ProductItem from "../../component/ProductItem";
 import Filters from "../../component/Filters";
-import { ERROR } from "../../util/constants";
+import { ERROR, LOADING, IDLE } from "../../util/constants";
 import { getProducts, onErrorGettingProducts } from "../../store/products";
 import { withRouter } from "react-router-dom";
 import { setCategory } from "../../store/categories";
 import "./ProductList.style.scss";
 
 class ProductList extends PureComponent {
+  state = { condition: LOADING };
   componentDidMount() {
     const { onInitProducts, onFetchProductsFail } = this.props;
 
     const category = this.getUrl();
 
     getProductListAPI(category)
-      .then((results) => onInitProducts(results.category.products))
+      .then((results) => {
+        onInitProducts(results.category.products);
+        this.setState({ condition: IDLE });
+      })
       .catch((error) => onFetchProductsFail(ERROR));
   }
   getUrl = () => {
@@ -64,7 +68,9 @@ class ProductList extends PureComponent {
 
     return newProductArray;
   };
-
+  componentWillUnmount() {
+    this.setState({ condition: LOADING });
+  }
   render() {
     const { chosenCategory, products } = this.props;
     const chosenCategoryUi =
@@ -73,7 +79,7 @@ class ProductList extends PureComponent {
     const productsList = products.length
       ? this.filteredProducts(products)
       : null;
-    const filters = products.length ? <Filters /> : null;
+    const filters = this.state.condition === IDLE ? <Filters /> : null;
     return (
       <div className="ProductList">
         {filters}
@@ -103,7 +109,6 @@ const mapStateToProps = ({
     chosenCurrency: currenyReducer.chosenCurrency,
     filters: filtersReducer.filters,
     filtersOn: filtersReducer.filtersOn,
-    condition: filtersReducer.condition,
   };
 };
 ProductList.propTypes = {
