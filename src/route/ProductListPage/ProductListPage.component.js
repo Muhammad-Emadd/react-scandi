@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { getProductListAPI } from "../../query/ProductList.query";
 import ProductItem from "../../component/ProductItem";
 import Filters from "../../component/Filters";
-import { ERROR } from "../../util/constants";
+import { ERROR, FILTERS_OFF } from "../../util/constants";
 import { getProducts, onErrorGettingProducts } from "../../store/products";
 import { withRouter } from "react-router-dom";
 import { setCategory } from "../../store/categories";
@@ -35,15 +35,26 @@ class ProductList extends PureComponent {
 
   checkForFilteres = (product) => {
     //   [ {  key: "", value:''  }, {  key: "", value:''  } ]
-    // const filters = this.props;
-    const filters = [];
-    return filters.every(({ key, valueAction }) => {
-      product.attributes
-        .find((attribute) => attribute.id === key)
-        ?.items.some((value) => value.id === valueAction);
-    })
+    const { filters, condition } = this.props;
+    const { attributes } = product;
+    // const filters = [];
+    const filtersArray = Object.values(filters).forEach((value) => {
+      const newArray = value.filter(({ active }) => active === true);
+      if (newArray.length > 0) return newArray;
+    });
+
+    return condition === FILTERS_OFF
       ? true
-      : false;
+      : // : attributes.some( ({items})=>{
+        //   items.some(item=>item)
+        // })
+        // ? // filters.every(({ key, valueAction }) => {
+        //     return product.attributes
+        //       .find((attribute) => attribute.id === key)
+        //       ?.items.some((value) => value.id === valueAction);
+        //   })
+        // true
+        false;
   };
   filteredProducts = () => {
     const { products, chosenCurrency } = this.props;
@@ -95,11 +106,14 @@ const mapStateToProps = ({
   categoryReducer,
   productsReducer,
   currenyReducer,
+  filtersReducer,
 }) => {
   return {
     chosenCategory: categoryReducer.chosenCategory,
     products: productsReducer.products,
     chosenCurrency: currenyReducer.chosenCurrency,
+    filters: filtersReducer.filters,
+    condition: filtersReducer.condition,
   };
 };
 ProductList.propTypes = {

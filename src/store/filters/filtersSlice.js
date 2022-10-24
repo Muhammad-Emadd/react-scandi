@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { FILTERS_OFF, FILTERS_ON } from "../../util/constants";
 
 const initialState = {
   filters: [],
   isOpen: false,
   transitionExit: false,
+  condition: FILTERS_OFF,
 };
 
 const filters = createSlice({
@@ -35,7 +37,7 @@ const filters = createSlice({
           value.forEach((val) => {
             if (!check[val.id]) {
               check[val.id] = true;
-              res.push({ ...val, view: false });
+              res.push({ ...val, active: false });
             }
           });
           return { [key]: res };
@@ -51,10 +53,15 @@ const filters = createSlice({
         ({ id }) => id === value.id
       );
       const newValue = filters[filterId].map((val, i) => {
-        return i === index ? { ...val, view: !val.view } : val;
+        return i === index ? { ...val, active: !val.active } : val;
       });
 
       state.filters = { ...state.filters, [filterId]: newValue };
+      state.condition = Object.values(filters).every((value) =>
+        value.every(({ active }) => active === false)
+      )
+        ? FILTERS_OFF
+        : FILTERS_ON;
     },
     setIsOpen: (state, action) => {
       state.isOpen = action.payload;
