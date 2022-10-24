@@ -34,19 +34,8 @@ class ProductList extends PureComponent {
   };
 
   checkForFilteres = (product) => {
-    const { filters, filtersOn } = this.props;
+    const { filtersOn } = this.props;
     const { attributes } = product;
-
-    const filtersKeys = [];
-    const filtersValues = [];
-    for (const [key, value] of Object.entries(filters)) {
-      if (value.some(({ active }) => active === true)) {
-        filtersKeys.push(key);
-        value.forEach((val) => {
-          if (val.active === true) filtersValues.push(val.id);
-        });
-      }
-    }
 
     return filtersOn.length === 0
       ? true
