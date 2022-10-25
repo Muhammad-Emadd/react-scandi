@@ -1,11 +1,14 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { COLOR } from "../../util/constants";
+import "./Filters.style.scss";
 
 class FiltersComponent extends PureComponent {
   render() {
-    const { handleExit, transitionExit, filters, handleFilters, filtersOn } =
+    const { transitionExit, filters, handleFilters, filtersOn, setFilterss } =
       this.props;
+    console.log(this.props);
+
     const filtersKeysAndValues = Object.entries(filters).map(
       ([key, value], index) => {
         const colorType = key === COLOR;
@@ -21,9 +24,7 @@ class FiltersComponent extends PureComponent {
                 return colorType ? (
                   <div
                     key={object.id + i}
-                    onClick={() =>
-                      handleFilters({ filterId: key, value: object })
-                    }
+                    onClick={() => handleFilters({ key, object })}
                     className={
                       filtersOn.some(
                         (filterOn) => filterOn.value.value === object.value
@@ -39,7 +40,8 @@ class FiltersComponent extends PureComponent {
                   <div
                     key={object.id + i}
                     onClick={() =>
-                      handleFilters({ filterId: key, value: object })
+                      // handleFilters({ filterId: key, value: object })
+                      setFilterss({ filterId: key, valueId: object.id })
                     }
                     className={
                       filtersOn.some(
@@ -59,7 +61,11 @@ class FiltersComponent extends PureComponent {
       }
     );
 
-    return <div className="Drawer">{filtersKeysAndValues}</div>;
+    return (
+      <div className={`Drawer ${transitionExit ? "exit" : ""}`}>
+        {filtersKeysAndValues}
+      </div>
+    );
   }
 }
 

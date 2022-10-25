@@ -10,19 +10,65 @@ import { setCategory } from "../../store/categories/categoriesSlice";
 import FiltersComponent from "./Filters.component";
 import { connect } from "react-redux";
 import "./Filters.style.scss";
+import { withRouter } from "react-router-dom";
 
 class FiltersContainer extends PureComponent {
+  state = { filtersOn: [] };
   componentDidMount() {
     const { products, onGettingFilters } = this.props;
     onGettingFilters(products);
   }
+
+  updateQueryParams = () => {
+    const queryParams = [];
+
+    for (let i in this.state.filtersOn) {
+      console.log(this.state.filtersOn[i]);
+
+      queryParams.push(
+        encodeURIComponent(Object.keys(this.state.filtersOn[i])[0]) +
+          "=" +
+          encodeURIComponent(Object.values(this.state.filtersOn[i])[0])
+      );
+    }
+
+    const queryString = queryParams.join("&");
+    this.props.history.push({ search: "?" + queryString });
+  };
+  componentDidUpdate(prevProps, { filtersOn }) {
+    const { history } = this.props;
+    if (filtersOn.length !== this.state.filtersOn.length) {
+      this.updateQueryParams();
+    }
+  }
+  setFilterss = ({ filterId, valueId }) => {
+    console.log(filterId, valueId, this.state);
+
+    const index = this.state.filtersOn.findIndex(
+      (filter) =>
+        Object.keys(filter)[0] === filterId &&
+        filter[Object.keys(filter)[0]] === valueId
+    );
+    console.log(index >= 0);
+
+    if (index >= 0) {
+      this.setState((prevState, props) => ({
+        filtersOn: prevState.filtersOn.splice(index, 1),
+      }));
+    } else {
+      this.setState((prevState, props) => ({
+        filtersOn: [...prevState.filtersOn, { [filterId]: valueId }],
+      }));
+    }
+  };
+
   handleExit = () => {
     const { setTransition, setIsOpen } = this.props;
     setTransition(true);
     setTimeout(() => {
       setIsOpen(false);
       setTransition(false);
-    }, 500);
+    }, 200);
   };
 
   containerProps() {
@@ -49,26 +95,39 @@ class FiltersContainer extends PureComponent {
   containerFunctions() {
     return {
       handleExit: this.handleExit.bind(this),
+      setFilterss: this.setFilterss.bind(this),
     };
   }
   render() {
     const { isOpen, setIsOpen } = this.props;
 
     console.log({ ...this.containerProps() }, { ...this.containerFunctions() });
-    const arrowDirection = isOpen ? (
-      <button className="SideBar-Button " onClick={() => setIsOpen(!isOpen)}>
-        &raquo;
-      </button>
-    ) : (
-      <button className="SideBar-Button " onClick={() => setIsOpen(!isOpen)}>
-        &laquo;
-      </button>
+    const arrowDirection = (
+      <>
+        <button
+          className={
+            !isOpen ? "SideBar-OpenButton" : "SideBar-OpenButton--Disabled"
+          }
+          onClick={() => setIsOpen(true)}
+        >
+          &raquo;
+        </button>
+
+        <button
+          className={
+            isOpen ? "SideBar-CloseButton" : "SideBar-CloseButton--Disabled"
+          }
+          onClick={() => this.handleExit()}
+        >
+          &laquo;
+        </button>
+      </>
     );
 
     const content = isOpen ? (
       <FiltersComponent
         {...this.containerProps()}
-        {...this.containerFunctions}
+        {...this.containerFunctions()}
       />
     ) : null;
 
@@ -107,4 +166,7 @@ const mapStateToProps = ({
 };
 
 FiltersContainer.propTypes = {};
-export default connect(mapStateToProps, mapDispatchToProps)(FiltersContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(FiltersContainer));

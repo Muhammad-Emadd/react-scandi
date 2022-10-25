@@ -30,6 +30,7 @@ class ProductList extends PureComponent {
       match: { path },
       chosenCategory,
     } = this.props;
+    console.log(this.props);
 
     if (path.substring(1).length > 0) {
       handleCategory(path.substring(1));
