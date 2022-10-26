@@ -88,15 +88,3 @@ class FiltersComponent extends PureComponent {
 FiltersComponent.propTypes = {};
 
 export default FiltersComponent;
-
-const Drawer = ({ transitionExit, handleExit }) => (
-  <div
-    onClick={handleExit}
-    className={`drawer ${transitionExit ? "exit" : ""}`}
-  >
-    <p>Home</p>
-    <p>About</p>
-    <p>Contact</p>
-    <button>Close Drawer</button>
-  </div>
-);
