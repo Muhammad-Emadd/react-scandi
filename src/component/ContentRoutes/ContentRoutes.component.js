@@ -6,23 +6,26 @@ import ProductListPage from "../../route/ProductListPage";
 import CartPage from "../../route/CartPage";
 import ProductPage from "../../route/ProductPage";
 import "./ContentRoutes.style.scss";
+import Filters from "../Filters";
+import { IDLE } from "../../util/constants";
 
 class ContentRoutes extends PureComponent {
   render() {
-    const { overlay, categoryRoutes } = this.props;
+    const { overlay, categoryRoutes, productsStatus } = this.props;
     const navBarRoutes = categoryRoutes.map((category, index) => {
       return (
-        <Route key={index + category} path={`/${category}`}>
+        <Route key={index + category} path={`/${category}:id`}>
           <ProductListPage />
         </Route>
       );
     });
-
+    const filters = productsStatus === IDLE ? <Filters /> : null;
     return (
       <div className="AppBody">
         <div
           className={overlay ? "AppBody-Overlay" : "AppBody-Overlay--Hidden"}
         />
+        {filters}
         <Switch>
           <Route exact path="/">
             <ProductListPage />
@@ -45,8 +48,13 @@ ContentRoutes.propTypes = {
   categoryRoutes: PropTypes.array.isRequired,
 };
 
-const mapStateToProps = ({ categoryReducer, overlayReducer }) => {
+const mapStateToProps = ({
+  categoryReducer,
+  overlayReducer,
+  productsReducer,
+}) => {
   return {
+    productsStatus: productsReducer.productsStatus,
     categoryRoutes: categoryReducer.categories,
     overlay: overlayReducer.overlay,
   };

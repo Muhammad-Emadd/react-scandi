@@ -2,6 +2,7 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { COLOR } from "../../util/constants";
 import "./Filters.style.scss";
+import { Link } from "react-router-dom";
 
 class FiltersComponent extends PureComponent {
   render() {
@@ -11,8 +12,10 @@ class FiltersComponent extends PureComponent {
       handleFilters,
       filtersOn,
       setFilterss,
-      updateQueryParams,
+
+      chosenCategory,
     } = this.props;
+    console.log(this.props);
 
     const filtersKeysAndValues = Object.entries(filters).map(
       ([key, value], index) => {
@@ -69,10 +72,14 @@ class FiltersComponent extends PureComponent {
     return (
       <div className={`Drawer ${transitionExit ? "exit" : ""}`}>
         {filtersKeysAndValues}
-        <button type="submit" onClick={() => updateQueryParams()}>
-          {" "}
+        <Link
+          to={{
+            pathname: `/${chosenCategory}`,
+            // search: updateQueryParams(),
+          }}
+        >
           add
-        </button>
+        </Link>
       </div>
     );
   }

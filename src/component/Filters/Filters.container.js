@@ -16,25 +16,27 @@ class FiltersContainer extends PureComponent {
   state = { filtersOn: [] };
   componentDidMount() {
     const { products, onGettingFilters } = this.props;
+    console.log(products.length);
+
     onGettingFilters(products);
   }
 
-  updateQueryParams = () => {
-    if (this.state.filtersOn.length === 0) {
-      this.props.history.push({ search: "" });
-    } else {
-      const url = new URL(window.location);
-      url.search = "";
-      for (let i in this.state.filtersOn) {
-        url.searchParams.append(
-          Object.keys(this.state.filtersOn[i])[0],
-          Object.values(this.state.filtersOn[i])[0]
-        );
-      }
+  // updateQueryParams = () => {
+  //   if (this.state.filtersOn.length === 0) {
+  //     this.props.history.push({ search: "" });
+  //   } else {
+  //     const url = new URL(window.location);
+  //     url.search = "";
+  //     for (let i in this.state.filtersOn) {
+  //       url.searchParams.append(
+  //         Object.keys(this.state.filtersOn[i])[0],
+  //         Object.values(this.state.filtersOn[i])[0]
+  //       );
+  //     }
 
-      window.history.pushState({}, "", url);
-    }
-  };
+  //     return url.search
+  //   }
+  // };
   setFilterss = ({ filterId, valueId }) => {
     const index = this.state.filtersOn.findIndex(
       (filter) =>
@@ -89,7 +91,7 @@ class FiltersContainer extends PureComponent {
     return {
       handleExit: this.handleExit.bind(this),
       setFilterss: this.setFilterss.bind(this),
-      updateQueryParams: this.updateQueryParams.bind(this),
+      // updateQueryParams: this.updateQueryParams.bind(this),
     };
   }
   render() {

@@ -30,6 +30,7 @@ class ProductList extends PureComponent {
       match: { path },
       chosenCategory,
     } = this.props;
+    console.log(this.props);
 
     if (path.substring(1).length > 0) {
       handleCategory(path.substring(1));
@@ -40,18 +41,32 @@ class ProductList extends PureComponent {
   checkForFilteres = (product) => {
     const { filtersOn } = this.props;
     const { attributes } = product;
-
-    return filtersOn.length === 0
-      ? true
-      : filtersOn.every((filtersOn) =>
-          attributes.some(
-            ({ id, items }) =>
-              id === filtersOn.filterId &&
-              items.some(({ value }) => value === filtersOn.value.value)
-          )
+    const url = new URL(window.location);
+    const params = new URLSearchParams(url.search);
+    if (url.search === 0) {
+      for (const [searchKey, searchValue] of params.entries()) {
+        return attributes.some(
+          ({ id, items }) =>
+            id === searchKey && items.some(({ value }) => value === searchValue)
         )
-      ? true
-      : false;
+          ? true
+          : false;
+      }
+    } else {
+      return true;
+    }
+    // params.entries.
+    // return params.length === 0
+    //   ? true
+    //   : filtersOn.every((filtersOn) =>
+    //       attributes.some(
+    //         ({ id, items }) =>
+    //           id === filtersOn.filterId &&
+    //           items.some(({ value }) => value === filtersOn.value.value)
+    //       )
+    //     )
+    //   ? true
+    //   : false;
   };
   filteredProducts = () => {
     const { products } = this.props;
@@ -79,10 +94,10 @@ class ProductList extends PureComponent {
     const productsList = products.length
       ? this.filteredProducts(products)
       : null;
-    const filters = this.state.condition === IDLE ? <Filters /> : null;
+    // const filters = this.state.condition === IDLE ? <Filters /> : null;
     return (
       <div className="ProductList">
-        {filters}
+        {/* {filters} */}
         <h1 className="ProductList-Category">{chosenCategoryUi}</h1>
         <div className="ProductList-Body">{productsList}</div>
       </div>
