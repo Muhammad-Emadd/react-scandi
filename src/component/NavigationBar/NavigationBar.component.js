@@ -27,4 +27,4 @@ const mapStateToProps = ({ categoryReducer }) => {
     categories: categoryReducer.categories,
   };
 };
-export default connect(mapStateToProps)(withRouter(NavigationBar));
+export default connect(mapStateToProps)(NavigationBar);

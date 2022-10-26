@@ -5,9 +5,14 @@ import "./Filters.style.scss";
 
 class FiltersComponent extends PureComponent {
   render() {
-    const { transitionExit, filters, handleFilters, filtersOn, setFilterss } =
-      this.props;
-    console.log(this.props);
+    const {
+      transitionExit,
+      filters,
+      handleFilters,
+      filtersOn,
+      setFilterss,
+      updateQueryParams,
+    } = this.props;
 
     const filtersKeysAndValues = Object.entries(filters).map(
       ([key, value], index) => {
@@ -64,6 +69,10 @@ class FiltersComponent extends PureComponent {
     return (
       <div className={`Drawer ${transitionExit ? "exit" : ""}`}>
         {filtersKeysAndValues}
+        <button type="submit" onClick={() => updateQueryParams()}>
+          {" "}
+          add
+        </button>
       </div>
     );
   }

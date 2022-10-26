@@ -119,7 +119,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(
-  mapStoreStateToProps,
-  mapDispatchToProps
-)(withRouter(CartMenu));
+export default connect(mapStoreStateToProps, mapDispatchToProps)(CartMenu);

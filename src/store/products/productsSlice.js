@@ -14,7 +14,6 @@ const products = createSlice({
     getProducts: (state, action) => {
       state.products = action.payload;
       state.productsStatus = IDLE;
-      console.log(state.products);
     },
     onErrorGettingProducts: (state, action) => {
       state.productsStatus = action.payload;

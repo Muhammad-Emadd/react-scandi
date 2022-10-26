@@ -38,7 +38,6 @@ class Product extends PureComponent {
       product: { id, name, brand, gallery, prices },
       onAddProductToCart,
     } = this.props;
-    console.log({ id, name, brand, gallery, prices, attributes });
 
     onAddProductToCart({ id, name, brand, gallery, prices, attributes });
   };

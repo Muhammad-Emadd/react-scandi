@@ -20,41 +20,34 @@ class FiltersContainer extends PureComponent {
   }
 
   updateQueryParams = () => {
-    const queryParams = [];
+    if (this.state.filtersOn.length === 0) {
+      this.props.history.push({ search: "" });
+    } else {
+      const url = new URL(window.location);
+      url.search = "";
+      for (let i in this.state.filtersOn) {
+        url.searchParams.append(
+          Object.keys(this.state.filtersOn[i])[0],
+          Object.values(this.state.filtersOn[i])[0]
+        );
+      }
 
-    for (let i in this.state.filtersOn) {
-      console.log(this.state.filtersOn[i]);
-
-      queryParams.push(
-        encodeURIComponent(Object.keys(this.state.filtersOn[i])[0]) +
-          "=" +
-          encodeURIComponent(Object.values(this.state.filtersOn[i])[0])
-      );
+      window.history.pushState({}, "", url);
     }
-
-    const queryString = queryParams.join("&");
-    this.props.history.push({ search: "?" + queryString });
   };
-  componentDidUpdate(prevProps, { filtersOn }) {
-    const { history } = this.props;
-    if (filtersOn.length !== this.state.filtersOn.length) {
-      this.updateQueryParams();
-    }
-  }
   setFilterss = ({ filterId, valueId }) => {
-    console.log(filterId, valueId, this.state);
-
     const index = this.state.filtersOn.findIndex(
       (filter) =>
         Object.keys(filter)[0] === filterId &&
-        filter[Object.keys(filter)[0]] === valueId
+        Object.values(filter)[0] === valueId
     );
-    console.log(index >= 0);
 
     if (index >= 0) {
-      this.setState((prevState, props) => ({
-        filtersOn: prevState.filtersOn.splice(index, 1),
-      }));
+      this.setState((prevState, props) => {
+        return {
+          filtersOn: prevState.filtersOn.filter((_, i) => i !== index),
+        };
+      });
     } else {
       this.setState((prevState, props) => ({
         filtersOn: [...prevState.filtersOn, { [filterId]: valueId }],
@@ -96,12 +89,12 @@ class FiltersContainer extends PureComponent {
     return {
       handleExit: this.handleExit.bind(this),
       setFilterss: this.setFilterss.bind(this),
+      updateQueryParams: this.updateQueryParams.bind(this),
     };
   }
   render() {
     const { isOpen, setIsOpen } = this.props;
 
-    console.log({ ...this.containerProps() }, { ...this.containerFunctions() });
     const arrowDirection = (
       <>
         <button
