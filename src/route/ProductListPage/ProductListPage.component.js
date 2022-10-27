@@ -29,7 +29,6 @@ class ProductList extends PureComponent {
       match: { path },
       chosenCategory,
     } = this.props;
-    console.log(this.props);
 
     if (path.substring(1).length > 0) {
       handleCategory(path.substring(1));
@@ -37,20 +36,30 @@ class ProductList extends PureComponent {
     } else return chosenCategory;
   };
 
-  checkForFilteres = (product) => {
-    const { filtersOn } = this.props;
-    const { attributes } = product;
-    const url = new URL(window.location);
-    const params = new URLSearchParams(url.search);
-    if (url.search === 0) {
-      for (const [searchKey, searchValue] of params.entries()) {
-        return attributes.some(
-          ({ id, items }) =>
-            id === searchKey && items.some(({ value }) => value === searchValue)
-        )
-          ? true
-          : false;
+  checkForFilteres = ({ attributes }) => {
+    const {
+      history: {
+        location: { search },
+      },
+    } = this.props;
+    const conditions = [];
+
+    const params = new URLSearchParams(search);
+
+    const entries = params.entries();
+
+    if (search !== 0) {
+      // for (const [searchKey, searchValue] of params.entries()) {
+      for (const [searchKey, searchValue] of entries) {
+        attributes.some(({ id, items }) => {
+          return id === searchKey && items.some(({ id }) => id === searchValue);
+        })
+          ? conditions.push(true)
+          : conditions.push(false);
       }
+      console.log(conditions);
+
+      return conditions.includes(false) ? false : true;
     } else {
       return true;
     }
@@ -85,6 +94,7 @@ class ProductList extends PureComponent {
   componentWillUnmount() {
     this.setState({ condition: LOADING });
   }
+
   render() {
     const { chosenCategory, products } = this.props;
     const chosenCategoryUi =

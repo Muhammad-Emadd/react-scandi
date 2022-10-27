@@ -1,7 +1,7 @@
 @import "../../style/abstract/abstract";
 .ProductCard {
   position: relative;
-
+  max-width: 32rem;
   &-Img {
     padding: 1.6rem;
 
