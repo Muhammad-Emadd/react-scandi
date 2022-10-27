@@ -1,1 +1,1 @@
-candiPWA React Junior assignment
+ScandiPWA React Junior assignment
