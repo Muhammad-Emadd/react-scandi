@@ -14,7 +14,6 @@ class ProductList extends PureComponent {
   state = { condition: LOADING };
   componentDidMount() {
     const { onInitProducts, onFetchProductsFail } = this.props;
-
     const category = this.getUrl();
 
     getProductListAPI(category)
@@ -87,6 +86,8 @@ class ProductList extends PureComponent {
     this.setState({ condition: LOADING });
   }
   render() {
+    console.log("sadddddd");
+
     const { chosenCategory, products } = this.props;
     const chosenCategoryUi =
       chosenCategory.charAt(0).toUpperCase() + chosenCategory.slice(1);

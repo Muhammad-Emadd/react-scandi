@@ -18,7 +18,7 @@ class CategoryList extends PureComponent {
         <li className="CategoryList-Item" key={category + index}>
           <NavLink
             onClick={() => handleCategory(category)}
-            to={"/" + category}
+            to={`/${category}`}
             className={
               chosenCategory === category ? "CategoryList-Item--chosen" : ""
             }

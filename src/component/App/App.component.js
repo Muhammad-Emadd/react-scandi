@@ -38,6 +38,7 @@ class App extends PureComponent {
 
   render() {
     const { currenciesStatus, categoriesStatus, chosenCategory } = this.props;
+    console.log(this.props);
 
     const content =
       currenciesStatus === IDLE && categoriesStatus === IDLE ? (
