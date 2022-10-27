@@ -1,1 +1,1 @@
-# react-scandiPWA React Junior assignment
+candiPWA React Junior assignment
