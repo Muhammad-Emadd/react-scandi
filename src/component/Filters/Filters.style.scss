@@ -101,6 +101,19 @@
   justify-content: flex-start;
 
   & a {
+    align-self: center;
+    margin-top: 2rem;
+    padding: 1.2rem 3rem;
+    color: white;
+    background: #5ece7b;
+    font-size: 1.6rem;
+    color: white;
+    font-weight: 600;
+    line-height: 1.6rem;
+    border: solid 1px #5ece7b;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
   }
 }
 .FiltersWrapper {
