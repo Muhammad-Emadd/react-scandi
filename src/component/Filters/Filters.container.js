@@ -1,8 +1,6 @@
 import React, { PureComponent } from "react";
-import PropTypes from "prop-types";
 import {
   getFilters,
-  setFilter,
   setIsOpen,
   setTransition,
 } from "../../store/filters/filtersSlice";
@@ -74,7 +72,6 @@ class FiltersContainer extends PureComponent {
       categories,
       setCategory,
       filters,
-
       filtersOn,
     };
   }

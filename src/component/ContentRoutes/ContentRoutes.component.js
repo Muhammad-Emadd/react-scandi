@@ -6,12 +6,10 @@ import ProductListPage from "../../route/ProductListPage";
 import CartPage from "../../route/CartPage";
 import ProductPage from "../../route/ProductPage";
 import "./ContentRoutes.style.scss";
-import Filters from "../Filters";
-import { IDLE } from "../../util/constants";
 
 class ContentRoutes extends PureComponent {
   render() {
-    const { overlay, categoryRoutes, productsStatus } = this.props;
+    const { overlay, categoryRoutes } = this.props;
     const navBarRoutesSearch = categoryRoutes.map((category, index) => {
       return (
         <Route key={index + category} path={`/${category}:id`}>
@@ -44,7 +42,6 @@ class ContentRoutes extends PureComponent {
           <Route path="/products/:product_id">
             <ProductPage />
           </Route>
-          <Route path="*" component={NotFound} />
         </Switch>
       </div>
     );
@@ -52,43 +49,15 @@ class ContentRoutes extends PureComponent {
 }
 
 ContentRoutes.propTypes = {
-  overlay: PropTypes.bool,
+  overlay: PropTypes.bool.isRequired,
   categoryRoutes: PropTypes.array.isRequired,
 };
 
-const mapStateToProps = ({
-  categoryReducer,
-  overlayReducer,
-  productsReducer,
-}) => {
+const mapStateToProps = ({ categoryReducer, overlayReducer }) => {
   return {
-    productsStatus: productsReducer.productsStatus,
     categoryRoutes: categoryReducer.categories,
     overlay: overlayReducer.overlay,
   };
 };
 
 export default connect(mapStateToProps)(withRouter(ContentRoutes));
-
-function NotFound() {
-  return (
-    <div>
-      <h1>
-        You have landed on a page that doesn't exist You have landed on a page
-        that doesn't exist
-      </h1>
-      <h1>
-        You have landed on a page that doesn't exist You have landed on a page
-        that doesn't exist
-      </h1>
-      <h1>
-        You have landed on a page that doesn't exist You have landed on a page
-        that doesn't exist
-      </h1>
-      <h1>
-        You have landed on a page that doesn't exist You have landed on a page
-        that doesn't exist
-      </h1>
-    </div>
-  );
-}

@@ -8,13 +8,11 @@ class Cart extends PureComponent {
   findChosenCurrency = (currencies) => {
     const { chosenCurrency } = this.props;
     currencies.filter((currency) => currency === chosenCurrency.label);
-
     return currencies.filter((currency) => currency === chosenCurrency.label);
   };
 
   render() {
     const { items, itemsCount, totalPrice, chosenCurrency } = this.props;
-
     const currencies = Object.keys(totalPrice);
     const totalUi = currencies.length
       ? this.findChosenCurrency(currencies)[0]
@@ -67,7 +65,11 @@ class Cart extends PureComponent {
   }
 }
 
-Cart.propTypes = {};
+Cart.propTypes = {
+  itemsCount: PropTypes.number.isRequired,
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  totalPrice: PropTypes.object.isRequired,
+};
 
 const mapStoreStateToProps = ({ cartReducer, currenyReducer }) => {
   return {

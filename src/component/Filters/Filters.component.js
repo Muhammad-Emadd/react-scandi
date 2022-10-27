@@ -1,5 +1,4 @@
 import React, { PureComponent } from "react";
-import PropTypes from "prop-types";
 import { COLOR } from "../../util/constants";
 import "./Filters.style.scss";
 import { Link } from "react-router-dom";

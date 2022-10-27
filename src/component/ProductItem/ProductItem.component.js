@@ -70,9 +70,7 @@ class ProductItem extends PureComponent {
       <div className="ProductCard--unavailable">
         <h1>OUT OF STOCK</h1>
       </div>
-    ) : (
-      ""
-    );
+    ) : null;
 
     return (
       <div
@@ -117,6 +115,9 @@ const mapStateToProps = ({ currenyReducer }) => {
     chosenCurrency: currenyReducer.chosenCurrency,
   };
 };
-ProductItem.propTypes = {};
+ProductItem.propTypes = {
+  chosenCurrency: PropTypes.object.isRequired,
+  product: PropTypes.object.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductItem);

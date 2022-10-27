@@ -1,6 +1,5 @@
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router";
 import { setBodyOverlay } from "../../store/overlay";
 import "./CartMenu.style.scss";
 import { toggleCartMenu } from "../../store/cart";
@@ -12,7 +11,6 @@ class CartMenu extends PureComponent {
   findChosenCurrency = (currencies) => {
     const { chosenCurrency } = this.props;
     currencies.filter((currency) => currency === chosenCurrency.label);
-
     return currencies.filter((currency) => currency === chosenCurrency.label);
   };
 
@@ -23,14 +21,8 @@ class CartMenu extends PureComponent {
   };
 
   render() {
-    const {
-      history,
-      items,
-      itemsCount,
-      showCartMenu,
-      totalPrice,
-      chosenCurrency,
-    } = this.props;
+    const { items, itemsCount, showCartMenu, totalPrice, chosenCurrency } =
+      this.props;
     const cartItems = items.map((item, index) => {
       return <CartItem type="dropDown" key={index} item={item} />;
     });
@@ -86,12 +78,7 @@ class CartMenu extends PureComponent {
           </div>
           <div className="CartButtons">
             <Link to={`/cart`}>
-              <button
-                className="CartButtons-ViewBag"
-                onClick={() => history.push("/cart")}
-              >
-                view bag
-              </button>
+              <button className="CartButtons-ViewBag">view bag</button>
             </Link>
             <button className="CartButtons-Checkout" disabled>
               checkout

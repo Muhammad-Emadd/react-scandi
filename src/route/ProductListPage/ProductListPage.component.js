@@ -12,6 +12,7 @@ import "./ProductList.style.scss";
 
 class ProductList extends PureComponent {
   state = { condition: LOADING };
+
   componentDidMount() {
     const { onInitProducts, onFetchProductsFail } = this.props;
     const category = this.getUrl();
@@ -21,8 +22,9 @@ class ProductList extends PureComponent {
         onInitProducts(results.category.products);
         this.setState({ condition: IDLE });
       })
-      .catch((error) => onFetchProductsFail(ERROR));
+      .catch(() => onFetchProductsFail(ERROR));
   }
+
   getUrl = () => {
     const {
       handleCategory,
@@ -43,9 +45,7 @@ class ProductList extends PureComponent {
       },
     } = this.props;
     const conditions = [];
-
     const params = new URLSearchParams(search);
-
     const entries = params.entries();
 
     if (search !== 0) {
@@ -56,15 +56,14 @@ class ProductList extends PureComponent {
           ? conditions.push(true)
           : conditions.push(false);
       }
-
       return conditions.includes(false) ? false : true;
     } else {
       return true;
     }
   };
+
   filteredProducts = () => {
     const { products } = this.props;
-
     const checkForFilteres = this.checkForFilteres.bind(this);
     const newProductArray = products.reduce(function (newArr, product, index) {
       checkForFilteres(product) &&
@@ -77,6 +76,7 @@ class ProductList extends PureComponent {
 
     return newProductArray;
   };
+
   componentWillUnmount() {
     this.setState({ condition: LOADING });
   }
@@ -107,22 +107,14 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const mapStateToProps = ({
-  categoryReducer,
-  productsReducer,
-  currenyReducer,
-  filtersReducer,
-}) => {
+const mapStateToProps = ({ categoryReducer, productsReducer }) => {
   return {
     chosenCategory: categoryReducer.chosenCategory,
     products: productsReducer.products,
-    chosenCurrency: currenyReducer.chosenCurrency,
-    filters: filtersReducer.filters,
-    filtersOn: filtersReducer.filtersOn,
   };
 };
 ProductList.propTypes = {
-  products: PropTypes.array.isRequired,
+  products: PropTypes.arrayOf(PropTypes.object).isRequired,
   chosenCategory: PropTypes.string.isRequired,
 };
 

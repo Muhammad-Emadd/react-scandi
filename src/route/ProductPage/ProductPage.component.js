@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
+
 import { addProductToCart } from "../../store/cart/cartSlice";
 import { getChosenProduct } from "../../query/Product.query";
 import { getProduct, onErrorGettingProduct } from "../../store/item/itemSlice";
@@ -55,12 +55,12 @@ class Product extends PureComponent {
         this.setState({ product: product_id });
         onGettingProduct(result.product);
       })
-      .catch((error) => onErrorGettingProduct(ERROR));
+      .catch(() => onErrorGettingProduct(ERROR));
   }
 
   render() {
-    this.scrollToTop();
     const { product } = this.props;
+    this.scrollToTop();
     if (!this.state.product) {
       return <h1>Loading ...</h1>;
     } else {
@@ -70,6 +70,7 @@ class Product extends PureComponent {
         amount,
         currency: { symbol },
       } = this.findChosenCurrency(prices);
+
       const attributesUi = attributes.map((attribute, i) => {
         return (
           <ItemAttributes
@@ -80,6 +81,7 @@ class Product extends PureComponent {
           />
         );
       });
+
       return (
         <div className="ProductPage">
           <ItemGallery gallery={gallery} />
@@ -120,14 +122,12 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const mapStateToProps = ({ productsReducer, currenyReducer, itemReducer }) => {
+const mapStateToProps = ({ currenyReducer, itemReducer }) => {
   return {
-    chosenProduct: productsReducer.chosenProduct,
     chosenCurrency: currenyReducer.chosenCurrency,
     product: itemReducer.product,
   };
 };
-Product.propTypes = {};
 
 export default connect(
   mapStateToProps,

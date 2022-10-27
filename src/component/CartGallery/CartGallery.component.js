@@ -1,71 +1,5 @@
-// import React, { PureComponent } from "react";
-// import PropTypes from "prop-types";
-
-// class CartGallery extends PureComponent {
-//   state = { index: 0 };
-//   changeUiImage = (index) => {
-//     this.setState({ UiImage: index });
-//   };
-//   previousImage = () => {
-//     const { gallery } = this.props;
-//     this.setState(({ index }) => {
-//       return { index: index - 1 > -1 ? --index : gallery.length - 1 };
-//     });
-//   };
-
-//   nextImage = () => {
-//     const { gallery } = this.props;
-//     this.setState(({ index }) => {
-//       return { index: gallery.length > index + 1 ? ++index : 0 };
-//     });
-//   };
-//   getGalleryList = (gallery) => {
-//     return gallery.map((imageURL, index) => {
-//       return (
-//         <div key={index} className="ProductGallery-Image">
-//           <img
-//             src={imageURL}
-//             alt={`Product ${index}`}
-//             onMouseOver={() => this.changeUiImage(index)}
-//           />
-//         </div>
-//       );
-//     });
-//   };
-
-//   render() {
-//     const { gallery, type } = this.props;
-//     const { index } = this.state;
-
-//     return (
-//       <div className="CartItemGallery">
-//         <div className="ImagePreview">
-//           <img src={gallery[index]} alt="Previewed" />
-//         </div>
-//         <button
-//           className="Left"
-//           disabled={gallery.length === 1}
-//           onClick={this.previousImage.bind(this)}
-//         >
-//           <img src={CartGalleryArrow} alt="Left Arrow" />
-//         </button>
-//         <button
-//           className="Right"
-//           disabled={gallery.length === 1}
-//           onClick={this.nextImage.bind(this)}
-//         >
-//           <img src={CartGalleryArrow} alt="Right Arrow" />
-//         </button>
-//       </div>
-//     );
-//   }
-// }
-
-// CartGallery.propTypes = {};
-
-// export default CartGallery;
-
 import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
 import "./CartGallery.style.scss";
 export default class CartGallery extends PureComponent {
   state = { activeImg: 0 };
@@ -92,7 +26,7 @@ export default class CartGallery extends PureComponent {
               : "Carousel-Img--Hidden "
           }
         >
-          <img src={img} alt="Product Image" />
+          <img src={img} alt="Product" />
         </li>
       );
     });
@@ -119,3 +53,7 @@ export default class CartGallery extends PureComponent {
     );
   }
 }
+
+CartGallery.prototypes = {
+  gallery: PropTypes.arrayOf(PropTypes.string).isRequired,
+};

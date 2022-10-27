@@ -18,6 +18,7 @@ class ItemAttributes extends PureComponent {
       onAttributeChange,
       chosenAttributes,
     } = this.props;
+    console.log(this.props);
 
     return items.map(({ id: itemID, value, displayValue }, index) => {
       const checked =
@@ -86,6 +87,8 @@ class ItemAttributes extends PureComponent {
   }
 }
 
-ItemAttributes.propTypes = {};
+ItemAttributes.propTypes = {
+  attribute: PropTypes.object.isRequired,
+};
 
 export default ItemAttributes;

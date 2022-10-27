@@ -70,7 +70,7 @@ class CartItem extends PureComponent {
     const imageUi = page ? (
       <CartGallery gallery={gallery} />
     ) : (
-      <img src={gallery[0]} alt="Cart Item image" />
+      <img src={gallery[0]} alt="Cart Item " />
     );
 
     return (
@@ -102,4 +102,4 @@ const mapStoreStateToProps = ({ currenyReducer }) => {
     chosenCurrency: currenyReducer.chosenCurrency,
   };
 };
-export default connect(mapStoreStateToProps, null)(CartItem);
+export default connect(mapStoreStateToProps)(CartItem);

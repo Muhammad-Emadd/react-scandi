@@ -54,7 +54,7 @@ const mapStateToProps = ({ categoryReducer }) => {
 };
 
 CategoryList.propTypes = {
-  categories: PropTypes.array.isRequired,
+  categories: PropTypes.arrayOf(PropTypes.string).isRequired,
   chosenCategory: PropTypes.string,
 };
 

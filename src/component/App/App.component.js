@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { getCategoriesAndCurrencies } from "../../query/Categ_Curr.query";
 import {
   getCategories,
@@ -29,7 +30,7 @@ class App extends PureComponent {
           handleDefaultCat(results["categories"][0].name);
           onInitCurrencies(results["currencies"].map((value) => value));
         })
-        .catch((error) => {
+        .catch(() => {
           onFetchCategoriesFail(ERROR);
           onFetchCurrenciesFail(ERROR);
         });
@@ -37,8 +38,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const { currenciesStatus, categoriesStatus, chosenCategory } = this.props;
-    console.log(this.props);
+    const { currenciesStatus, categoriesStatus } = this.props;
 
     const content =
       currenciesStatus === IDLE && categoriesStatus === IDLE ? (
@@ -55,6 +55,12 @@ class App extends PureComponent {
     return <div className="App">{content}</div>;
   }
 }
+
+App.propTypes = {
+  currenciesStatus: PropTypes.string.isRequired,
+  categoriesStatus: PropTypes.string.isRequired,
+  chosenCategory: PropTypes.string,
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {

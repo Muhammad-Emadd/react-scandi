@@ -1,12 +1,13 @@
 import React, { PureComponent } from "react";
 import CategoryList from "../CategoryList";
-import { Link, NavLink, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { logo } from "../../style/logos";
 import CurrencyMenu from "../CurrencyMenu";
 import "./NavigationBar.style.scss";
-import CartMenuComponent from "../CartMenu/CartMenu.component";
 import CartMenu from "../CartMenu";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
+
 class NavigationBar extends PureComponent {
   render() {
     const { categories } = this.props;
@@ -22,6 +23,11 @@ class NavigationBar extends PureComponent {
     );
   }
 }
+
+NavigationBar.propTypes = {
+  categories: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
+
 const mapStateToProps = ({ categoryReducer }) => {
   return {
     categories: categoryReducer.categories,
