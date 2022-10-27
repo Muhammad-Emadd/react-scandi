@@ -45,19 +45,6 @@ const filters = createSlice({
       );
       state.filters = Object.assign({}, ...filteredAttributes);
     },
-
-    setFilter: (state, action) => {
-      const { filterId, value } = action.payload;
-      const index = state.filtersOn.findIndex(
-        (array) => array.filterId === filterId && array.value.id === value.id
-      );
-
-      if (index >= 0) {
-        state.filtersOn.splice(index, 1);
-      } else {
-        state.filtersOn = [...state.filtersOn, { filterId, value }];
-      }
-    },
     setIsOpen: (state, action) => {
       state.isOpen = action.payload;
     },
