@@ -72,9 +72,8 @@ class FiltersContainer extends PureComponent {
       categories,
       setCategory,
       handleFilters,
-      filtersOn,
     } = this.props;
-    const filtt = this.state.filtersOn;
+    const { filtersOn } = this.state;
     return {
       transitionExit,
       chosenCategory,
@@ -83,7 +82,6 @@ class FiltersContainer extends PureComponent {
       filters,
       handleFilters,
       filtersOn,
-      filtt,
     };
   }
   containerFunctions() {
@@ -94,7 +92,7 @@ class FiltersContainer extends PureComponent {
     };
   }
   render() {
-    const { isOpen, setIsOpen, filter } = this.props;
+    const { isOpen, setIsOpen } = this.props;
 
     const arrowDirection = (
       <>

@@ -99,6 +99,9 @@
   gap: 3rem;
   align-items: flex-start;
   justify-content: flex-start;
+
+  & a {
+  }
 }
 .FiltersWrapper {
   & h2 {
@@ -114,16 +117,19 @@
 
   &-SelectedSwatch {
     @include pionter();
-    width: 2.2rem;
-    height: 2.2rem;
-    padding: 0.2rem;
-    border: 1px solid $default-primary-base-color;
+    width: 1.9rem;
+    height: 1.9rem;
+    padding: 0.1rem;
+    border: 2px solid $black;
+    border-radius: 0.5rem;
+    opacity: 1;
   }
   &-Swatch {
     @include pionter();
     border: 1px solid $default-drop-shadow;
-    width: 2.2rem;
-    height: 2.2rem;
+    width: 1.9rem;
+    height: 1.9rem;
+    opacity: 0.7;
   }
   &-SelectedText {
     @include pionter();

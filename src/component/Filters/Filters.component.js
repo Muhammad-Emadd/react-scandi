@@ -27,10 +27,13 @@ class FiltersComponent extends PureComponent {
                 return colorType ? (
                   <div
                     key={object.id + i}
-                    onClick={() => handleFilters({ key, object })}
+                    onClick={() =>
+                      setFilterss({ filterId: key, valueId: object.id })
+                    }
                     className={
                       filtersOn.some(
-                        (filterOn) => filterOn.value.value === object.value
+                        (filterOn) =>
+                          Object.values(filterOn)[0] === object.displayValue
                       )
                         ? "FiltersWrapper-SelectedSwatch"
                         : "FiltersWrapper-Swatch"
@@ -43,12 +46,12 @@ class FiltersComponent extends PureComponent {
                   <div
                     key={object.id + i}
                     onClick={() =>
-                      // handleFilters({ filterId: key, value: object })
                       setFilterss({ filterId: key, valueId: object.id })
                     }
                     className={
                       filtersOn.some(
-                        (filterOn) => filterOn.value.value === object.value
+                        (filterOn) =>
+                          Object.values(filterOn)[0] === object.displayValue
                       )
                         ? "FiltersWrapper-SelectedText"
                         : "FiltersWrapper-Text"
@@ -64,8 +67,7 @@ class FiltersComponent extends PureComponent {
       }
     );
 
-    const { filtt } = this.props;
-    const searchs = filtt.length > 0 ? updateQueryParams() : "";
+    const searchs = filtersOn.length > 0 ? updateQueryParams() : "";
     return (
       <div className={`Drawer ${transitionExit ? "exit" : ""}`}>
         {filtersKeysAndValues}
