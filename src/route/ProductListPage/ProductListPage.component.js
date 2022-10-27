@@ -49,7 +49,6 @@ class ProductList extends PureComponent {
     const entries = params.entries();
 
     if (search !== 0) {
-      // for (const [searchKey, searchValue] of params.entries()) {
       for (const [searchKey, searchValue] of entries) {
         attributes.some(({ id, items }) => {
           return id === searchKey && items.some(({ id }) => id === searchValue);
@@ -57,24 +56,11 @@ class ProductList extends PureComponent {
           ? conditions.push(true)
           : conditions.push(false);
       }
-      console.log(conditions);
 
       return conditions.includes(false) ? false : true;
     } else {
       return true;
     }
-    // params.entries.
-    // return params.length === 0
-    //   ? true
-    //   : filtersOn.every((filtersOn) =>
-    //       attributes.some(
-    //         ({ id, items }) =>
-    //           id === filtersOn.filterId &&
-    //           items.some(({ value }) => value === filtersOn.value.value)
-    //       )
-    //     )
-    //   ? true
-    //   : false;
   };
   filteredProducts = () => {
     const { products } = this.props;

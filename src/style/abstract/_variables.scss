@@ -7,7 +7,7 @@ $default-drop-shadow: rgba(168, 172, 176, 0.19);
 $default-primary-greener-color: lighten($default-primary-base-color, 15%);
 $default-primary-light-color: lighten($default-drop-shadow, 15%);
 $default-secondary-base-color: #1d1f22;
-$default-secondary-dark-color: darken($black, 15%);
+$default-secondary-dark-color: darken($default-drop-shadow, 30%);
 $default-secondary-light-color: lighten($black, 50%);
 $main-fonts: "Raleway", sans-serif;
 $font-standard-size: 62.5%;

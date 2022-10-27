@@ -15,19 +15,14 @@ class FiltersComponent extends PureComponent {
       updateQueryParams,
       chosenCategory,
     } = this.props;
-    console.log(this.props);
 
     const filtersKeysAndValues = Object.entries(filters).map(
       ([key, value], index) => {
         const colorType = key === COLOR;
         return (
-          <div key={key + index} className="Drawer-FiltersWrapper">
+          <div key={key + index} className="FiltersWrapper">
             <h2>{key}</h2>
-            <div
-              className={
-                colorType ? "FiltersWrapper-Swatch" : "FiltersWrapper-Text"
-              }
-            >
+            <div className="FiltersWrapper-Att">
               {value.map((object, i) => {
                 return colorType ? (
                   <div
@@ -80,7 +75,7 @@ class FiltersComponent extends PureComponent {
             search: searchs,
           }}
         >
-          add
+          Save
         </Link>
       </div>
     );

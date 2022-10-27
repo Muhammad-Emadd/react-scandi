@@ -2,7 +2,7 @@
 .SideBar {
   height: 100%;
   min-height: 100vh;
-  max-width: 50vh;
+  max-width: 30vh;
   display: grid;
   grid-template-columns: 30% 70%;
   overflow: hidden;
@@ -90,23 +90,55 @@
   box-sizing: border-box;
   position: relative;
   height: 100%;
-  padding: 20px;
-  background-color: $default-drop-shadow;
+  padding: 2rem;
+  background-color: $default-secondary-dark-color;
   border-right: 1px solid $default-primary-base-color;
   animation: TransitionEnter 0.5s;
-
   display: flex;
   flex-direction: column;
   gap: 3rem;
   align-items: flex-start;
   justify-content: flex-start;
-  &-FiltersWrapper {
-  }
 }
+.FiltersWrapper {
+  & h2 {
+    @include font-source(1.8rem, $black, 600, 2rem);
+  }
+  &-Att {
+    @include flex-center();
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    justify-content: flex-start;
+    margin-top: 0.8rem;
+  }
 
-p {
-  margin-bottom: 10px;
-  // color: white;
+  &-SelectedSwatch {
+    @include pionter();
+    width: 2.2rem;
+    height: 2.2rem;
+    padding: 0.2rem;
+    border: 1px solid $default-primary-base-color;
+  }
+  &-Swatch {
+    @include pionter();
+    border: 1px solid $default-drop-shadow;
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+  &-SelectedText {
+    @include pionter();
+    @include font-source(1.2rem, white, 500, 2rem);
+    border: 0.1rem solid $black;
+    padding-inline: 1rem;
+    background-color: $black;
+  }
+  &-Text {
+    @include pionter();
+    @include font-source(1.2rem, $black, 500, 2rem);
+    border: 0.1rem solid $black;
+    background-color: white;
+    padding-inline: 1rem;
+  }
 }
 
 .Drawer.exit {
