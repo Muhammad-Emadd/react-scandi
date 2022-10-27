@@ -51,7 +51,8 @@ class FiltersComponent extends PureComponent {
                     className={
                       filtersOn.some(
                         (filterOn) =>
-                          Object.values(filterOn)[0] === object.displayValue
+                          Object.values(filterOn)[0] === object.displayValue &&
+                          Object.keys(filterOn)[0] === key
                       )
                         ? "FiltersWrapper-SelectedText"
                         : "FiltersWrapper-Text"

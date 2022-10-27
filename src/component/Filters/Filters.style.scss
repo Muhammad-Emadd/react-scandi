@@ -48,44 +48,6 @@
   }
 }
 
-@keyframes containerTransitionEnter {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-@keyframes TransitionEnter {
-  0% {
-    opacity: 0;
-    left: -2vw;
-  }
-  100% {
-    opacity: 1;
-    left: 0vw;
-  }
-}
-
-@keyframes containerTransitionExit {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-@keyframes TransitionExit {
-  0% {
-    opacity: 1;
-    left: 0vw;
-  }
-  100% {
-    opacity: 0;
-    left: -2vw;
-  }
-}
-
 .Drawer {
   box-sizing: border-box;
   position: relative;
@@ -99,21 +61,18 @@
   gap: 3rem;
   align-items: flex-start;
   justify-content: flex-start;
+  &.exit {
+    animation: TransitionExit 0.6s;
+  }
 
   & a {
     align-self: center;
     margin-top: 2rem;
     padding: 1.2rem 3rem;
-    color: white;
-    background: #5ece7b;
-    font-size: 1.6rem;
-    color: white;
-    font-weight: 600;
-    line-height: 1.6rem;
-    border: solid 1px #5ece7b;
-    -webkit-user-select: none;
-    user-select: none;
-    cursor: pointer;
+    background: $default-primary-base-color;
+    @include font-source(1.6rem, white, 600, 1.6rem);
+    border: solid 1px $default-primary-base-color;
+    @include pionter();
   }
 }
 .FiltersWrapper {
@@ -160,6 +119,40 @@
   }
 }
 
-.Drawer.exit {
-  animation: TransitionExit 0.6s;
+@keyframes containerTransitionEnter {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes TransitionEnter {
+  0% {
+    opacity: 0;
+    left: -2vw;
+  }
+  100% {
+    opacity: 1;
+    left: 0vw;
+  }
+}
+
+@keyframes containerTransitionExit {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes TransitionExit {
+  0% {
+    opacity: 1;
+    left: 0vw;
+  }
+  100% {
+    opacity: 0;
+    left: -2vw;
+  }
 }
