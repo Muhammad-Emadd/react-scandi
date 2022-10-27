@@ -9,7 +9,7 @@ class FiltersComponent extends PureComponent {
     const {
       transitionExit,
       filters,
-      handleFilters,
+
       filtersOn,
       setFilterss,
       updateQueryParams,

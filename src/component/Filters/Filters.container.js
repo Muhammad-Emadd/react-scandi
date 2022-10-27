@@ -65,14 +65,8 @@ class FiltersContainer extends PureComponent {
   };
 
   containerProps() {
-    const {
-      transitionExit,
-      chosenCategory,
-      filters,
-      categories,
-      setCategory,
-      handleFilters,
-    } = this.props;
+    const { transitionExit, chosenCategory, filters, categories, setCategory } =
+      this.props;
     const { filtersOn } = this.state;
     return {
       transitionExit,
@@ -80,7 +74,7 @@ class FiltersContainer extends PureComponent {
       categories,
       setCategory,
       filters,
-      handleFilters,
+
       filtersOn,
     };
   }
@@ -134,7 +128,7 @@ class FiltersContainer extends PureComponent {
 const mapDispatchToProps = (dispatch) => {
   return {
     onGettingFilters: (attributes) => dispatch(getFilters(attributes)),
-    handleFilters: (attributes) => dispatch(setFilter(attributes)),
+
     setIsOpen: (bool) => dispatch(setIsOpen(bool)),
     setTransition: (bool) => dispatch(setTransition(bool)),
     setCategory: (cat) => dispatch(setCategory(cat)),
