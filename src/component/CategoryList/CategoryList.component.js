@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { setCategory } from "../../store/categories";
 import "./CategoryList.style.scss";
 class CategoryList extends PureComponent {
@@ -16,7 +16,7 @@ class CategoryList extends PureComponent {
     const listOfCategories = categories.map((category, index) => {
       return (
         <li className="CategoryList-Item" key={category + index}>
-          <NavLink
+          <Link
             onClick={() => handleCategory(category)}
             to={`/${category}`}
             className={
@@ -24,7 +24,7 @@ class CategoryList extends PureComponent {
             }
           >
             {category.toUpperCase()}
-          </NavLink>
+          </Link>
           <div
             className={
               chosenCategory === category

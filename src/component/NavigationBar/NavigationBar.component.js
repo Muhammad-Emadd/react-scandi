@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import CategoryList from "../CategoryList";
-import { NavLink, withRouter } from "react-router-dom";
+import { Link, NavLink, withRouter } from "react-router-dom";
 import { logo } from "../../style/logos";
 import CurrencyMenu from "../CurrencyMenu";
 import "./NavigationBar.style.scss";
@@ -13,9 +13,9 @@ class NavigationBar extends PureComponent {
     return (
       <div className="NavBar">
         <CategoryList />
-        <NavLink className="NavBar-Logo" to={`/${categories[0]}`}>
+        <Link className="NavBar-Logo" to={`/${categories[0]}`}>
           <img src={logo} alt="Store Logo" />
-        </NavLink>
+        </Link>
         <CurrencyMenu />
         <CartMenu />
       </div>

@@ -13,8 +13,6 @@ class ContentRoutes extends PureComponent {
   render() {
     const { overlay, categoryRoutes, productsStatus } = this.props;
     const navBarRoutesSearch = categoryRoutes.map((category, index) => {
-      console.log(`/${category}`);
-
       return (
         <Route key={index + category} path={`/${category}:id`}>
           <ProductListPage />
@@ -28,16 +26,12 @@ class ContentRoutes extends PureComponent {
         </Route>
       );
     });
-    const filters = productsStatus === IDLE ? <Filters /> : null;
-    console.log(this.props);
 
     return (
       <div className="AppBody">
         <div
           className={overlay ? "AppBody-Overlay" : "AppBody-Overlay--Hidden"}
         />
-        {filters}
-
         <Switch>
           <Route exact path="/">
             <ProductListPage />

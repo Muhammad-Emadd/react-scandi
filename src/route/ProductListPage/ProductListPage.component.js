@@ -86,8 +86,6 @@ class ProductList extends PureComponent {
     this.setState({ condition: LOADING });
   }
   render() {
-    console.log("sadddddd");
-
     const { chosenCategory, products } = this.props;
     const chosenCategoryUi =
       chosenCategory.charAt(0).toUpperCase() + chosenCategory.slice(1);
@@ -95,10 +93,10 @@ class ProductList extends PureComponent {
     const productsList = products.length
       ? this.filteredProducts(products)
       : null;
-    // const filters = this.state.condition === IDLE ? <Filters /> : null;
+    const filters = this.state.condition === IDLE ? <Filters /> : null;
     return (
       <div className="ProductList">
-        {/* {filters} */}
+        {filters}
         <h1 className="ProductList-Category">{chosenCategoryUi}</h1>
         <div className="ProductList-Body">{productsList}</div>
       </div>

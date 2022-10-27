@@ -16,8 +16,6 @@ class FiltersContainer extends PureComponent {
   state = { filtersOn: [] };
   componentDidMount() {
     const { products, onGettingFilters } = this.props;
-    console.log(products.length);
-
     onGettingFilters(products);
   }
 
@@ -45,7 +43,7 @@ class FiltersContainer extends PureComponent {
     );
 
     if (index >= 0) {
-      this.setState((prevState, props) => {
+      this.setState((prevState) => {
         return {
           filtersOn: prevState.filtersOn.filter((_, i) => i !== index),
         };
@@ -70,13 +68,13 @@ class FiltersContainer extends PureComponent {
     const {
       transitionExit,
       chosenCategory,
+      filters,
       categories,
       setCategory,
-      filters,
       handleFilters,
       filtersOn,
     } = this.props;
-const filtt= this.state.filtersOn ;
+    const filtt = this.state.filtersOn;
     return {
       transitionExit,
       chosenCategory,
@@ -85,7 +83,7 @@ const filtt= this.state.filtersOn ;
       filters,
       handleFilters,
       filtersOn,
-      filtt
+      filtt,
     };
   }
   containerFunctions() {
@@ -96,7 +94,7 @@ const filtt= this.state.filtersOn ;
     };
   }
   render() {
-    const { isOpen, setIsOpen } = this.props;
+    const { isOpen, setIsOpen, filter } = this.props;
 
     const arrowDirection = (
       <>
