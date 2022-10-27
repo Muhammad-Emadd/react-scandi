@@ -21,22 +21,22 @@ class FiltersContainer extends PureComponent {
     onGettingFilters(products);
   }
 
-  // updateQueryParams = () => {
-  //   if (this.state.filtersOn.length === 0) {
-  //     this.props.history.push({ search: "" });
-  //   } else {
-  //     const url = new URL(window.location);
-  //     url.search = "";
-  //     for (let i in this.state.filtersOn) {
-  //       url.searchParams.append(
-  //         Object.keys(this.state.filtersOn[i])[0],
-  //         Object.values(this.state.filtersOn[i])[0]
-  //       );
-  //     }
+  updateQueryParams = () => {
+    if (this.state.filtersOn.length === 0) {
+      this.props.history.push({ search: "" });
+    } else {
+      const url = new URL(window.location);
+      url.search = "";
+      for (let i in this.state.filtersOn) {
+        url.searchParams.append(
+          Object.keys(this.state.filtersOn[i])[0],
+          Object.values(this.state.filtersOn[i])[0]
+        );
+      }
 
-  //     return url.search
-  //   }
-  // };
+      return url.search;
+    }
+  };
   setFilterss = ({ filterId, valueId }) => {
     const index = this.state.filtersOn.findIndex(
       (filter) =>
@@ -76,7 +76,7 @@ class FiltersContainer extends PureComponent {
       handleFilters,
       filtersOn,
     } = this.props;
-
+const filtt= this.state.filtersOn ;
     return {
       transitionExit,
       chosenCategory,
@@ -85,13 +85,14 @@ class FiltersContainer extends PureComponent {
       filters,
       handleFilters,
       filtersOn,
+      filtt
     };
   }
   containerFunctions() {
     return {
       handleExit: this.handleExit.bind(this),
       setFilterss: this.setFilterss.bind(this),
-      // updateQueryParams: this.updateQueryParams.bind(this),
+      updateQueryParams: this.updateQueryParams.bind(this),
     };
   }
   render() {

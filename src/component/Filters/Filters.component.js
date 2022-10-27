@@ -12,7 +12,7 @@ class FiltersComponent extends PureComponent {
       handleFilters,
       filtersOn,
       setFilterss,
-
+      updateQueryParams,
       chosenCategory,
     } = this.props;
     console.log(this.props);
@@ -69,13 +69,15 @@ class FiltersComponent extends PureComponent {
       }
     );
 
+    const { filtt } = this.props;
+    const searchs = filtt.length > 0 ? updateQueryParams() : "";
     return (
       <div className={`Drawer ${transitionExit ? "exit" : ""}`}>
         {filtersKeysAndValues}
         <Link
           to={{
             pathname: `/${chosenCategory}`,
-            // search: updateQueryParams(),
+            search: searchs,
           }}
         >
           add
