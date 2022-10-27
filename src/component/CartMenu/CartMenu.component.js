@@ -7,6 +7,7 @@ import { toggleCartMenu } from "../../store/cart";
 import { blackCart } from "../../style/logos";
 import CartItem from "../CartItem";
 import Scroll from "../Scroll";
+import { Link } from "react-router-dom";
 class CartMenu extends PureComponent {
   findChosenCurrency = (currencies) => {
     const { chosenCurrency } = this.props;
@@ -84,12 +85,14 @@ class CartMenu extends PureComponent {
             </p>
           </div>
           <div className="CartButtons">
-            <button
-              className="CartButtons-ViewBag"
-              onClick={() => history.push("/cart")}
-            >
-              view bag
-            </button>
+            <Link to={`/cart`}>
+              <button
+                className="CartButtons-ViewBag"
+                onClick={() => history.push("/cart")}
+              >
+                view bag
+              </button>
+            </Link>
             <button className="CartButtons-Checkout" disabled>
               checkout
             </button>

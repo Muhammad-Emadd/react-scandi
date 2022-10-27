@@ -24,12 +24,14 @@
     padding-inline: 2.5rem;
   }
   &-SelectedSwatch {
+    @include pionter();
     width: 3.2rem;
     height: 3.2rem;
     padding: 0.2rem;
     border: 1px solid $default-primary-base-color;
   }
   &-Swatch {
+    @include pionter();
     border: 1px solid $default-drop-shadow;
     width: 3.2rem;
     height: 3.2rem;
