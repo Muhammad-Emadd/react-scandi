@@ -143,7 +143,6 @@ const mapStateToProps = ({
     products: productsReducer.products,
     isOpen: filtersReducer.isOpen,
     filters: filtersReducer.filters,
-    filtersOn: filtersReducer.filtersOn,
     transitionExit: filtersReducer.transitionExit,
   };
 };

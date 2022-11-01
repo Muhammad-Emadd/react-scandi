@@ -27,11 +27,10 @@ const cart = createSlice({
           JSON.stringify(attributes) === JSON.stringify(_attributes)
         );
       });
-
+      state.itemsCount++;
       if (itemIndex >= 0) state.items[itemIndex].count++;
       else {
         state.items.push({ count: 1, ...action.payload });
-        state.itemsCount++;
       }
 
       const newPrices = _prices.reduce(
@@ -58,9 +57,9 @@ const cart = createSlice({
         );
       });
 
+      state.itemsCount--;
       if (state.items[itemIndex].count === 1) {
         state.items.splice(itemIndex, 1);
-        state.itemsCount--;
       } else state.items[itemIndex].count--;
       const newPrices = _prices.reduce(
         (obj, { amount, currency: { label } }) => ((obj[label] = amount), obj),

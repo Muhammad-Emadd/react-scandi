@@ -4,8 +4,6 @@ const initialState = {
   filters: [],
   isOpen: false,
   transitionExit: false,
-
-  filtersOn: [],
 };
 
 const filters = createSlice({

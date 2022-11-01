@@ -34,6 +34,8 @@ class CartMenu extends PureComponent {
     const total = currencies.length
       ? Math.round(totalPrice[totalUi] * 100) / 100
       : 0;
+    const itemCountUi =
+      itemsCount === 1 ? `${itemsCount} item` : `${itemsCount} items`;
     return (
       <div className="CartMenu" onMouseLeave={() => this.handleMenu(true)}>
         <div
@@ -55,7 +57,7 @@ class CartMenu extends PureComponent {
           }
         >
           <div className="CartMenu-Title">
-            <strong>My Bag</strong>, {itemsCount} items
+            <strong>My Bag</strong>, {itemCountUi}
           </div>
           <div
             className={
