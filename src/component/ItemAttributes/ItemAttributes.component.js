@@ -18,7 +18,6 @@ class ItemAttributes extends PureComponent {
       onAttributeChange,
       chosenAttributes,
     } = this.props;
-    console.log(this.props);
 
     return items.map(({ id: itemID, value, displayValue }, index) => {
       const checked =
