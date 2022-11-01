@@ -85,6 +85,7 @@ class ProductList extends PureComponent {
     const { chosenCategory, products } = this.props;
     const chosenCategoryUi =
       chosenCategory.charAt(0).toUpperCase() + chosenCategory.slice(1);
+    console.log(this.props);
 
     const productsList = products.length
       ? this.filteredProducts(products)
