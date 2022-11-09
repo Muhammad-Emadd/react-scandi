@@ -27,6 +27,14 @@ class ProductItem extends PureComponent {
       },
       {}
     );
+    const otherAttributes = Object.values(attributes).reduce(
+      (prevAttributes, { id, name, type, items }) => {
+        return { [id]: { name, type, items }, ...prevAttributes };
+      },
+      {}
+    );
+    console.log(otherAttributes, defaultAttributes);
+
     onAddingToCart({ ...rest, attributes: defaultAttributes });
   };
 
@@ -66,6 +74,7 @@ class ProductItem extends PureComponent {
     } = this.props;
 
     const { amount } = this.findChosenCurrency(prices);
+    const amountUi = (Math.round(amount * 100) / 100).toFixed(2);
     const inStockUi = !inStock ? (
       <div className="ProductCard--unavailable">
         <h1>OUT OF STOCK</h1>
@@ -92,7 +101,7 @@ class ProductItem extends PureComponent {
               {name} {brand}
             </h1>
           </Link>
-          <p>{`${amount} ${symbol}`}</p>
+          <p>{`${amountUi} ${symbol}`}</p>
           <div
             className="ProductCard-CartIcon"
             onClick={this.handleCartButton.bind(this)}
