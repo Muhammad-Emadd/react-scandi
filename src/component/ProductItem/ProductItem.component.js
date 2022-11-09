@@ -23,17 +23,21 @@ class ProductItem extends PureComponent {
 
     const defaultAttributes = Object.values(attributes).reduce(
       (prevAttributes, { id, name, type, items }) => {
-        return { [id]: { name, type, ...items[0] }, ...prevAttributes };
+        const others = items.slice(1);
+        return {
+          [id]: { name, type, ...items[0], others },
+          ...prevAttributes,
+        };
       },
       {}
     );
     const otherAttributes = Object.values(attributes).reduce(
       (prevAttributes, { id, name, type, items }) => {
-        return { [id]: { name, type, items }, ...prevAttributes };
+        return { [id]: { name, type }, ...prevAttributes };
       },
       {}
     );
-    console.log(otherAttributes, defaultAttributes);
+    console.log(defaultAttributes);
 
     onAddingToCart({ ...rest, attributes: defaultAttributes });
   };
