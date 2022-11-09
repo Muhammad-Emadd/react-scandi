@@ -32,7 +32,7 @@ class CartMenu extends PureComponent {
       : 0;
     const chosedSymbol = chosenCurrency ? chosenCurrency.symbol : "";
     const total = currencies.length
-      ? Math.round(totalPrice[totalUi] * 100) / 100
+      ? (Math.round(totalPrice[totalUi] * 100) / 100).toFixed(2)
       : 0;
     const itemCountUi =
       itemsCount === 1 ? `${itemsCount} item` : `${itemsCount} items`;
