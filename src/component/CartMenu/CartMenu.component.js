@@ -91,7 +91,7 @@ class CartMenu extends PureComponent {
     );
   }
 }
-
+//
 const mapStoreStateToProps = ({ cartReducer, currenyReducer }) => {
   return {
     items: cartReducer.items,
