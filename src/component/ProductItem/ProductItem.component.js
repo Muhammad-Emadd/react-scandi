@@ -23,9 +23,9 @@ class ProductItem extends PureComponent {
 
     const defaultAttributes = Object.values(attributes).reduce(
       (prevAttributes, { id, name, type, items }) => {
-        const othersAttributes = items.slice(1);
+        const allAttributes = items
         return {
-          [id]: { name, type, ...items[0], othersAttributes },
+          [id]: { name, type, ...items[0], allAttributes },
           ...prevAttributes,
         };
       },

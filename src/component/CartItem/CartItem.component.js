@@ -16,44 +16,95 @@ class CartItem extends PureComponent {
     const { type } = this.props;
     const page = type === "page" ? true : false;
     const attributeValues = Object.values(attributes);
-    return attributeValues.map(({ name, type, value }, index) => {
-      let choiceItem = null;
-      if (type === "text")
-        choiceItem = (
+    return attributeValues.map(
+      ({ id, name, type, value, allAttributes }, index) => {
+        let choiceItem = null;
+        if (type === "text") {
+          choiceItem = allAttributes.map((attribute, i) => {
+            if (attribute.id === id) {
+              return (
+                <div
+                  key={i + attribute.id}
+                  className={
+                    page
+                      ? "CartPageItem-AttributeText--Selected"
+                      : "CartItem-AttributeText--Selected"
+                  }
+                >
+                  <span>{attribute.value}</span>
+                </div>
+              );
+            } else {
+              return (
+                <div
+                  key={i + attribute.id}
+                  className={
+                    page
+                      ? "CartPageItem-AttributeText"
+                      : "CartItem-AttributeText"
+                  }
+                >
+                  <span>{attribute.value}</span>
+                </div>
+              );
+            }
+          });
+        } else if (type === "swatch")
+          choiceItem = allAttributes.map((attribute, i) => {
+            if (attribute.id === id) {
+              return (
+                <div
+                  key={i + attribute.id}
+                  className={
+                    page
+                      ? "CartPageItem-AttributeSwatch--Selected"
+                      : "CartItem-AttributeSwatch--Selected"
+                  }
+                  style={{
+                    backgroundColor: value,
+                  }}
+                ></div>
+              );
+            } else {
+              return (
+                <div
+                  key={i + attribute.id}
+                  className={
+                    page
+                      ? "CartPageItem-AttributeSwatch"
+                      : "CartItem-AttributeSwatch"
+                  }
+                  style={{
+                    backgroundColor: value,
+                  }}
+                ></div>
+              );
+            }
+          });
+
+        return (
           <div
+            key={index}
             className={
-              page ? "CartPageItem-SelectedText" : "CartItem-SelectedText"
+              page
+                ? "CartPageItem-SelectedAttributes"
+                : "CartItem-SelectedAttributes"
             }
           >
-            <span>{value}</span>
+            <h1>{name}:</h1>
+            <div
+              className={
+                page
+                  ? "CartPageItem-AttributeLayout"
+                  : "CartItem-AttributeLayout"
+              }
+            >
+              {choiceItem}
+            </div>
           </div>
         );
-      else if (type === "swatch")
-        choiceItem = choiceItem = (
-          <div
-            className={
-              page ? "CartPageItem-SelectedSwatch" : "CartItem-SelectedSwatch"
-            }
-            style={{
-              backgroundColor: value,
-            }}
-          ></div>
-        );
-
-      return (
-        <div
-          key={index}
-          className={
-            page
-              ? "CartPageItem-SelectedAttributes"
-              : "CartItem-SelectedAttributes"
-          }
-        >
-          <h1>{name}:</h1>
-          {choiceItem}
-        </div>
-      );
-    });
+      }
+    );
   };
 
   render() {

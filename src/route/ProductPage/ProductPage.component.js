@@ -26,10 +26,18 @@ class Product extends PureComponent {
   };
 
   setAttributes = (id, value) => {
+    const allAttributes = this.props.product.attributes.filter(
+      (attribute) => attribute.id === id
+    )[0].items;
+
     this.setState((prevState) => {
-      const attributes = { ...prevState.chosenAttributes, [id]: value };
+      const attributes = {
+        ...prevState.chosenAttributes,
+        [id]: { ...value, allAttributes },
+      };
       return { chosenAttributes: attributes };
     });
+    console.log(this.state);
   };
 
   handleAddingProductToCart = () => {
