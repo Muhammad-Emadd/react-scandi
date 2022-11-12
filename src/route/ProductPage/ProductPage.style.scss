@@ -41,11 +41,11 @@
       list-style-type: circle !important;
       list-style-position: outside;
       & li {
-        margin-left: 1.5rem;
+        margin-left: 2rem;
         &::marker {
           color: $black;
-          font-size: 4rem;
-          content: "•";
+          font-size: 3rem;
+          content: "• ";
           display: inline-block;
           width: 1rem;
           margin-left: -1rem;
