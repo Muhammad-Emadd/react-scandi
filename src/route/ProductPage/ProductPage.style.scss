@@ -37,5 +37,20 @@
     @include font-source(1.6rem, white, 600, 2rem);
   }
   &-Description {
+    & ul {
+      list-style-type: circle !important;
+      list-style-position: outside;
+      & li {
+        margin-left: 1.5rem;
+        &::marker {
+          color: $black;
+          font-size: 4rem;
+          content: "•";
+          display: inline-block;
+          width: 1rem;
+          margin-left: -1rem;
+        }
+      }
+    }
   }
 }
