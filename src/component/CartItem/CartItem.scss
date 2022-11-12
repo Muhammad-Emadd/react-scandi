@@ -58,6 +58,9 @@
     margin-block: 0.5rem;
 
     &--Selected {
+      @extend .CartItem-AttributeSwatch;
+
+      border: 2px solid $default-primary-base-color;
     }
   }
   &-AttributeText {
@@ -134,9 +137,14 @@
     display: flex;
     gap: 0.8rem;
   }
-  &-SelectedSwatch {
+  &-AttributeSwatch {
     height: 3.6rem;
     width: 3.6rem;
+    &--Selected {
+      @extend .CartPageItem-AttributeSwatch;
+
+      border: 2px solid $default-primary-base-color;
+    }
   }
   &-AttributeText {
     @extend .CartItem-AttributeText;
