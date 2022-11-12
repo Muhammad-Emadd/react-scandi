@@ -37,7 +37,7 @@ class CartMenu extends PureComponent {
     const itemCountUi =
       itemsCount === 1 ? `${itemsCount} item` : `${itemsCount} items`;
     return (
-      <div className="CartMenu" onMouseLeave={() => this.handleMenu(true)}>
+      <div className="CartMenu">
         <div
           className="CartMenu-Img"
           onClick={() => this.handleMenu(showCartMenu)}
