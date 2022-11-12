@@ -61,7 +61,7 @@ class CartItem extends PureComponent {
                       : "CartItem-AttributeSwatch--Selected"
                   }
                   style={{
-                    backgroundColor: value,
+                    backgroundColor: attribute.value,
                   }}
                 ></div>
               );
@@ -75,7 +75,7 @@ class CartItem extends PureComponent {
                       : "CartItem-AttributeSwatch"
                   }
                   style={{
-                    backgroundColor: value,
+                    backgroundColor: attribute.value,
                   }}
                 ></div>
               );
