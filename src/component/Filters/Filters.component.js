@@ -10,8 +10,8 @@ class FiltersComponent extends PureComponent {
       filters,
       filtersOn,
       setFilterss,
-      updateQueryParams,
       chosenCategory,
+      resetFilters,
     } = this.props;
 
     const filtersKeysAndValues = Object.entries(filters).map(
@@ -66,18 +66,18 @@ class FiltersComponent extends PureComponent {
       }
     );
 
-    const searchs = filtersOn.length > 0 ? updateQueryParams() : "";
     return (
       <div className={`Drawer ${transitionExit ? "exit" : ""}`}>
         {filtersKeysAndValues}
-        <Link
+        <button
+          onClick={() => resetFilters()}
           to={{
             pathname: `/${chosenCategory}`,
-            search: searchs,
+            search: "",
           }}
         >
-          Save
-        </Link>
+          Reset
+        </button>
       </div>
     );
   }

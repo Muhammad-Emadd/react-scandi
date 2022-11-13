@@ -76,7 +76,12 @@ class FiltersContainer extends PureComponent {
       );
     }
   };
-
+  resetFilters = () => {
+    const { history } = this.props;
+    this.setState({ filtersOn: [] }, () => {
+      history.push({ search: this.updateQueryParams() });
+    });
+  };
   handleExit = () => {
     const { setTransition, setIsOpen } = this.props;
     setTransition(true);
@@ -104,6 +109,7 @@ class FiltersContainer extends PureComponent {
       handleExit: this.handleExit.bind(this),
       setFilterss: this.setFilterss.bind(this),
       updateQueryParams: this.updateQueryParams.bind(this),
+      resetFilters: this.resetFilters.bind(this),
     };
   }
   render() {
