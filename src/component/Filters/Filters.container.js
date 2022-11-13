@@ -15,6 +15,18 @@ class FiltersContainer extends PureComponent {
   componentDidMount() {
     const { products, onGettingFilters } = this.props;
     onGettingFilters(products);
+    const queryParameters = [
+      ...new URLSearchParams(window.location.search).entries(),
+    ];
+    queryParameters.forEach(([filterKey, filterValue], i) => {
+      const filter = this.state.filtersOn.filter(
+        (filterObj) => filterObj[filterKey] === filterValue
+      );
+      if (filter.length === 0)
+        this.setState((prevState) => ({
+          filtersOn: [...prevState.filtersOn, { [filterKey]: filterValue }],
+        }));
+    });
   }
 
   updateQueryParams = () => {
@@ -29,6 +41,7 @@ class FiltersContainer extends PureComponent {
           Object.values(this.state.filtersOn[i])[0]
         );
       }
+      console.log(this.state.filtersOn);
 
       return url.search;
     }
