@@ -46,7 +46,8 @@ class FiltersContainer extends PureComponent {
       return url.search;
     }
   };
-  setFilterss = ({ filterId, valueId }) => {
+
+  updateFiltersOnState = ({ filterId, valueId }) => {
     const index = this.state.filtersOn.findIndex(
       (filter) =>
         Object.keys(filter)[0] === filterId &&
@@ -64,6 +65,10 @@ class FiltersContainer extends PureComponent {
         filtersOn: [...prevState.filtersOn, { [filterId]: valueId }],
       }));
     }
+  };
+  setFilterss = ({ filterId, valueId }) => {
+    this.updateFiltersOnState({ filterId, valueId });
+    this.props.history.push({ search: this.updateQueryParams() });
   };
 
   handleExit = () => {
