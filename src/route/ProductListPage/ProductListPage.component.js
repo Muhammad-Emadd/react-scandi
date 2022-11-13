@@ -48,7 +48,7 @@ class ProductList extends PureComponent {
     const params = new URLSearchParams(search);
     const entries = params.entries();
 
-    if (search !== 0) {
+    if (search.length !== 0) {
       for (const [searchKey, searchValue] of entries) {
         attributes.some(({ id, items }) => {
           return id === searchKey && items.some(({ id }) => id === searchValue);
@@ -56,7 +56,8 @@ class ProductList extends PureComponent {
           ? conditions.push(true)
           : conditions.push(false);
       }
-      return conditions.includes(false) ? false : true;
+
+      return conditions.includes(true) ? true : false;
     } else {
       return true;
     }
