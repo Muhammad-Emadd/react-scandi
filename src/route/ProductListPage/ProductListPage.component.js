@@ -77,7 +77,7 @@ class ProductList extends PureComponent {
 
     return newProductArray;
   };
-
+  //
   componentWillUnmount() {
     this.setState({ condition: LOADING });
   }
