@@ -1,2 +1,6 @@
 .scrollbar {
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  scrollbar-width: none;
+  max-height: 15rem;
 }

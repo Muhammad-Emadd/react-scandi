@@ -23,7 +23,7 @@ class ProductItem extends PureComponent {
 
     const defaultAttributes = Object.values(attributes).reduce(
       (prevAttributes, { id, name, type, items }) => {
-        const allAttributes = items
+        const allAttributes = items;
         return {
           [id]: { name, type, ...items[0], allAttributes },
           ...prevAttributes,
@@ -83,8 +83,9 @@ class ProductItem extends PureComponent {
     return (
       <div
         onClick={() => setChosenProduct(id)}
-        className="ProductCard"
-        style={!inStock ? { opacity: "50%" } : {}}
+        className={
+          inStock ? "ProductCard" : "ProductCard ProductCard--unavailablee"
+        }
         onMouseEnter={this.showCartButton}
         onMouseLeave={this.hideCartButton}
       >

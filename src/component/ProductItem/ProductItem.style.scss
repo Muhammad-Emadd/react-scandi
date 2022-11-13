@@ -2,6 +2,9 @@
 .ProductCard {
   position: relative;
   max-width: 32rem;
+  &--unavailablee {
+    opacity: 50%;
+  }
   &-Img {
     padding: 1.6rem;
 

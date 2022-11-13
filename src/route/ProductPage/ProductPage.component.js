@@ -117,7 +117,7 @@ class Product extends PureComponent {
             >
               {inStock ? "add to cart" : "out of stock"}
             </button>
-            <Scroll maxHeight="15em">
+            <Scroll>
               <div ref={this.myRef} className="ProductPage-Description" />
             </Scroll>
           </div>

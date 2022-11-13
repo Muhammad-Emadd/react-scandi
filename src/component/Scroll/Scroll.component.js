@@ -1,17 +1,6 @@
 import React from "react";
+import "./Scroll.style.scss";
 const Scroll = (prop) => {
-  return (
-    <div
-      className="scrollbar"
-      style={{
-        overflowY: "auto",
-        maxHeight: prop.maxHeight,
-        scrollbarGutter: "stable",
-        scrollbarWidth: "none",
-      }}
-    >
-      {prop.children}
-    </div>
-  );
+  return <div className="scrollbar">{prop.children}</div>;
 };
 export default Scroll;
