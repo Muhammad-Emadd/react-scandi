@@ -8,7 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 import "./style/abstract/_variables.scss";
 const container = document.getElementById("root");
 const root = createRoot(container);
-
+// require("dotenv").config();
 root.render(
   <Provider store={store}>
     <BrowserRouter>
