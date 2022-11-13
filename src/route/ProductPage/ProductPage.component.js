@@ -12,7 +12,11 @@ import ItemAttributes from "../../component/ItemAttributes/ItemAttributes.compon
 import "./ProductPage.style.scss";
 
 class Product extends PureComponent {
-  state = { chosenAttributes: {}, product: null };
+  constructor(props) {
+    super(props);
+    this.myRef = React.createRef();
+    this.state = { chosenAttributes: {}, product: null, descriptionSet: false };
+  }
 
   findChosenCurrency = (prices) => {
     const { chosenCurrency } = this.props;
@@ -51,30 +55,33 @@ class Product extends PureComponent {
     onAddProductToCart({ id, name, brand, gallery, prices, attributes });
   };
 
-  descriptionMarkup(description) {
-    return { __html: description };
-  }
-
   componentDidMount() {
     const product_id = this.props.match.params.product_id;
     const { onGettingProduct, onErrorGettingProduct } = this.props;
 
     getChosenProduct(product_id)
       .then((result) => {
-        this.setState({ product: product_id });
+        this.setState({ product: product_id }, () => {
+          if (this.props?.product && this.state.descriptionSet === false) {
+            this.myRef?.current?.insertAdjacentHTML(
+              "afterbegin",
+              this.props.product.description
+            );
+            this.setState({ descriptionSet: true });
+            console.log(this.myRef.current, this.props?.product?.description);
+          }
+        });
         onGettingProduct(result.product);
       })
       .catch(() => onErrorGettingProduct(ERROR));
   }
-
   render() {
     const { product } = this.props;
     this.scrollToTop();
     if (!this.state.product) {
       return <h1>Loading ...</h1>;
     } else {
-      const { description, prices, name, brand, gallery, inStock, attributes } =
-        product;
+      const { prices, name, brand, gallery, inStock, attributes } = product;
       const {
         amount,
         currency: { symbol },
@@ -111,11 +118,7 @@ class Product extends PureComponent {
               {inStock ? "add to cart" : "out of stock"}
             </button>
             <Scroll maxHeight="15em">
-              <div
-                dangerouslySetInnerHTML={this.descriptionMarkup(description)}
-                className="ProductPage-Description"
-                style={{ fontSize: "130%" }}
-              ></div>
+              <div ref={this.myRef} className="ProductPage-Description"></div>
             </Scroll>
           </div>
         </div>

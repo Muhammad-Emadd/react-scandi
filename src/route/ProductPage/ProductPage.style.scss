@@ -37,6 +37,7 @@
     @include font-source(1.6rem, white, 600, 2rem);
   }
   &-Description {
+    font-size: 130%;
     & ul {
       list-style-type: circle !important;
       list-style-position: outside;
