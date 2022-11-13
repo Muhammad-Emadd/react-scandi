@@ -2,6 +2,7 @@ import React from "react";
 const Scroll = (prop) => {
   return (
     <div
+      className="scrollbar"
       style={{
         overflowY: "auto",
         maxHeight: prop.maxHeight,
