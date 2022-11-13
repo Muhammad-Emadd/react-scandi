@@ -1,3 +1,4 @@
+require("dotenv").config();
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
@@ -8,7 +9,6 @@ import { BrowserRouter } from "react-router-dom";
 import "./style/abstract/_variables.scss";
 const container = document.getElementById("root");
 const root = createRoot(container);
-// require("dotenv").config();
 root.render(
   <Provider store={store}>
     <BrowserRouter>
