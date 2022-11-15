@@ -9,8 +9,12 @@ import { withRouter } from "react-router-dom";
 class CurrencyMenu extends PureComponent {
   state = { chosenCurrency: null };
   componentDidMount() {
-    this.props.handleCurrency(this.props.currencies[0]);
-    this.setState({ chosenCurrency: this.props.currencies[0] });
+  if(this.props.chosenCurrency===null){
+      this.props.handleCurrency(this.props.currencies[0])
+      this.setState({ chosenCurrency: this.props.currencies[0] });
+    }else {
+ this.setState({ chosenCurrency: this.props.chosenCurrency });
+    }
   }
 
   changeCurrency = (currency) => {
