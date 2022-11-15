@@ -10,14 +10,14 @@ import { saveState,loadState } from "./localStorage";
 
 const persistedState = loadState();
 const previousState= (persistedState===undefined)?{}:{
-    cartReducer:{
-      items:persistedState.items,
-      itemsCount:persistedState.itemsCount,
-      totalPrice:persistedState.totalPrice,    
-    },
-    currenyReducer:{
-      chosenCurrency:persistedState.chosenCurrency,
-    }
+  cartReducer:{
+    items:persistedState.items,
+    itemsCount:persistedState.itemsCount,
+    totalPrice:persistedState.totalPrice,    
+  },
+  currenyReducer:{
+    chosenCurrency:persistedState.chosenCurrency,
+  }
 }
 
 export const store = configureStore({
