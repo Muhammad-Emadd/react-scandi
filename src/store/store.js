@@ -6,6 +6,19 @@ import filtersReducer from "./filters";
 import overlayReducer from "./overlay";
 import cartReducer from "./cart";
 import itemReducer from "./item";
+import { saveState,loadState } from "./localStorage";
+
+const persistedState = loadState();
+const previousState= (persistedState===undefined)?{}:{
+    cartReducer:{
+      items:persistedState.items,
+      itemsCount:persistedState.itemsCount,
+      totalPrice:persistedState.totalPrice,    
+    },
+    currenyReducer:{
+      chosenCurrency:persistedState.chosenCurrency,
+    }
+}
 
 export const store = configureStore({
   reducer: {
@@ -17,4 +30,13 @@ export const store = configureStore({
     itemReducer: itemReducer,
     cartReducer: cartReducer,
   },
+  preloadedState: previousState
 });
+store.subscribe(()=>{
+  saveState({
+    chosenCurrency: store.getState().currenyReducer.chosenCurrency,
+    items: store.getState().cartReducer.items,
+    itemsCount: store.getState().cartReducer.itemsCount,
+    totalPrice: store.getState().cartReducer.totalPrice,
+  })
+})
