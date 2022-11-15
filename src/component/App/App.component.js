@@ -57,7 +57,6 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  currenciesStatus: PropTypes.string.isRequired,
   categoriesStatus: PropTypes.string.isRequired,
   chosenCategory: PropTypes.string,
 };
