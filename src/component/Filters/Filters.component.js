@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import { COLOR } from "../../util/constants";
 import "./Filters.style.scss";
-import { Link } from "react-router-dom";
+
 
 class FiltersComponent extends PureComponent {
   render() {

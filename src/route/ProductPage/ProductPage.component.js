@@ -1,7 +1,6 @@
 import React, { PureComponent } from "react";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
-
 import { addProductToCart } from "../../store/cart/cartSlice";
 import { getChosenProduct } from "../../query/Product.query";
 import { getProduct, onErrorGettingProduct } from "../../store/item/itemSlice";

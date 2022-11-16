@@ -67,7 +67,7 @@ class FiltersContainer extends PureComponent {
       );
     } else {
       this.setState(
-        (prevState, props) => ({
+        (prevState) => ({
           filtersOn: [...prevState.filtersOn, { [filterId]: valueId }],
         }),
         () => {

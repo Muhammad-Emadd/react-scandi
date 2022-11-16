@@ -32,8 +32,6 @@ class ProductItem extends PureComponent {
       {}
     );
 
-    console.log(defaultAttributes);
-
     onAddingToCart({ ...rest, attributes: defaultAttributes });
   };
 
