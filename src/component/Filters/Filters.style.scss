@@ -6,11 +6,8 @@
   display: grid;
   grid-template-columns: 30% 70%;
   overflow: hidden;
-  position: absolute;
-  top: 8rem;
-  left: 0;
-
   animation: containerTransitionEnter 0.5s;
+  @include position-absolute(8rem, false, false, 0);
   @include z-index(side-bar);
   &_ArrowContainer {
     height: 100%;
